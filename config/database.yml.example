@@ -1,0 +1,20 @@
+defaults: &defaults
+  adapter: postgresql
+  encoding: unicode
+  username: postgres
+  password: postgres
+  host: localhost
+
+
+development:
+  database: playpen_development
+  <<: *defaults
+
+test:
+  database: playpen_test
+  <<: *defaults
+
+production:
+  database: playpen_production
+  <<: *defaults
+
