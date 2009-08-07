@@ -52,6 +52,7 @@ end
 
 When /^I follow the confirmation link sent to "(.*)"$/ do |email|
   user = User.find_by_email(email)
+  puts new_user_confirmation_path(:user_id => user, :token => user.token)
   visit new_user_confirmation_path(:user_id => user, :token => user.token)
 end
 

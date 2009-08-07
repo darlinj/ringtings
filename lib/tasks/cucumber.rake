@@ -3,11 +3,19 @@ $LOAD_PATH.unshift(RAILS_ROOT + '/vendor/plugins/cucumber/lib') if File.director
 begin
   require 'cucumber/rake/task'
 
-  Cucumber::Rake::Task.new(:features) do |t|
-    t.fork = true
-    t.cucumber_opts = ['--format', (ENV['CUCUMBER_FORMAT'] || 'pretty')]
+  task :features => [:'features:acceptance']
+
+  namespace :features do
+    Cucumber::Rake::Task.new(:e2e) do |t|
+      t.fork = true
+      t.cucumber_opts = ['--profile e2e ']
+    end
+    Cucumber::Rake::Task.new(:acceptance) do |t|
+      t.fork = true
+      t.cucumber_opts = ['--profile default ']
+    end
   end
-  task :features => 'db:test:prepare'
+
 rescue LoadError
   desc 'Cucumber rake task not available'
   task :features do

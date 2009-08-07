@@ -1,0 +1,3 @@
+common: --format pretty --require features/support --require features/step_definitions 
+default: --profile common --require features/acceptance_steps --tags ~@e2e
+e2e: --profile common --require features/e2e_steps --tags @e2e
