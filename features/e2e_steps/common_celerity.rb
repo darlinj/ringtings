@@ -14,7 +14,7 @@ at_exit do
 end
 
 When /I click on "(.*)"/ do |button|
-  $browser.button(:text, button).click
+  $browser.button(:value, button).click
   assert_successful_response
 end
 

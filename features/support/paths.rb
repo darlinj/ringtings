@@ -11,6 +11,8 @@ module NavigationHelpers
     when /the homepage/
       '/'
     
+    when /a restricted page/
+      '/secret_stuff'
     when /the sign up page/i
       new_user_path
     when /the sign in page/i

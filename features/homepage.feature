@@ -21,19 +21,19 @@ Story: Homepage checks
     When I go to the sign in page
     When I fill in "Email" with "joe@somewhere.com"
     And I fill in "Password" with "password"
-    And I click on "login"
-    Then I should see "Welcome joe@somewhere.com"
+    And I click on "Sign in"
+    Then I should see "Signed in"
 
   Scenario: Accessing restricted data when not logged in
+    Given there is a validated user with email "joe@foo.com" and a passord of "password"
     Given I am logged out
-    When I follow "restricted content"
-    Then I should see "To access this page you need to be logged in"
+    When I go to a restricted page
+    Then I should see "Sign in"
 
-    When I fill in "login" with "joe"
-    And I fill in "password" with "pa55word"
-    And I click on "login"
-    Then I should see "Welcome Joe Darling"
+    When I fill in "Email" with "joe@somewhere.com"
+    And I fill in "Password" with "password"
+    And I click on "Sign in"
+    Then I should see "Signed in"
 
-    When I follow "restricted content"
-    Then I should see "Here is your restricted content.  Exciting isn't it!"
+    Then I should see "Here is your restricted content. Exciting isn't it!"
 
