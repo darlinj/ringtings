@@ -1,0 +1,12 @@
+<div class="breadcrumbs">
+  <% if signed_in? %>
+  Welcome <%= current_user.email %> | <a href="/sign_out">log out</a>
+<% else %>
+  <% form_for :session, :url => session_path do |form| %>
+      <a href="/sign_up">register</a> | login:
+      <%= form.text_field :email, :id=>'breadcrumbs_email', :size=>30 %>
+      <%= form.password_field :password, :id=>'breadcrumbs_password', :size=>10 %>
+      <%= form.submit "Go", :disable_with => "Please wait..." %> 
+  <% end %> 
+<% end %>
+</div>

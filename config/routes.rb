@@ -4,6 +4,13 @@ ActionController::Routing::Routes.draw do |map|
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
   # Keep in mind you can assign values other than :controller and :action
+  #map.resource :session, :only => [:new, :create, :destroy]
+  map.resource  :session#, :controller => 'sessions', :only       => [:new, :create, :destroy]
+
+  map.sign_out 'sign_out',
+    :controller => 'sessions',
+    :action     => 'destroy',
+    :method     => :delete
 
   map.connect 'home', :controller => 'home', :action => 'index'
   map.connect 'secret_stuff', :controller => 'secret', :action => 'index'
