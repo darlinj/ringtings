@@ -7,15 +7,15 @@ defaults: &defaults
 
 
 development:
-  database: playpen_development
+  database: ringtings_development
   <<: *defaults
 
 test: &TEST
-  database: playpen_test
+  database: ringtings_test
   <<: *defaults
 
 production:
-  database: playpen_production
+  database: ringtings_production
   <<: *defaults
 
 

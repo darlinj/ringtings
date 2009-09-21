@@ -1,0 +1,59 @@
+div.container {
+}
+div.breadcrumbs { 
+  float: right; 
+  margin: 0;	
+  padding: 5px 5px 0 5px; 
+  position: relative; 
+  color: #666; 
+  font-weight: normal; 
+  font-size: 1em; 
+}
+
+div.page_header a { 
+  text-decoration: none;
+  color: #2b3b3f; 
+}
+
+div.top_section {
+  background-image: url('/images/header_background.jpg')
+}
+
+div.page_header { 
+  padding: 10px 5px 0 5px; 
+  font-weight: normal; 
+  font-size: 4em; 
+  font-weight: bold;
+}
+
+div.main_content {
+  min-height: 500px;
+}
+
+#tabs ul li a:hover {
+  color:navy;
+  text-decoration:none;
+}
+
+#tabs ul li a {
+  color: #2266AB;
+  padding: 0 10px;
+  font-size: 1.5em;
+  text-decoration: none;
+}
+
+#tabs ul li {
+  display: inline;
+}
+
+#tabs ul {
+  display: inline;
+  list-style-image:none;
+  list-style-position:outside;
+  list-style-type:none;
+}
+
+#tabs {
+  width: 950px;
+}
+

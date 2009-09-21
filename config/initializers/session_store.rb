@@ -5,7 +5,7 @@
 # Make sure the secret is at least 30 characters and all random, 
 # no regular words or you'll be exposed to dictionary attacks.
 ActionController::Base.session = {
-  :key         => '_playpen_session',
+  :key         => '_ringtings_session',
   :secret      => '3470e8aad5133151bf0b699c99a9d8bea4f00ed02d3df5e1175f226c0e1cddc8b272e2fc1e2f4673897ca7a8fa2a9889b405394933a9240f8a534e7463c0d80d'
 }
 

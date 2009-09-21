@@ -3,9 +3,8 @@ Story: Homepage checks
 
   Scenario: Basic checks
     When I go to the homepage
-    Then I should see "Playpen title"
-    Then I should see "Menu"
-    Then I should see "This is the playpen main site"
+    Then I should see "RingTings.com"
+    Then I should see "What is ringTing"
     Then I should see "Footer"
 
   Scenario: Create user

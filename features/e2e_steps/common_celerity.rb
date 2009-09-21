@@ -4,7 +4,7 @@ Before do
   puts "in before"
   $server ||= Culerity::run_server
   $browser = Culerity::RemoteBrowserProxy.new $server, {:browser => :firefox}
-  @host = 'http://playpen.local'
+  @host = 'http://ringtings.local'
 end
 
 at_exit do
