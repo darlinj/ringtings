@@ -1,0 +1,3 @@
+class FreeswitchController < ApplicationController
+
+end

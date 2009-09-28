@@ -30,3 +30,4 @@ When /^I type "(.*)" in the form field with an HTML id of "(.*)"$/ do |value, id
   $browser.text_field(:id,id).set(value)
 end
 
+

@@ -1,0 +1,11 @@
+<h1>phone system configurator</h1>
+<%= render :partial => 'instructions' %>
+<div id="dialplan_details" class="span-10">
+  <div id="dialplan_details"> 
+    <% form_for :callplans, :url=>callplans_path do |form| %>
+      <%= form.label :business_name %>
+      <%= form.text_field :business_name, :size=>30 %>
+      <%= form.submit "next" %> 
+    <% end %>
+  </div>
+</div>

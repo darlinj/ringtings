@@ -1,0 +1,39 @@
+@e2e
+Story: Try it out page
+  Scenario: trying the service
+    Given I am logged out 
+    When I go to the homepage
+    And I follow "try it free"
+    Then I should see "Please enter the name of your business"
+    When I fill in "Business name" with "Mr Plumb the plumber"
+    And I click on "next"
+    When I wait for the AJAX call to finish
+    Then I should see "Ring Mr Plumb the plumber on 0123456789"
+    And I should see "Please ring this number now"
+    When Freeswitch goes to the freeswitch interface
+    And Freeswitch should see "Welcome to Mr Plumb the plumber, all our operators are busy right now. Please leave a message after the tone"
+    And I should see "Did you hear a personalised message?"
+    And I click on "next"
+    When I wait for the AJAX call to finish
+    Then I should see "Please enter your email address and a phone number for calls to be directed to"
+    Given I type "plumb@plumber.com" in the form field with an HTML id of "email"
+    And I type "0987654321" in the form field with an HTML id of "phone_number"
+    And I click on "next"
+    And I should see "Please ring this number now"
+    When Freeswitch goes to the freeswitch interface
+    And Freeswitch should see "Welcome to Mr Plumb the plumber, please press 1 to talk to Bob or 2 to leave a message"
+    And If I press 2 And leave the message "hello, please come and do some plumbing"
+    Then I should receive an email with subject "There is a new message for you"
+    And If I ring that number I should hear "Welcome to Mr Plumb the plumber, please press 1 to talk to Bob or 2 to leave a message"
+    And If I press 1 I should hear ringing on the phone "0987654321"
+    And I should see "This is your calling plan so far"
+    And I should see "To save this plan enter a password"
+    And I should see "Your username is plumb@plumber.com"
+    And I type "password" in the form field with an HTML id of "user_password"
+    And I type "password" in the form field with an HTML id of "user_password_confirmation"
+    Then I should see "Welcome plumb@plumber.com"
+    And I should see "log out"
+    And I should be on the call plan editing screen.
+    
+  
+

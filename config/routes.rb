@@ -6,14 +6,18 @@ ActionController::Routing::Routes.draw do |map|
   # Keep in mind you can assign values other than :controller and :action
   #map.resource :session, :only => [:new, :create, :destroy]
   map.resource  :session#, :controller => 'sessions', :only       => [:new, :create, :destroy]
+  map.resources  :callplans, :only => [:index, :create, :update]
+  map.resources  :freeswitch, :only => [:index]
 
   map.sign_out 'sign_out',
     :controller => 'sessions',
     :action     => 'destroy',
     :method     => :delete
 
+  map.resources :try_it, :only=>[:create]
   map.connect 'home', :controller => 'home', :action => 'index'
   map.connect 'secret_stuff', :controller => 'secret', :action => 'index'
+
   # Sample of named route:
   #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
   # This route can be invoked with purchase_url(:id => product.id)

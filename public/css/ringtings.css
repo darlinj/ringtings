@@ -28,6 +28,14 @@ div.page_header {
 
 div.main_content {
   min-height: 500px;
+  padding: 10px 5px 0 5px; 
+  text-align: center;
+}
+
+#tagline {
+  padding: 5px 5px 0 5px; 
+  margin:auto;
+  width:70%;
 }
 
 #tabs ul li a:hover {
@@ -57,3 +65,20 @@ div.main_content {
   width: 950px;
 }
 
+#call_plan_form_extended {
+  display: none;
+}
+
+#instructions {
+  border-style:solid;
+  border-width:3px;
+  border-color:#0000ff;
+  text-align: left;
+}
+
+#dialplan_details {
+  text-align: left;
+  border-style:solid;
+  border-width:3px;
+  border-color:#00ff00;
+}

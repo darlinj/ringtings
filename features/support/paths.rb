@@ -17,6 +17,8 @@ module NavigationHelpers
       new_user_path
     when /the sign in page/i
       new_session_path
+    when /the freeswitch interface/i
+      freeswitch_index_path
     when /the password reset request page/i
       new_password_path
 

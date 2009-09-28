@@ -3,8 +3,7 @@ Story: Homepage checks
 
   Scenario: Basic checks
     When I go to the homepage
-    Then I should see "RingTings.com"
-    Then I should see "What is ringTing"
+    Then I should see "ringTings.com"
     Then I should see "Footer"
 
   Scenario: Create user
