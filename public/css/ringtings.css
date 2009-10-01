@@ -1,11 +1,17 @@
 div.container {
+  background-color: #e2f3ef;
 }
+
+div.breadcrumbs a { 
+  color: #e7ba1c; 
+}
+
 div.breadcrumbs { 
   float: right; 
   margin: 0;	
   padding: 5px 5px 0 5px; 
   position: relative; 
-  color: #666; 
+  color: #e7ba1c; 
   font-weight: normal; 
   font-size: 1em; 
 }
@@ -16,7 +22,8 @@ div.page_header a {
 }
 
 div.top_section {
-  background-image: url('/images/header_background.jpg')
+  /*background-image: url('/images/header_background.jpg')*/
+  background-color: #c5f2e9;
 }
 
 div.page_header { 
@@ -30,6 +37,8 @@ div.main_content {
   min-height: 500px;
   padding: 10px 5px 0 5px; 
   text-align: center;
+  background-color: #e2f3ef;
+  margin:auto;
 }
 
 #tagline {
@@ -38,47 +47,71 @@ div.main_content {
   width:70%;
 }
 
-#tabs ul li a:hover {
-  color:navy;
-  text-decoration:none;
+
+/* TABS */
+/* begin css tabs */
+
+ul#tabnav { 
+  text-align: left; 
+  margin: 1em 0 0em 0;
+  font: bold 11px verdana, arial, sans-serif; 
+  border-bottom: 1px solid #e7ba1c; 
+  list-style-type: none;
+  padding: 3px 10px 3px 10px; 
 }
 
-#tabs ul li a {
-  color: #2266AB;
-  padding: 0 10px;
-  font-size: 1.5em;
-  text-decoration: none;
-}
-
-#tabs ul li {
+ul#tabnav li { /* do not change */
   display: inline;
 }
 
-#tabs ul {
-  display: inline;
-  list-style-image:none;
-  list-style-position:outside;
-  list-style-type:none;
+body#home li.home, body#more li.more, body#tryit li.tryit, body#signup li.signup { 
+  border-bottom: 1px solid #fff;
+  background-color: #fff; 
 }
 
-#tabs {
-  width: 950px;
+body#home li.home a, body#more li.more a, body#tryit li.tryit a, body#signup li.signup a { 
+  background-color: #e2f3ef; 
+  color: #e7ba1c; 
+  position: relative;
+  top: 1px;
+  padding-top: 4px; 
 }
+
+ul#tabnav li a {
+  padding: 3px 4px; 
+  border: 1px solid #e7ba1c; 
+  background-color: #e7ddbd;
+  color: #e7ba1c;
+  margin-right: 0px; 
+text-decoration: none;
+border-bottom: none;
+}
+
+ul#tabnav a:hover { 
+background: #e2f3ef; 
+}
+
+/* end css tabs */ 
 
 #call_plan_form_extended {
   display: none;
 }
 
+#phone_configurator {
+  margin:auto;
+  width:75%;
+  border-width: 4px;
+}
+
+
 #instructions {
-  border-style:solid;
-  border-width:3px;
-  border-color:#0000ff;
+  padding: 10px, 10px, 10px, 10px;
+  background-color:#cfaed9;
   text-align: left;
 }
 
 #dialplan_details {
+  padding: 10px, 10px, 10px, 10px;
+  background-color:#cfaed9;
   text-align: left;
-  border-style:solid;
-  border-width:3px;
-  border-color:#00ff00;
 }

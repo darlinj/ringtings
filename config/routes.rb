@@ -1,13 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
-  # The priority is based upon order of creation: first created -> highest priority.
-
-  # Sample of regular route:
-  #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
-  # Keep in mind you can assign values other than :controller and :action
-  #map.resource :session, :only => [:new, :create, :destroy]
-  map.resource  :session#, :controller => 'sessions', :only       => [:new, :create, :destroy]
   map.resources  :callplans, :only => [:index, :create, :update]
   map.resources  :freeswitch, :only => [:index]
+
+  map.sign_up  'sign_up',
+    :controller => 'users',
+    :action     => 'new'
 
   map.sign_out 'sign_out',
     :controller => 'sessions',
@@ -18,6 +15,12 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'home', :controller => 'home', :action => 'index'
   map.connect 'secret_stuff', :controller => 'secret', :action => 'index'
 
+  # The priority is based upon order of creation: first created -> highest priority.
+
+  # Sample of regular route:
+  #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
+  # Keep in mind you can assign values other than :controller and :action
+  
   # Sample of named route:
   #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
   # This route can be invoked with purchase_url(:id => product.id)

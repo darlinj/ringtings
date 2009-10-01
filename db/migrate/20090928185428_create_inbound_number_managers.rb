@@ -1,7 +1,8 @@
 class CreateInboundNumberManagers < ActiveRecord::Migration
   def self.up
     create_table :inbound_number_managers do |t|
-      t.string :inbound_number
+      t.string :phone_number
+      t.integer :callplan_id
     end
   end
 

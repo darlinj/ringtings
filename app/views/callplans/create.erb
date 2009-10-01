@@ -1,16 +1,19 @@
-<h1>phone system configurator</h1>
-Ring <%= @company_name %> at <%= @inbound_number %>
-<%= render :partial => 'instructions' %>
-<div id="dialplan_details" class="span-10">
-  <div id="dialplan_details"> 
-    <% form_for :callplans, :url=>callplan_path(1) do |form| %>
-      <%= form.label :business_name %>
-      <%= form.text_field :business_name, :size=>30 %>
-      <%= form.label :email_address %>
-      <%= form.text_field :email_address, :size=>30 %>
-      <%= form.label :phone_number %>
-      <%= form.text_field :phone_number, :size=>30 %>
-      <%= form.submit "next" %> 
-    <% end %>
+<div id="phone_configurator">
+  <img src="/images/phone_configurator.png"/>
+
+  <h3>  Ring <%= @company_name %> at <%= @inbound_number %> </h3>
+  <%= render :partial => 'instructions' %>
+  <div id="dialplan_details" class="span-10">
+    <div id="dialplan_details"> 
+      <% form_for :callplans, :method=>'PUT', :url=>callplan_path(1) do |form| %>
+        <%= form.label :company_name %>
+        <%= form.text_field :company_name, :size=>30 %><br/>
+        <%= form.label :email_address %>
+        <%= form.text_field :email_address, :size=>30 %><br/>
+        <%= form.label :phone_number %>
+        <%= form.text_field :phone_number, :size=>30 %><br/>
+        <%= form.submit "next" %> 
+      <% end %>
+    </div>
   </div>
 </div>

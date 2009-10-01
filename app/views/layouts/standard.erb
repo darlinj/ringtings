@@ -6,28 +6,26 @@
   <link rel="stylesheet" href="/css/blueprint/screen.css" type="text/css" media="screen, projection">
   <link rel="stylesheet" href="/css/blueprint/print.css" type="text/css" media="print">	
   <link rel="stylesheet" href="/css/ringtings.css" type="text/css" media="screen,projection">	
- <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+  <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
 </head>
-<body>
+<body id="<%= @tab %>">
   <div class="container">
     <div class="span-24 last">
       <div class="top_section">
         <%= render :partial => '/shared/breadcrumbs' %>
         <div class="page_header">
-          <a href="/">ringTings.com</a>
+          <a href="/"><img src="/images/ringtings.gif" /></a>
         </div>
-        <div id="tabs">
-          <ul class="tabs_list">
-            <li><a href="/">home</a></li>
-            <li><a href="">more info</a></li>
-            <li><a href="/callplans">try it free</a></li>
-            <li><a href="/sign_up">sign up</a></li>
-          </ul>
-        </div>
+        <ul id="tabnav">
+          <li class="home"><a href="/">home</a></li>
+          <li class="more"><a href="">more info</a></li>
+          <li class="tryit"><a href="/callplans">try it free</a></li>
+          <li class="signup"><a href="/sign_up">sign up</a></li>
+        </ul>
       </div>
     </div>
-    <div class="span-21 last">
-      <div class="main_content">
+    <div class="span-24 last">
+      <div class="main_content" >
         <% if flash[:success] %>
           <div class="success"><%= flash[:success] %></div>
         <% end %>

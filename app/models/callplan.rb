@@ -1,7 +1,8 @@
 class Callplan < ActiveRecord::Base
-  def self.create! params
-    cp = create params
-    cp.inbound_number = InboundNumberManager.get_free_number
+  has_one :inbound_number, :class_name => 'InboundNumberManager'
+  def self.generate params
+    cp = create :company_name => params["company_name"]
+    InboundNumberManager.get_free_number cp
     cp.save!
     cp
   end

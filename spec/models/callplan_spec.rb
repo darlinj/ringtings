@@ -3,23 +3,23 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Callplan do
 
   it { should have_db_column(:company_name).of_type(:string) }
-  it { should have_db_column(:inbound_number).of_type(:string) }
+  it { should have_one(:inbound_number)}
 
   describe "creating a new call plan" do
     before do
       @company_name = "fishy smells r us"
-      @inbound_number = "0123456789"
-      InboundNumberManager.stub(:get_free_number).and_return @inbound_number
+      @phone_number = "0123456789"
+      Factory :inbound_number_manager, :phone_number=>@phone_number , :callplan_id=>nil
     end
-    def do_create
-      Callplan.create! :company_name=>@company_name
+    def do_generate
+      Callplan.generate :company_name=>@company_name
     end
     it "assigns an inbound number to the plan" do
       InboundNumberManager.should_receive(:get_free_number)
-      do_create
+      do_generate
     end
-    it "returns the callplan object" do
-      do_create.inbound_number.should == @inbound_number
+    it "returns the callplan object with an inbound number attached" do
+      do_generate.inbound_number.phone_number.should == @phone_number
     end
   end
 end

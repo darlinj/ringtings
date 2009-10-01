@@ -13,11 +13,11 @@ ActiveRecord::Schema.define(:version => 20090928185428) do
 
   create_table "callplans", :force => true do |t|
     t.string "company_name"
-    t.string "inbound_number"
   end
 
   create_table "inbound_number_managers", :force => true do |t|
-    t.string "inbound_number"
+    t.string  "phone_number"
+    t.integer "callplan_id"
   end
 
   create_table "users", :force => true do |t|
