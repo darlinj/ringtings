@@ -9,6 +9,7 @@ describe Callplan do
     before do
       @company_name = "fishy smells r us"
       @phone_number = "0123456789"
+      InboundNumberManager.destroy_all
       Factory :inbound_number_manager, :phone_number=>@phone_number , :callplan_id=>nil
     end
     def do_generate

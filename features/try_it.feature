@@ -2,6 +2,7 @@
 Story: Try it out page
   Scenario: trying the service
     Given I am logged out 
+    And we clear the "InboundNumberManager" model
     And and "0123456789" is stored in the "inbound_number_manager" table in the database
     When I go to the homepage
     And I follow "try it free"
@@ -14,6 +15,17 @@ Story: Try it out page
     When Freeswitch goes to the freeswitch interface
     And Freeswitch should see "Welcome to Mr Plumb the plumber, all our operators are busy right now. Please leave a message after the tone"
     And I should see "Did you hear a personalised message?"
+
+  Scenario: Extending the callplan
+    Given I am logged out 
+    And we clear the "InboundNumberManager" model
+    And and "0123456789" is stored in the "inbound_number_manager" table in the database
+    When I go to the homepage
+    And I follow "try it free"
+    Then I should see "Please enter the name of your business"
+    When I fill in "Company name" with "Mr Plumb the plumber"
+    And I click on "next"
+    When I wait for the AJAX call to finish
     Then I should see "please enter your email address and a phone number for calls to be directed to"
     Given I type "plumb@plumber.com" in the form field with an HTML id of "email"
     And I type "0987654321" in the form field with an HTML id of "phone_number"

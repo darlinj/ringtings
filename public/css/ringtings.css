@@ -83,8 +83,8 @@ ul#tabnav li a {
   background-color: #e7ddbd;
   color: #e7ba1c;
   margin-right: 0px; 
-text-decoration: none;
-border-bottom: none;
+  text-decoration: none;
+  border-bottom: none;
 }
 
 ul#tabnav a:hover { 
@@ -99,19 +99,19 @@ background: #e2f3ef;
 
 #phone_configurator {
   margin:auto;
-  width:75%;
-  border-width: 4px;
+  width:80%;
 }
 
-
 #instructions {
-  padding: 10px, 10px, 10px, 10px;
-  background-color:#cfaed9;
+  padding: 10px 7px 10px 6px;
+  background-color:#c5f2e9;
   text-align: left;
+  min-height: 300px;
 }
 
 #dialplan_details {
-  padding: 10px, 10px, 10px, 10px;
-  background-color:#cfaed9;
+  padding: 10px 7px 10px 6px;
+  background-color:#c5f2e9;
   text-align: left;
+  min-height: 300px;
 }

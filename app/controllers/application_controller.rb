@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   layout 'standard'
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
+  include Exceptions
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password

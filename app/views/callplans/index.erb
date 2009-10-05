@@ -2,10 +2,9 @@
 <div id="phone_configurator">
   <%= render :partial => 'instructions' %>
   <div id="dialplan_details" class="span-10">
-    <% form_for :callplans, :url=>callplans_path do |form| %>
-      <%= form.label :company_name %>
-      <%= form.text_field :company_name, :size=>30 %>
-      <%= form.submit "next" %> 
+    <% form_for :callplans, :url=>callplans_path do |@form| %>
+      <%= render :partial => 'company_name' %>
+      <%= @form.submit "next" %> 
     <% end %>
   </div>
 </div>
