@@ -7,7 +7,7 @@ class FreeswitchController < ApplicationController
     RAILS_DEFAULT_LOGGER.info "No matching callplan found" unless inbound_number && inbound_number.callplan
     if inbound_number && inbound_number.callplan
       RAILS_DEFAULT_LOGGER.info "Inbound number located #{inbound_number.inspect} with callplan #{inbound_number.callplan.inspect}"
-      @say_phrase = "Welcome to #{inbound_number.callplan.company_name}, all our operators are busy right now. Please leave a message after the tone"
+      @say_phrase = "Welcome to #{inbound_number.callplan.company_name}, all our operators are busy right now. Please call back soon"
       render :action => 'create.xml.builder', :layout => false
     else
       render :text => '', :layout => false
