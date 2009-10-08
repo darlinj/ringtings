@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   include Clearance::Authentication
   helper :all # include all helpers, all the time
   layout 'standard'
-  protect_from_forgery # See ActionController::RequestForgeryProtection for details
+  #protect_from_forgery # See ActionController::RequestForgeryProtection for details
   include Exceptions
 
   # Scrub sensitive parameters from your log

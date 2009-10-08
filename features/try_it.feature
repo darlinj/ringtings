@@ -12,8 +12,8 @@ Story: Try it out page
     When I wait for the AJAX call to finish
     Then I should see "Ring Mr Plumb the plumber at 0123456789"
     And I should see "Please ring this number now"
-    When Freeswitch goes to the freeswitch interface
-    And Freeswitch should see "Welcome to Mr Plumb the plumber, all our operators are busy right now. Please leave a message after the tone"
+    When Freeswitch posts to "ringtings.local/freeswitch" with "Caller-Destination-Number=0123456789" parameters
+    Then Freeswitch should find "Welcome to Mr Plumb the plumber, all our operators are busy right now. Please leave a message after the tone" in the XML
     And I should see "Did you hear a personalised message?"
 
   Scenario: Extending the callplan

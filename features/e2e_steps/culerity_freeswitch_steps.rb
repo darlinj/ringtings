@@ -5,7 +5,7 @@ Before do
   puts "in before"
   $freeswitch_server ||= Culerity::run_server
   $freeswitch_browser = Culerity::RemoteBrowserProxy.new $freeswitch_server, {:browser => :firefox}
-  @host = 'http://ringtings.local'
+  @host = 'http://ringtings.test.local'
 end
 
 at_exit do
@@ -14,6 +14,17 @@ at_exit do
   $freeswitch_server.close
 end
 
+When /Freeswitch posts to "(.*)" with "(.*)" parameters/ do |url,parameters|
+  curl_response = Curl::Easy.http_post(url,parameters)
+  xml_response = curl_response.body_str
+  puts "XML Response #{xml_response}"
+  @xml_doc = REXML::Document.new xml_response
+end
+
+Then /Freeswitch should find "(.*)" in the XML/ do |value|
+  puts "xmldoc = #{@xml_doc.to_s}"
+  assert_match /#{value}/i, @xml_doc.to_s
+end
 
 When /Freeswitch goes to (.+)/ do |path|
   $freeswitch_browser.goto @host + path_to(path)

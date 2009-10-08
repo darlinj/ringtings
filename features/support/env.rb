@@ -10,3 +10,6 @@ require 'cucumber/rails/rspec'
 
 require 'factory_girl'
 Factory.find_definitions
+
+require 'curb'
+require 'rexml/document'

@@ -6,4 +6,5 @@ describe 'Routing' do
   it { should route(:put, "/callplans/1").to(:controller => 'callplans', :action => 'update', :id=>1) }
   it { should route(:get, '/callplans').to(:controller => 'callplans', :action => 'index') }
   it { should route(:get, '/freeswitch').to(:controller => 'freeswitch', :action => 'index') }
+  it { should route(:post, '/freeswitch').to(:controller => 'freeswitch', :action => 'create') }
 end
