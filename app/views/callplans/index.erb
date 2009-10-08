@@ -1,6 +1,11 @@
 <img src="/images/phone_configurator.png"/>
 <div id="phone_configurator">
-  <%= render :partial => 'instructions' %>
+  <div id="instructions" class="span-7">
+    Instructions:<br/>
+    <ul>
+      <%= render :partial => 'instructions_step1' %>
+    </ul>
+  </div>
   <div id="dialplan_details" class="span-10">
     <% form_for :callplans, :url=>callplans_path do |@form| %>
       <%= render :partial => 'company_name' %>
