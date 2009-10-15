@@ -5,12 +5,9 @@
   <div id="instructions" class="span-7">
     Instructions:<br/>
     <ul>
-      <%= render :partial => 'instructions_step1' %>
-      <%= render :partial => 'instructions_step2' %>
       <%= render :partial => 'instructions_step3' %>
     </ul>
   </div>
-  <%= render :partial => 'instructions' %>
   <div id="dialplan_details" class="span-10">
     <div id="dialplan_details"> 
       <% form_for(:callplans, :url=>callplan_path(1), :html => { :method => :put }) do |@form| %>
