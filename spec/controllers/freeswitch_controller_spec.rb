@@ -25,7 +25,7 @@ describe FreeswitchController do
       end
       it "will assign the appropriate say phrase" do
         do_post
-        assigns[:say_phrase].should == "Welcome to #{@company_name}, all our operators are busy right now. Please leave a message after the tone"
+        assigns[:say_phrase].should == "Welcome to #{@company_name}, all our operators are busy right now. Please call back soon"
       end
       it "will assign the inbound number for the view" do
         do_post
@@ -41,7 +41,7 @@ describe FreeswitchController do
         post :create, 'Caller-Destination-Number'=>@inbound_number
       end
       it 'should return an empty body' do
-        do_post.body.should == ""
+        do_post.should render_template('not_found.xml.builder')
       end
     end
    describe "When there is a matching phone number in the database but no callplan" do
@@ -54,7 +54,7 @@ describe FreeswitchController do
         post :create, 'Caller-Destination-Number'=>@inbound_number
       end
       it 'should return an empty body' do
-        do_post.body.should == ""
+        do_post.should render_template('not_found.xml.builder')
       end
     end
 

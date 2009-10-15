@@ -10,7 +10,7 @@ class FreeswitchController < ApplicationController
       @say_phrase = "Welcome to #{inbound_number.callplan.company_name}, all our operators are busy right now. Please call back soon"
       render :action => 'create.xml.builder', :layout => false
     else
-      render :text => '', :layout => false
+      render :action => 'not_found.xml.builder', :layout => false
     end
   end
 end
