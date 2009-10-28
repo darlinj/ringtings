@@ -102,16 +102,38 @@ background: #e2f3ef;
   width:80%;
 }
 
-#instructions {
-  padding: 10px 7px 10px 6px;
-  background-color:#c5f2e9;
-  text-align: left;
-  min-height: 300px;
-}
-
 #dialplan_details {
   padding: 10px 7px 10px 6px;
   background-color:#c5f2e9;
   text-align: left;
   min-height: 300px;
 }
+
+div.decision_box {
+/*  padding: 10px 7px 10px 6px;*/
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+span.step_box {
+  border: 1px solid #fff;
+  padding: 10px 7px 10px 6px;
+  margin-bottom: 10px;
+  text-align: left;
+  width: 60%;
+}
+
+div.step_box {
+  border: 1px solid #fff;
+  padding: 10px 7px 10px 6px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+#try_it_thread {
+  text-align: right;
+  margin:auto;
+  width:60%;
+}
+
+

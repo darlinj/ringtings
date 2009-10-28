@@ -1,19 +1,21 @@
 <div id="phone_configurator">
   <img src="/images/phone_configurator.png"/>
 
-  <h3>  Ring <%= @company_name %> at <%= @inbound_number %> </h3>
-  <div id="instructions" class="span-7">
-    Instructions:<br/>
-    <ul>
-      <%= render :partial => 'instructions_step2' %>
-    </ul>
-  </div>
-  <div id="dialplan_details" class="span-10">
+  <div id="dialplan_details" class="span-17">
     <div id="dialplan_details"> 
       <% form_for(:callplans, :url=>callplan_path(1), :html => { :method => :put }) do |@form| %>
-        <%= render :partial => 'company_name' %>
+       <div id="try_it_thread">
+        <div class="step_box">
+          <%= render :partial => 'instructions_step1' %>
+          <%= render :partial => 'company_name' %>
+        </div>
+        <div class="step_box">
+          <h3>  Please ring <%= @inbound_number %> now (it's free) </h3>
+        </div>
+        <%= render :partial => 'instructions_step2' %>
         <%= render :partial => 'email_and_destination_number' %>
-        <%= @form.submit "next" %> 
+        <%= image_submit_tag "/images/next.png" %> 
+      </div>
       <% end %>
     </div>
   </div>

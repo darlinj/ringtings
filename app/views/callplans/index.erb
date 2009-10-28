@@ -1,15 +1,14 @@
 <img src="/images/phone_configurator.png"/>
 <div id="phone_configurator">
-  <div id="instructions" class="span-7">
-    Instructions:<br/>
-    <ul>
-      <%= render :partial => 'instructions_step1' %>
-    </ul>
-  </div>
-  <div id="dialplan_details" class="span-10">
+  <div id="dialplan_details" class="span-17">
     <% form_for :callplans, :url=>callplans_path do |@form| %>
-      <%= render :partial => 'company_name' %>
-      <%= @form.submit "next" %> 
-    <% end %>
+      <div id="try_it_thread">
+        <div class="step_box">
+          <%= render :partial => 'instructions_step1' %>
+          <%= render :partial => 'company_name' %>
+        </div>
+        <%= image_submit_tag "/images/next.png" %> 
+      <% end %>
+    </div>
   </div>
 </div>

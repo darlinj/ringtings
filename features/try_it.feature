@@ -13,7 +13,7 @@ Story: Try it out page
     Then I should see "Ring Mr Plumb the plumber at 0123456789"
     And I should see "Please ring this number now"
     When Freeswitch posts to "ringtings.local/freeswitch" with "Caller-Destination-Number=0123456789" parameters
-    Then Freeswitch should find "Welcome to Mr Plumb the plumber, all our operators are busy right now. Please leave a message after the tone" in the XML
+    Then Freeswitch should find "Welcome to Mr Plumb the plumber, all our operators are busy right now. Please call back soon" in the XML
     And I should see "Did you hear a personalised message?"
 
   Scenario: Extending the callplan
