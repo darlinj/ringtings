@@ -1,12 +1,16 @@
 <div class="decision_box">
   <div>
-    <span class="step_box">
+    <span class="step_box_left">
       Did you hear a personalised message? 
-    </span><img src="/images/no_arrow.png"/> 
-    <a href="screwed"><img src="/images/help.png"/></a>
+    </span>
+    <span>
+      <img src="/images/no_arrow.png"/> 
+      <a href="screwed"><img src="/images/help.png"/></a>
+    </span>
   </div>
   <img src="/images/down_arrow.png"/>
 </div>
 <div class="step_box">
   Please fill in your email address and a phone number. <br />
+  <%= render :partial => 'email_and_destination_number' %>
 </div>

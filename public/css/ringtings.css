@@ -110,16 +110,14 @@ background: #e2f3ef;
 }
 
 div.decision_box {
-/*  padding: 10px 7px 10px 6px;*/
   margin-bottom: 10px;
   text-align: center;
 }
 
-span.step_box {
+span.step_box_left {
   border: 1px solid #fff;
-  padding: 10px 7px 10px 6px;
-  margin-bottom: 10px;
-  text-align: left;
+  float: left;
+  height: 60;
   width: 60%;
 }
 
