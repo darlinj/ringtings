@@ -4,6 +4,7 @@ describe Callplan do
 
   it { should have_db_column(:company_name).of_type(:string) }
   it { should have_one(:inbound_number)}
+  it { should have_one(:action)}
 
   describe "creating a new call plan" do
     before do

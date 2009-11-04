@@ -47,7 +47,7 @@ end
 
 Rake.application.instance_variable_get('@tasks').delete('default')
 
-spec_prereq = File.exist?(File.join(RAILS_ROOT, 'config', 'database.yml')) ? "db:test:prepare" : :noop
+spec_prereq = :noop #File.exist?(File.join(RAILS_ROOT, 'config', 'database.yml')) ? "db:test:prepare" : :noop
 task :noop do
 end
 

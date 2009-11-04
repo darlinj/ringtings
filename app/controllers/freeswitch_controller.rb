@@ -1,5 +1,5 @@
 class FreeswitchController < ApplicationController
-  def create
+  def callplan
     RAILS_DEFAULT_LOGGER.info "Freeswitch request received with params #{params.inspect}" 
     @inbound_number = params['Caller-Destination-Number']
     inbound_number = InboundNumberManager.find_by_phone_number(@inbound_number)
@@ -7,8 +7,18 @@ class FreeswitchController < ApplicationController
     RAILS_DEFAULT_LOGGER.info "No matching callplan found" unless inbound_number && inbound_number.callplan
     if inbound_number && inbound_number.callplan
       RAILS_DEFAULT_LOGGER.info "Inbound number located #{inbound_number.inspect} with callplan #{inbound_number.callplan.inspect}"
-      @say_phrase = "Welcome to #{inbound_number.callplan.company_name}, all our operators are busy right now. Please call back soon"
-      render :action => 'create.xml.builder', :layout => false
+      @callplan = inbound_number.callplan
+      render :action => 'callplan.xml.builder', :layout => false
+    else
+      render :action => 'not_found.xml.builder', :layout => false
+    end
+  end
+
+  def ivr_menus
+    @inbound_number = params['Caller-Destination-Number']
+    inbound_number = InboundNumberManager.find_by_phone_number(@inbound_number)
+    if inbound_number && inbound_number.callplan
+      render :action => 'ivr_menus.xml.builder', :layout => false
     else
       render :action => 'not_found.xml.builder', :layout => false
     end

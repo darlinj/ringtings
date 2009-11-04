@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources  :callplans, :only => [:index, :create, :update]
-  map.resources  :freeswitch, :only => [:index, :create]
+  map.resources  :demo_callplans, :only => [:index, :create, :update]
+  #map.resources  :freeswitch, :only => [:index, :create]
 
   map.sign_up  'sign_up',
     :controller => 'users',
@@ -14,6 +14,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :try_it, :only=>[:create]
   map.connect 'home', :controller => 'home', :action => 'index'
   map.connect 'secret_stuff', :controller => 'secret', :action => 'index'
+  #map.connect 'demo_callplan/', :controller => 'tryit', :action => 'index'
+  #map.connect 'demo_callplan/create', :controller => 'demo_callplan', :action => 'create'
+  #map.connect 'demo_callplan/update', :controller => 'demo_callplan', :action => 'update'
+  map.connect 'freeswitch/callplan', :controller => 'freeswitch', :action => 'callplan'
+  map.connect 'freeswitch/ivr_menus', :controller => 'freeswitch', :action => 'ivr_menus'
 
   # The priority is based upon order of creation: first created -> highest priority.
 

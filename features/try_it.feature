@@ -6,13 +6,12 @@ Story: Try it out page
     And and "0123456789" is stored in the "inbound_number_manager" table in the database
     When I go to the homepage
     And I follow "try it free"
-    Then I should see "Please enter the name of your business"
+    Then I should see "Enter the name of your business"
     When I fill in "Company name" with "Mr Plumb the plumber"
-    And I click on "next"
+    When I click the form input with id "next_submit_image"
     When I wait for the AJAX call to finish
     Then I should see "Ring Mr Plumb the plumber at 0123456789"
-    And I should see "Please ring this number now"
-    When Freeswitch posts to "ringtings.local/freeswitch" with "Caller-Destination-Number=0123456789" parameters
+    When Freeswitch posts to "ringtings.local/freeswitch/callplan" with "Caller-Destination-Number=0123456789" parameters
     Then Freeswitch should find "Welcome to Mr Plumb the plumber, all our operators are busy right now. Please call back soon" in the XML
     And I should see "Did you hear a personalised message?"
 

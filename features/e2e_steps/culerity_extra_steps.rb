@@ -31,3 +31,6 @@ When /^I type "(.*)" in the form field with an HTML id of "(.*)"$/ do |value, id
 end
 
 
+When /I click the form input with id "(.*)"/ do |id|
+  $browser.text_field(:id, id).click
+end
