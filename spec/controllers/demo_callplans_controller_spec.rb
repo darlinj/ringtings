@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe DemoCallplansController do
-  describe "the call plans resource" do
+  describe "the demo call plans resource" do
     before do
       @tab="tryit"
     end
@@ -22,14 +22,14 @@ describe DemoCallplansController do
     describe "the creation of a call plan" do
       before do
         @company_name = "foobar inc"
-        @inbound_number = mock_model(InboundNumberManager,:phone_number => "0987654321")
-        @parameters = {:company_name=>@company_name}
-        @callplan = mock_model(Callplan, :company_name=>@company_name, :inbound_number=>@inbound_number)
-        Callplan.stub(:generate).and_return(@callplan)
+        @phone_number = "0123456789"
+        InboundNumberManager.destroy_all
+        Callplan.destroy_all
+        Factory :inbound_number_manager, :phone_number=>@phone_number , :callplan_id=>nil
       end
 
       def do_post 
-        post :create, :demo_callplans => {'company_name'=>@company_name}
+        post :create, :demo_callplan => {'company_name'=>@company_name}
       end
 
       it "responds to create" do
@@ -48,11 +48,6 @@ describe DemoCallplansController do
       end
 
       describe "creating the callplan model" do
-        it "should call generate on the demo_callplans model" do
-          Callplan.should_receive(:generate).with('company_name'=>@company_name)
-          do_post
-        end
-
         it "should assign the tab variable" do
           do_post 
           assigns[:tab].should == @tab
@@ -65,13 +60,13 @@ describe DemoCallplansController do
 
         it "should assign the inbound number variable" do
           do_post 
-          assigns[:inbound_number].should == @inbound_number.phone_number
+          assigns[:inbound_number].should == @phone_number
         end
       end
-      describe "what happens if there is a problem with callplan creation" do
+      describe "what happens if there is a problem with inbound number creation" do
         describe "when there are no more numbers available for allocation" do
           before do
-            Callplan.stub(:generate).and_raise(Exceptions::OutOfCapacityError)
+            InboundNumberManager.stub(:get_free_number).and_raise(Exceptions::OutOfCapacityError)
           end
           it "catches all errors" do
             lambda {do_post}.should_not raise_error
@@ -83,7 +78,7 @@ describe DemoCallplansController do
         end
         describe "when there is an unexpected error" do
           before do
-            Callplan.stub(:generate).and_raise(StandardError)
+            Callplan.stub(:create!).and_raise(StandardError)
           end
           it "catches all errors" do
             lambda {do_post}.should_not raise_error
@@ -94,6 +89,18 @@ describe DemoCallplansController do
           end
         end
  
+      end
+      describe "the parameters not being in the request" do
+        it "doesn't have a demo_callplan hash" do
+          post :create
+          flash[:error].should == "We are sorry but there is a problem with the infomation you provided.  Please try again"
+          response.should redirect_to(demo_callplans_url)
+        end
+        it "doesn't have a company name in the demo_callplans hash" do
+          post :create, :demo_callplan => {'foo'=>"bar"}
+          flash[:error].should == "We are sorry but there is a problem with the infomation you provided.  Please try again"
+          response.should redirect_to(demo_callplans_url)
+        end 
       end
     end
   end
