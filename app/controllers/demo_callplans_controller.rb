@@ -11,6 +11,8 @@ class DemoCallplansController < ApplicationController
     end
     callplan = Callplan.create! :company_name => params[:demo_callplan]['company_name']
     callplan.inbound_number = InboundNumberManager.get_free_number()
+    callplan.action = Action.create! :application_name=>"speak",
+      :application_data => "Cepstral|Lawrence-8kHz|Welcome to #{callplan.company_name}, all our operators are busy right now. Please call back soon"
     callplan.save!
     @company_name = callplan.company_name
     @inbound_number = callplan.inbound_number.phone_number

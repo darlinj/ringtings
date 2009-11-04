@@ -62,6 +62,20 @@ describe DemoCallplansController do
           do_post 
           assigns[:inbound_number].should == @phone_number
         end
+        describe "creating the action attached to the callplan" do
+          it "will be an action attached to the callplan" do
+            do_post
+            Callplan.find_by_company_name(@company_name).action.should_not be_nil
+          end
+          it "will have an application_name attribute" do
+            do_post
+            Callplan.find_by_company_name(@company_name).action.application_name.should == "speak"
+          end
+          it "will have an application_data attribute" do
+            do_post
+            Callplan.find_by_company_name(@company_name).action.application_data.should == "Cepstral|Lawrence-8kHz|Welcome to #{@company_name}, all our operators are busy right now. Please call back soon"
+          end
+        end
       end
       describe "what happens if there is a problem with inbound number creation" do
         describe "when there are no more numbers available for allocation" do
