@@ -11,7 +11,7 @@ Story: Try it out page
     When I click the form input with id "next_submit_image"
     When I wait for the AJAX call to finish
     Then I should see "Ring Mr Plumb the plumber at 0123456789"
-    When Freeswitch posts to "ringtings.local/freeswitch/callplan" with "Caller-Destination-Number=0123456789" parameters
+    When Freeswitch posts to "ringtings.test.local/freeswitch/callplan" with "Caller-Destination-Number=0123456789" parameters
     Then Freeswitch should find "Welcome to Mr Plumb the plumber, all our operators are busy right now. Please call back soon" in the XML
     And I should see "Did you hear a personalised message?"
 
