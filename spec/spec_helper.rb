@@ -6,6 +6,8 @@ require 'spec/autorun'
 require 'spec/rails'
 require 'shoulda'
 require 'shoulda/autoload_macros'
+require "factory_girl"
+Factory.find_definitions
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.

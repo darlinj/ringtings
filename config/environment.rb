@@ -1,7 +1,7 @@
 # Be sure to restart your server when you modify this file
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -20,19 +20,18 @@ Rails::Initializer.run do |config|
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
   #require "clearance" 
-  #require "factory_girl"
   #config.gem "thoughtbot-clearance", 
   #:lib     => 'clearance', 
   #:source  => 'http://gems.github.com', 
   #:version => '0.6.9'
-  config.gem 'thoughtbot-factory_girl',
-    :lib     => 'factory_girl',
-    :source  => "http://gems.github.com", 
-    :version => '1.2.1'
-  config.gem "thoughtbot-clearance",
-    :lib     => 'clearance',
-    :source  => 'http://gems.github.com',
-    :version => '0.8.2'
+  #config.gem 'thoughtbot-factory_girl',
+  #  :lib     => 'factory_girl',
+  #  :source  => "http://gems.github.com", 
+  #  :version => '1.2.2'
+  #
+  #config.gem "thoughtbot-clearance",
+  #  :lib     => 'clearance',
+  #  :version => '0.8.3'
   #  config.gem 'webrat',
   #    :version => '>= 0.4.5'
   #  config.gem 'cucumber',
