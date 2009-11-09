@@ -13,7 +13,7 @@
           <h3> Ring <%= @company_name %> at <%= @inbound_number %> (It's free!)</h3>
         </div>
         <%= render :partial => 'instructions_step2' %>
-        <%= image_submit_tag "/images/next.png" %> 
+        <%= image_submit_tag "/images/next.png", :id => "next_submit_image" %> 
       </div>
       <% end %>
     </div>

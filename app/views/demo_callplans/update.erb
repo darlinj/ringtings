@@ -13,7 +13,7 @@
       <% form_for(:callplans, :url=>callplan_path(1), :html => { :method => :put }) do |@form| %>
         <%= render :partial => 'company_name' %>
         <%= render :partial => 'email_and_destination_number' %>
-        <%= @form.submit "next" %> 
+        <%= image_submit_tag "/images/next.png", :id => "next_submit_image" %> 
       <% end %>
     </div>
   </div>
