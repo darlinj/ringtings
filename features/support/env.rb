@@ -7,7 +7,8 @@ require 'cucumber/formatter/unicode'
 
 require 'cucumber/rails/rspec'
 #require 'webrat/core/matchers'
-
+#
+Cucumber::Rails::World.use_transactional_fixtures = false
 require 'factory_girl'
 Factory.find_definitions
 
