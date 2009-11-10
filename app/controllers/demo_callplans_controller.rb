@@ -21,12 +21,13 @@ class DemoCallplansController < ApplicationController
   end
 
   def update
-    Employee.create! :phone_number=> params[:demo_callplan]['employee_phone_number'],
+    Employee.create! :phone_number=> params[:demo_callplan]['phone_number'],
       :email_address => params[:demo_callplan]['email_address'],
       :callplan_id => params[:id]
     @callplan = Callplan.find(params[:id])
-    RAILS_DEFAULT_LOGGER.debug "callplan #{@callplan.inspect}" 
-    RAILS_DEFAULT_LOGGER.debug "number #{@callplan.inbound_number.inspect}" 
+    @callplan.action.application_name = "ivr"
+    @callplan.action.application_data = "ivr_menu_#{@callplan.inbound_number.phone_number}"
+    @callplan.action.save!
   end
 
   private 

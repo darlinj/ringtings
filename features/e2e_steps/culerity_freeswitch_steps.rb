@@ -14,10 +14,15 @@ at_exit do
   $freeswitch_server.close
 end
 
-When /Freeswitch posts to "(.*)" with "(.*)" parameters/ do |url,parameters|
+When /Freeswitch posts "(.*)" parameters to "(.*)"/ do |parameters,url|
   curl_response = Curl::Easy.http_post(url,parameters)
   xml_response = curl_response.body_str
-  puts "XML Response #{xml_response}"
+  @xml_doc = REXML::Document.new xml_response
+end
+
+When /Freeswitch posts to "(.*)"/ do |url|
+  curl_response = Curl::Easy.http_post(url)
+  xml_response = curl_response.body_str
   @xml_doc = REXML::Document.new xml_response
 end
 

@@ -69,11 +69,18 @@ describe FreeswitchController do
     def do_ivr_post 
       post :ivr_menus, 'Caller-Destination-Number'=>@inbound_number
     end
+
     it "should respond to post requests" do
       do_ivr_post.should be_success
     end
+
     it "should render the xml ivr_menus template" do
       do_ivr_post.should render_template('ivr_menus.xml.builder')
+    end
+
+    it "will assign the callplan for the view" do
+        do_ivr_post
+        assigns[:callplan].should == @callplan
     end
 
     describe "When there is no matching phone number in the database" do

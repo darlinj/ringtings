@@ -134,6 +134,7 @@ describe DemoCallplansController do
         Callplan.destroy_all
         @callplan = Factory :callplan, :company_name => @company_name 
         Factory :inbound_number_manager, :phone_number=>@phone_number , :callplan_id=>@callplan.id
+        Factory :action, :application_name=>"SomeRandomApplication" , :application_data=>"Dummy Data", :callplan_id=>@callplan.id
       end
 
       def do_put 
@@ -179,6 +180,14 @@ describe DemoCallplansController do
         assigns[:callplan].employee.phone_number.should == @employee_phone_number
       end
 
+      it "will change the Callplan to point to the ivr application" do
+        do_put
+        Callplan.find(@callplan.id).action.application_name.should == "ivr"
+      end
+      it "will change the Callplan data to send the callplan id" do
+        do_put
+        Callplan.find(@callplan.id).action.application_data.should == "ivr_menu_#{@phone_number}"
+      end
     end
   end
 end
