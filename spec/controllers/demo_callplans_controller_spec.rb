@@ -53,15 +53,21 @@ describe DemoCallplansController do
           assigns[:tab].should == @tab
         end
 
-        it "should assign the company name" do
-          do_post 
-          assigns[:company_name].should == @company_name
+        it "has a callplan " do
+          do_post
+          assigns[:callplan].should_not be_nil
         end
 
-        it "should assign the inbound number variable" do
-          do_post 
-          assigns[:inbound_number].should == @phone_number
+        it "has a callplan with the correct company name" do
+          do_post
+          assigns[:callplan].company_name.should == @company_name
         end
+
+        it "has a callplan with the correct inbound_number name" do
+          do_post
+          assigns[:callplan].inbound_number.phone_number.should == @phone_number
+        end
+
         describe "creating the action attached to the callplan" do
           it "will be an action attached to the callplan" do
             do_post
@@ -116,6 +122,63 @@ describe DemoCallplansController do
           response.should redirect_to(demo_callplans_url)
         end 
       end
+    end
+
+    describe "the update of a demo call plan" do
+      before do
+        @company_name = "foobar inc"
+        @phone_number = "0123456789"
+        @email_address = "bob.basted@used.cars.net"
+        @employee_phone_number = "0987654321"
+        InboundNumberManager.destroy_all
+        Callplan.destroy_all
+        @callplan = Factory :callplan, :company_name => @company_name 
+        Factory :inbound_number_manager, :phone_number=>@phone_number , :callplan_id=>@callplan.id
+      end
+
+      def do_put 
+        put :update, :id => @callplan.id, :demo_callplan => {'company_name'=>@company_name, 'employee_phone_number' => @employee_phone_number, 'email_address' => @email_address }
+      end
+
+      it "responds to put" do
+        do_put
+        response.should be_success
+      end
+
+      it "should assign the tab variable" do
+        do_put 
+        assigns[:tab].should == @tab
+      end
+
+      it "renders the generate template" do
+        do_put 
+        response.should render_template('demo_callplans/update')
+      end
+
+      it "assigns @callplan" do
+        do_put 
+        assigns[:callplan].should_not be_nil
+      end
+
+      it "has a callplan with the correct inbound number" do
+        do_put
+        assigns[:callplan].inbound_number.phone_number.should == @phone_number
+      end
+
+      it "has a callplan with the correct company name" do
+        do_put
+        assigns[:callplan].company_name.should == @company_name
+      end
+
+      it "has a callplan with the correct email address" do
+        do_put
+        assigns[:callplan].employee.email_address.should == @email_address
+      end
+      it "has a callplan with the correct user phone number" do
+        do_put
+        assigns[:callplan].employee.phone_number.should == @employee_phone_number
+      end
+
     end
   end
 end

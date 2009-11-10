@@ -9,17 +9,24 @@ class DemoCallplansController < ApplicationController
         redirect_to (demo_callplans_url)
         return
     end
-    callplan = Callplan.create! :company_name => params[:demo_callplan]['company_name']
-    callplan.inbound_number = InboundNumberManager.get_free_number()
-    callplan.action = Action.create! :application_name=>"speak",
-      :application_data => "Cepstral|Lawrence-8kHz|Welcome to #{callplan.company_name}, all our operators are busy right now. Please call back soon"
-    callplan.save!
-    @company_name = callplan.company_name
-    @inbound_number = callplan.inbound_number.phone_number
+    @callplan = Callplan.create! :company_name => params[:demo_callplan]['company_name']
+    @callplan.inbound_number = InboundNumberManager.get_free_number()
+    @callplan.action = Action.create! :application_name=>"speak",
+      :application_data => "Cepstral|Lawrence-8kHz|Welcome to #{@callplan.company_name}, all our operators are busy right now. Please call back soon"
+    @callplan.save!
   rescue Exceptions::OutOfCapacityError
     flash[:error]="We are sorry but we have temporerily run out of free telephone numbers. We are taking steps to get more so please try again soon."
   rescue Exception
     flash[:error]="We are sorry but there has been an unexpected problem. We are working to resolve it. Please try again soon."
+  end
+
+  def update
+    Employee.create! :phone_number=> params[:demo_callplan]['employee_phone_number'],
+      :email_address => params[:demo_callplan]['email_address'],
+      :callplan_id => params[:id]
+    @callplan = Callplan.find(params[:id])
+    RAILS_DEFAULT_LOGGER.debug "callplan #{@callplan.inspect}" 
+    RAILS_DEFAULT_LOGGER.debug "number #{@callplan.inbound_number.inspect}" 
   end
 
   private 
