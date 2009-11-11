@@ -3,6 +3,14 @@ require 'rexml/document'
 
 describe "/service_instances/ivr_menus.xml.builder" do
   before do
+    @phone_number = "011111111111"
+    @company_name = "Fillious Fog"
+    @callplan = mock_model Callplan, :company_name => @company_name
+    @employee = mock_model Employee, :phone_number => @phone_number
+    @callplan.stub(:employee).and_return @employee
+    @inbound_number = mock_model InboundNumberManager, :phone_number => "022222222222"
+    @callplan.stub(:inbound_number).and_return @inbound_number
+    assigns[:callplan] = @callplan
   end
 
   def do_render
@@ -20,11 +28,6 @@ describe "/service_instances/ivr_menus.xml.builder" do
     xml.elements['/document/section/configuration/menus'].should_not be_nil
   end
 
-  it 'has a menu element with a name attribute of "demo_tts_ivr"' do
-    xml = do_render
-    xml.elements['//menus/menu/@name'].value.should == 'ringtings_menu'
-  end
-
   it 'has a menu element with a tts-engine attribute of "Cepstral"' do
     xml = do_render
     xml.elements['//menus/menu/@tts-engine'].value.should == 'Cepstral'
@@ -35,9 +38,9 @@ describe "/service_instances/ivr_menus.xml.builder" do
     xml.elements['//menus/menu/@tts-voice'].value.should == 'Lawrence-8kHz'
   end
 
-  it 'has a menu element with a tts-engine attribute of "Cepstral"' do
+  it 'has a menu element with a name attribute of "ivr_menu_<phone_number>"' do
     xml = do_render
-    xml.elements['//menus/menu/@tts-engine'].value.should == 'Cepstral'
+    xml.elements['//menus/menu/@name'].value.should == "ivr_menu_#{@inbound_number.phone_number}"
   end
 
   it 'has a menu element with a tts-engine attribute of "Cepstral"' do
@@ -50,6 +53,11 @@ describe "/service_instances/ivr_menus.xml.builder" do
     xml.elements['//menus/menu/@greet-long'].value.should =~ /say.*/
   end
 
+  it 'has a menu element with a greet-long attribute starting with the company name' do
+    xml = do_render
+    xml.elements['//menus/menu/@greet-long'].value.should =~ /.*#{@company_name}.*/
+  end
+
   it 'has a menu element with a greet-short attribute starting with "say"' do
     xml = do_render
     xml.elements['//menus/menu/@greet-short'].value.should =~ /say.*/
@@ -58,6 +66,11 @@ describe "/service_instances/ivr_menus.xml.builder" do
   it 'has a menu element with a invalid-sound attribute starting with "say"' do
     xml = do_render
     xml.elements['//menus/menu/@invalid-sound'].value.should =~ /say.*/
+  end
+
+  it 'should have a element that forwards stuff to the employee number' do
+    xml = do_render
+    xml.elements['//menus/menu/entry/@param'].value.should =~ /transfer #{@phone_number} XML default.*/
   end
 
   it 'has a menu element with a timeout attribute that is an integer' do

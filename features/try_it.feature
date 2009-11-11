@@ -23,6 +23,7 @@ Story: Try it out page
     Then Freeswitch should find "application='ivr'" in the XML
     Then Freeswitch should find "data='ivr_menu_0123456789'" in the XML
     When Freeswitch posts "Caller-Destination-Number=0123456789" parameters to "ringtings.test.local/freeswitch/ivr_menus"
+    Then Freeswitch should find "ivr_menu_0123456789" in the XML
     Then Freeswitch should find "Welcome to Mr Plumb the plumber" in the XML
     Then Freeswitch should find "press one to be connected to one of our agents" in the XML
     Then Freeswitch should find "press two to be connected to leave a message" in the XML
