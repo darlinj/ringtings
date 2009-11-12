@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe InboundNumberManager do
   it { should have_db_column(:phone_number).of_type(:string) }
   it { should belong_to(:callplan)}
+  it { should belong_to(:ivr_menu)}
 
   describe "getting an inbound number from the database" do
     before do

@@ -65,6 +65,7 @@ describe FreeswitchController do
       @company_name = "Bob Basted used cars"
       @callplan = Factory :callplan, :company_name => @company_name
       @inbound_number_manager = Factory :inbound_number_manager, :phone_number => @inbound_number, :callplan_id => @callplan.id
+
     end
     def do_ivr_post 
       post :ivr_menus, 'Caller-Destination-Number'=>@inbound_number

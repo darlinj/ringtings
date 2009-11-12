@@ -3,14 +3,19 @@ require 'rexml/document'
 
 describe "/service_instances/ivr_menus.xml.builder" do
   before do
-    @phone_number = "011111111111"
-    @company_name = "Fillious Fog"
-    @callplan = mock_model Callplan, :company_name => @company_name
-    @employee = mock_model Employee, :phone_number => @phone_number
-    @callplan.stub(:employee).and_return @employee
-    @inbound_number = mock_model InboundNumberManager, :phone_number => "022222222222"
-    @callplan.stub(:inbound_number).and_return @inbound_number
-    assigns[:callplan] = @callplan
+    @name = "some_name"
+    @long_greeting = "say: some text which for some reason I feel should long"
+    @action1 = "some action"
+    @action2 = "some other action"
+    @digits1 = "1"
+    @digits2 = "2"
+    @params1 = "some params"
+    @params2 = "some other params"
+    @ivr_entry1 = mock_model IvrMenuEntry, :action=> @action1, :digits => @digits1 , :parameters => @params1
+    @ivr_entry2 = mock_model IvrMenuEntry, :action=> @action2, :digits => @digits2 , :parameters => @params2
+    @ivr_menu_entries = [@ivr_entry1,@ivr_entry2]
+    @ivr_menu = mock_model IvrMenu, :name => @name, :long_greeting => @long_greeting, :ivr_menu_entries => @ivr_menu_entries
+    assigns[:ivr_menu] = @ivr_menu
   end
 
   def do_render
@@ -40,7 +45,7 @@ describe "/service_instances/ivr_menus.xml.builder" do
 
   it 'has a menu element with a name attribute of "ivr_menu_<phone_number>"' do
     xml = do_render
-    xml.elements['//menus/menu/@name'].value.should == "ivr_menu_#{@inbound_number.phone_number}"
+    xml.elements['//menus/menu/@name'].value.should == @name
   end
 
   it 'has a menu element with a tts-engine attribute of "Cepstral"' do
@@ -55,22 +60,17 @@ describe "/service_instances/ivr_menus.xml.builder" do
 
   it 'has a menu element with a greet-long attribute starting with the company name' do
     xml = do_render
-    xml.elements['//menus/menu/@greet-long'].value.should =~ /.*#{@company_name}.*/
+    xml.elements['//menus/menu/@greet-long'].value.should == @long_greeting
   end
 
   it 'has a menu element with a greet-short attribute starting with "say"' do
     xml = do_render
-    xml.elements['//menus/menu/@greet-short'].value.should =~ /say.*/
+    xml.elements['//menus/menu/@greet-short'].value.should == @long_greeting
   end
 
   it 'has a menu element with a invalid-sound attribute starting with "say"' do
     xml = do_render
     xml.elements['//menus/menu/@invalid-sound'].value.should =~ /say.*/
-  end
-
-  it 'should have a element that forwards stuff to the employee number' do
-    xml = do_render
-    xml.elements['//menus/menu/entry/@param'].value.should =~ /transfer #{@phone_number} XML default.*/
   end
 
   it 'has a menu element with a timeout attribute that is an integer' do
@@ -89,16 +89,44 @@ describe "/service_instances/ivr_menus.xml.builder" do
       xml.elements['count(//entry)'].should > 1
     end
     describe 'each entry' do
-      it 'has an action attribute' do
-        xml = do_render
-        REXML::XPath.each(xml,'//entry') do |entry|
-          entry.attribute('action').should_not be_nil
+      describe 'first entry' do
+        it 'has an action attribute' do
+          xml = do_render
+          REXML::XPath.each(xml,'//entry/[1]') do |entry|
+            entry.attribute('action').value.should == @action1
+          end
+        end
+        it 'has an digits attribute' do
+          xml = do_render
+          REXML::XPath.each(xml,'//entry/[1]') do |entry|
+            entry.attribute('digits').value.should == @digits1
+          end
+        end
+        it 'has an params attribute' do
+          xml = do_render
+          REXML::XPath.each(xml,'//entry/[1]') do |entry|
+            entry.attribute('params').value.should == @params1
+          end
         end
       end
-      it 'has an digits attribute' do
-        xml = do_render
-        REXML::XPath.each(xml,'//entry') do |entry|
-          entry.attribute('digits').should_not be_nil
+      describe 'second entry' do
+        it 'has an action attribute' do
+          xml = do_render
+          REXML::XPath.each(xml,'//entry/[2]') do |entry|
+            entry.attribute('action').value.should == @action2
+          end
+        end
+        it 'has an digits attribute' do
+          xml = do_render
+          REXML::XPath.each(xml,'//entry/[2]') do |entry|
+            entry.attribute('digits').value.should == @digits2
+          end
+        end
+        it 'has an params attribute' do
+          xml = do_render
+          REXML::XPath.each(xml,'//entry/[2]') do |entry|
+            entry.attribute('params').value.should == @params2
+          end
         end
       end
     end 
