@@ -16,6 +16,8 @@ xml.document :type => 'freeswitch/xml' do
           xml.entry 'action' => 'menu-exec-app', 'digits' => "1", 'param' => "transfer #{@callplan.employee.phone_number} XML default"
           xml.entry 'action' => 'menu-exec-app', 'digits' => "2", 'param' => "voicemail default ${domain_name} ${dialed_extension}"
           xml.entry 'action' => 'menu-exec-app', 'digits' => "3", 'param' => "playback ivr/suckingteeth.wav"
+          xml.entry 'action' => 'menu-exec-app', 'digits' => "4", 'param' => "playback ivr/suckingteeth.wav"
+          xml.entry 'action' => 'menu-exec-app', 'digits' => "5", 'param' => "playback ivr/suckingteeth.wav"
         end
       end
     end
