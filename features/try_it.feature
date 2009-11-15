@@ -27,27 +27,14 @@ Story: Try it out page
     Then Freeswitch should find "Welcome to Mr Plumb the plumber" in the XML
     Then Freeswitch should find "press one to be connected to one of our agents" in the XML
     Then Freeswitch should find "press two to be connected to leave a message" in the XML
-    Then Freeswitch should find "transfer 0987654321" in the XML
-
-
-  Scenario: Extending the callplan
-   And I type "0987654321" in the form field with an HTML id of "phone_number"
-    And I click on "next"
-    And I should see "Please ring this number now"
-    When Freeswitch goes to the freeswitch interface
-    And Freeswitch should see "Welcome to Mr Plumb the plumber, please press 1 to talk to Bob or 2 to leave a message"
-    And If I press 2 And leave the message "hello, please come and do some plumbing"
-    Then I should receive an email with subject "There is a new message for you"
-    And If I ring that number I should hear "Welcome to Mr Plumb the plumber, please press 1 to talk to Bob or 2 to leave a message"
-    And If I press 1 I should hear ringing on the phone "0987654321"
+    Then Freeswitch should find "transfer 0987654321" in the XMLA
+    Then I should be on the "Callplan" page
     And I should see "This is your calling plan so far"
-    And I should see "To save this plan enter a password"
-    And I should see "Your username is plumb@plumber.com"
-    And I type "password" in the form field with an HTML id of "user_password"
-    And I type "password" in the form field with an HTML id of "user_password_confirmation"
-    Then I should see "Welcome plumb@plumber.com"
-    And I should see "log out"
-    And I should be on the call plan editing screen.
+    When I click the save button
+    Then I should see "To save this call plan please enter a password"
+    When I fill in "Password" with "Password"
+    And I fill in "Confirm Password" with "Password"
+    And I click on "save"
+    Then I should see "Your new callplan has been saved successfully"
     
-  
 

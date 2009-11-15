@@ -62,11 +62,14 @@ describe FreeswitchController do
   describe "getting a post to ivr_menus request" do
     before do
       @inbound_number = "0123456789"
-      @company_name = "Bob Basted used cars"
-      @callplan = Factory :callplan, :company_name => @company_name
-      @inbound_number_manager = Factory :inbound_number_manager, :phone_number => @inbound_number, :callplan_id => @callplan.id
+      #@company_name = "Bob Basted used cars"
+      #@callplan = Factory :callplan, :company_name => @company_name
+      @ivr_menu = mock_model IvrMenu
+      @inbound_number_manager = mock_model InboundNumberManager, :phone_number => @inbound_number, :ivr_menu => @ivr_menu
+      InboundNumberManager.stub(:find_by_phone_number).and_return(@inbound_number_manager)
 
     end
+
     def do_ivr_post 
       post :ivr_menus, 'Caller-Destination-Number'=>@inbound_number
     end
@@ -79,14 +82,19 @@ describe FreeswitchController do
       do_ivr_post.should render_template('ivr_menus.xml.builder')
     end
 
-    it "will assign the callplan for the view" do
-        do_ivr_post
-        assigns[:callplan].should == @callplan
+    it "does a lookup on the inbound nuber" do
+      InboundNumberManager.should_receive(:find_by_phone_number).with(@inbound_number)
+      do_ivr_post
     end
 
-    describe "When there is no matching phone number in the database" do
+    it "will assign the callplan for the view" do
+        do_ivr_post
+        assigns[:ivr_menu].should == @ivr_menu
+    end
+
+    describe "When there is no matching ivr menu in the database" do
       before do
-        InboundNumberManager.destroy_all
+        InboundNumberManager.stub(:find_by_phone_number).and_return nil
       end
       it 'renders the not found response' do
         do_ivr_post.should render_template('not_found.xml.builder')

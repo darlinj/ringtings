@@ -15,10 +15,9 @@ class FreeswitchController < ApplicationController
   end
 
   def ivr_menus
-    @inbound_number = params['Caller-Destination-Number']
-    inbound_number = InboundNumberManager.find_by_phone_number(@inbound_number)
-    if inbound_number && inbound_number.callplan
-      @callplan = inbound_number.callplan
+    inbound_number = InboundNumberManager.find_by_phone_number(inbound_number = params['Caller-Destination-Number'])
+    if inbound_number && inbound_number.ivr_menu
+      @ivr_menu = inbound_number.ivr_menu
       render :action => 'ivr_menus.xml.builder', :layout => false
     else
       render :action => 'not_found.xml.builder', :layout => false
