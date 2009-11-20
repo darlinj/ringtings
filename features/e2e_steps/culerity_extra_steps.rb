@@ -34,3 +34,10 @@ end
 When /I click the form input with id "(.*)"/ do |id|
   $browser.text_field(:id, id).click
 end
+
+
+When /I navigate to the "(.*)" for <([^\)]*)>$/ do |target_url,id|
+  puts  eval("#{target_url}(#{feature_vars[id]})")
+  $browser.goto @host + eval("#{target_url}(#{feature_vars[id]})")
+  assert_successful_response 
+end

@@ -2,23 +2,23 @@ div.container {
   background-color: #e2f3ef;
 }
 
-div.breadcrumbs a { 
-  color: #e7ba1c; 
+div.breadcrumbs a {
+  color: #e7ba1c;
 }
 
-div.breadcrumbs { 
-  float: right; 
-  margin: 0;	
-  padding: 5px 5px 0 5px; 
-  position: relative; 
-  color: #e7ba1c; 
-  font-weight: normal; 
-  font-size: 1em; 
+div.breadcrumbs {
+  float: right;
+  margin: 0;
+  padding: 5px 5px 0 5px;
+  position: relative;
+  color: #e7ba1c;
+  font-weight: normal;
+  font-size: 1em;
 }
 
-div.page_header a { 
+div.page_header a {
   text-decoration: none;
-  color: #2b3b3f; 
+  color: #2b3b3f;
 }
 
 div.top_section {
@@ -26,23 +26,23 @@ div.top_section {
   background-color: #c5f2e9;
 }
 
-div.page_header { 
-  padding: 10px 5px 0 5px; 
-  font-weight: normal; 
-  font-size: 4em; 
+div.page_header {
+  padding: 10px 5px 0 5px;
+  font-weight: normal;
+  font-size: 4em;
   font-weight: bold;
 }
 
 div.main_content {
   min-height: 500px;
-  padding: 10px 5px 0 5px; 
+  padding: 10px 5px 0 5px;
   text-align: center;
   background-color: #e2f3ef;
   margin:auto;
 }
 
 #tagline {
-  padding: 5px 5px 0 5px; 
+  padding: 5px 5px 0 5px;
   margin:auto;
   width:70%;
 }
@@ -51,47 +51,47 @@ div.main_content {
 /* TABS */
 /* begin css tabs */
 
-ul#tabnav { 
-  text-align: left; 
+ul#tabnav {
+  text-align: left;
   margin: 1em 0 0em 0;
-  font: bold 11px verdana, arial, sans-serif; 
-  border-bottom: 1px solid #e7ba1c; 
+  font: bold 11px verdana, arial, sans-serif;
+  border-bottom: 1px solid #e7ba1c;
   list-style-type: none;
-  padding: 3px 10px 3px 10px; 
+  padding: 3px 10px 3px 10px;
 }
 
 ul#tabnav li { /* do not change */
   display: inline;
 }
 
-body#home li.home, body#more li.more, body#tryit li.tryit, body#signup li.signup { 
+body#home li.home, body#more li.more, body#tryit li.tryit, body#signup li.signup {
   border-bottom: 1px solid #fff;
-  background-color: #fff; 
+  background-color: #fff;
 }
 
-body#home li.home a, body#more li.more a, body#tryit li.tryit a, body#signup li.signup a { 
-  background-color: #e2f3ef; 
-  color: #e7ba1c; 
+body#home li.home a, body#more li.more a, body#tryit li.tryit a, body#signup li.signup a {
+  background-color: #e2f3ef;
+  color: #e7ba1c;
   position: relative;
   top: 1px;
-  padding-top: 4px; 
+  padding-top: 4px;
 }
 
 ul#tabnav li a {
-  padding: 3px 4px; 
-  border: 1px solid #e7ba1c; 
+  padding: 3px 4px;
+  border: 1px solid #e7ba1c;
   background-color: #e7ddbd;
   color: #e7ba1c;
-  margin-right: 0px; 
+  margin-right: 0px;
   text-decoration: none;
   border-bottom: none;
 }
 
-ul#tabnav a:hover { 
-background: #e2f3ef; 
+ul#tabnav a:hover {
+  background: #e2f3ef;
 }
 
-/* end css tabs */ 
+/* end css tabs */
 
 #call_plan_form_extended {
   display: none;
@@ -134,4 +134,100 @@ div.step_box {
   width:60%;
 }
 
+#incoming_call_box {
+  background-image: url('/images/incoming_call_box.png');
+  background-repeat: no-repeat;
+  background-position:center;
+  text-align: center;
+  height: 125;
+  font-size: 2em;
+}
+
+#voicemail_top_box {
+  background-image: url('/images/voice_menu_top.png');
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  height: 125;
+}
+
+.ivr_title {
+  text-align: left;
+  font-size: 1.5em;
+}
+
+.ivr_greeting_text {
+  text-align: left;
+  font-size: 1.2em;
+  line-height: 50%;
+}
+
+.callplan_details {
+  margin:auto;
+  width: 40%;
+}
+
+.text_padding {
+  padding: 5px 0px 0px 35px;
+}
+
+#greeting_textbox {
+  width: 300px;
+  height: 70px;
+  float: left;
+}
+
+#ivr_action_params1 {
+  width: 240px;
+  height: 40px;
+  float: left;
+}
+
+.ivr_step {
+  height: 85;
+  float: left;
+  width: 99px;
+  background-image: url('/images/ivr_step.png');
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+.ivr_end {
+  height: 100px;
+  float: left;
+  width: 170px;
+  background-image: url('/images/ivr_end.png');
+  background-repeat: no-repeat;
+  background-position: right top;
+}
+
+#add_menu_option_submit_image {
+  position: relative;
+  top: 10px;
+  left: 28px;
+}
+
+.ivr_step_action {
+  font-size: 1.2em;
+  text-align: left;
+  height: 85px;
+  float: right;
+  width: 273px;
+  background-image: url('/images/ivr_step_action.png');
+  background-repeat: no-repeat;
+  background-position: left;
+}
+
+.ivr_step_text {
+  position: relative;
+  top: 25px;
+  font-size: 1.2em;
+  line-height: 50%;
+}
+
+.ivr_action_text {
+  position: relative;
+  top: 5px;
+  left: 5px;
+  font-size: 1.2em;
+}
 

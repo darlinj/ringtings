@@ -1,0 +1,54 @@
+<div class="callplan_details" class="span-14">
+  <% form_for :callplan, :url=>callplan_path do |f| %>
+    <div id="incoming_call_box">
+      Incoming call from:<br/> 0123456789
+    </div>
+    <div id="voicemail_top_box">
+      <div class="text_padding">
+        <div class="ivr_title">
+          Voice menu <br/>
+        </div>
+        <div class="ivr_greeting_text">
+          Greeting: <br/>
+        </div>
+        <div>
+          <%= text_area(:greeting,:textbox)%>
+        </div>
+      </div>
+    </div>
+    <div id="voicemail_main_box">
+      <div class="ivr_step">
+        <div class="ivr_step_text">
+          Press <br/>
+          <%= select :digit, :id, [[1,1],[2,2],[3,3]] %>
+        </div>
+      </div>
+      <div class="ivr_step_action">
+        <div class="ivr_action_text">
+          Synthetic voice says:
+          <%= text_area(:ivr,:action_params1)%>
+        </div>
+      </div>
+    </div>
+    <div id="voicemail_main_box">
+      <div class="ivr_step">
+        <div class="ivr_step_text">
+          Press <br/>
+          <%= select :digit, :id, [[1,1],[2,2],[3,3]] %>
+        </div>
+      </div>
+      <div class="ivr_step_action">
+        <div class="ivr_action_text">
+          Forward call to:
+          <%= text_area(:ivr,:action_params1)%>
+        </div>
+      </div>
+    </div>
+    <div id="voicemail_main_box">
+      <div class="ivr_end">
+        <%= image_submit_tag "/images/ivr_add_a_menu_option_button.png", :id => "add_menu_option_submit_image" %>
+      </div>
+    </div>
+    <%= image_submit_tag "/images/next.png", :id => "next_submit_image" %>
+  <% end %>
+</div>

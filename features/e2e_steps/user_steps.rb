@@ -10,3 +10,12 @@ Given /^there is a validated user with email "([^\"]*)" and a passord of "([^\"]
   And %{I confirm the user "#{email}"}
 end
 
+Given /^I am logged in$/ do
+    Given %{there is a validated user with email "joe@foo.com" and a passord of "password"}
+    When %{I go to the sign in page}
+    And %{I type "joe@foo.com" in the form field with an HTML id of "session_email"}
+    And %{I type "password" in the form field with an HTML id of "session_password"}
+    And %{I click on "Sign in"}
+    Then %{I should see "Signed in"}
+end
+

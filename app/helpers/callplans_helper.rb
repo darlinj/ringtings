@@ -1,0 +1,2 @@
+module CallplansHelper
+end
