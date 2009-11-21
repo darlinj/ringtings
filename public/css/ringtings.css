@@ -150,6 +150,10 @@ div.step_box {
   height: 125;
 }
 
+.voicemail_main_box {
+}
+
+
 .ivr_title {
   text-align: left;
   font-size: 1.5em;
@@ -162,8 +166,10 @@ div.step_box {
 }
 
 .callplan_details {
+  padding: 20px 0px 0px 0px;
   margin:auto;
   width: 40%;
+  border: 3px solid #000000;
 }
 
 .text_padding {
@@ -179,12 +185,10 @@ div.step_box {
 #ivr_action_params1 {
   width: 240px;
   height: 40px;
-  float: left;
 }
 
 .ivr_step {
   height: 85;
-  float: left;
   width: 99px;
   background-image: url('/images/ivr_step.png');
   background-repeat: no-repeat;
@@ -192,9 +196,8 @@ div.step_box {
 }
 
 .ivr_end {
-  height: 100px;
-  float: left;
   width: 170px;
+  height: 70px;
   background-image: url('/images/ivr_end.png');
   background-repeat: no-repeat;
   background-position: right top;
@@ -202,15 +205,21 @@ div.step_box {
 
 #add_menu_option_submit_image {
   position: relative;
-  top: 10px;
+  top: -70px;
   left: 28px;
 }
 
+.ivr_row {
+  display: inline;
+}
+
 .ivr_step_action {
+  position: relative;
+  top: -80px;
+  float: right;
   font-size: 1.2em;
   text-align: left;
   height: 85px;
-  float: right;
   width: 273px;
   background-image: url('/images/ivr_step_action.png');
   background-repeat: no-repeat;
@@ -231,3 +240,24 @@ div.step_box {
   font-size: 1.2em;
 }
 
+.action_close_button {
+  position: relative;
+  float: right;
+  top: -22px;
+  right: 32px;
+}
+
+.ivr_close_button {
+  position: relative;
+  float: right;
+  top: -20px;
+  right: 30px;
+}
+
+.save_button {
+  position: relative;
+  width: 400px;
+  float: right;
+  left: 150px;
+  top: -30px;
+}
