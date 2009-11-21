@@ -10,20 +10,22 @@ describe InboundNumberManager do
       @expected_number = "0123456789"
       InboundNumberManager.destroy_all
       Factory :inbound_number_manager, :phone_number=>"0987654322" , :callplan_id=>2
-      Factory :inbound_number_manager, :phone_number=>@expected_number , :callplan_id=>nil
+      @expected_inbound_number = Factory :inbound_number_manager, :phone_number=>@expected_number , :callplan_id=>nil
       Factory :inbound_number_manager, :phone_number=>"0987654321" , :callplan_id=>1
+      @callplan = Factory :callplan, :company_name => "foobar"
     end
-    def do_get_free_number
-      InboundNumberManager.get_free_number 
+    def do_allocate_free_number_to_callplan
+      InboundNumberManager.allocate_free_number_to_callplan @callplan
     end
-    it "grabs the a free number" do
-      do_get_free_number.phone_number.should == @expected_number
+    it "sets callplan_id to the id of the passed in callplan" do
+      do_allocate_free_number_to_callplan
+      InboundNumberManager.find_by_phone_number(@expected_number).callplan_id.should == @callplan.id
     end
     describe "if there are no free numbers available" do
       it "will raise an exception of type OutOfCapacityError" do
         InboundNumberManager.destroy_all
         Factory :inbound_number_manager, :phone_number=>"0987654321" , :callplan_id=>1
-        lambda {do_get_free_number}.should raise_error Exceptions::OutOfCapacityError
+        lambda {do_allocate_free_number_to_callplan}.should raise_error Exceptions::OutOfCapacityError
       end
     end
   end

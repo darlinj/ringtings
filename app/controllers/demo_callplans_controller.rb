@@ -1,23 +1,29 @@
 class DemoCallplansController < ApplicationController
   protect_from_forgery
   before_filter :set_tab
-  
+
   def create
-    RAILS_DEFAULT_LOGGER.error "params controller #{params.inspect}" 
+    RAILS_DEFAULT_LOGGER.error "params controller #{params.inspect}"
     unless params[:demo_callplan] && params[:demo_callplan]['company_name']
-        flash[:error]="We are sorry but there is a problem with the infomation you provided.  Please try again"
-        redirect_to (demo_callplans_url)
-        return
+      RAILS_DEFAULT_LOGGER.debug "Bad params. Redirecting back to form"
+      flash[:error]="We are sorry but there is a problem with the infomation you provided.  Please try again"
+      redirect_to (demo_callplans_url)
+      return
     end
     @callplan = Callplan.create! :company_name => params[:demo_callplan]['company_name']
-    @callplan.inbound_number = InboundNumberManager.get_free_number()
+    RAILS_DEFAULT_LOGGER.debug "Trying to assign inbound number"
+    InboundNumberManager.allocate_free_number_to_callplan(@callplan)
+    RAILS_DEFAULT_LOGGER.debug "assigned inbound number #{@callplan.inbound_number.phone_number}"
     @callplan.action = Action.create! :application_name=>"speak",
       :application_data => "Cepstral|Lawrence-8kHz|Welcome to #{@callplan.company_name}, all our operators are busy right now. Please call back soon"
     @callplan.save!
   rescue Exceptions::OutOfCapacityError
+    RAILS_DEFAULT_LOGGER.debug "OUT OF INBOUND NUMBERS!!!"
     flash[:error]="We are sorry but we have temporerily run out of free telephone numbers. We are taking steps to get more so please try again soon."
+    redirect_to (demo_callplans_url)
   rescue Exception
     flash[:error]="We are sorry but there has been an unexpected problem. We are working to resolve it. Please try again soon."
+    redirect_to (demo_callplans_url)
   end
 
   def update
@@ -46,7 +52,7 @@ class DemoCallplansController < ApplicationController
     @callplan.inbound_number.save!
   end
 
-  private 
+  private
   def set_tab
     @tab="tryit"
   end

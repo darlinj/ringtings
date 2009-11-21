@@ -23,9 +23,15 @@ describe DemoCallplansController do
       before do
         @company_name = "foobar inc"
         @phone_number = "0123456789"
-        InboundNumberManager.destroy_all
-        Callplan.destroy_all
-        Factory :inbound_number_manager, :phone_number=>@phone_number , :callplan_id=>nil
+        @action = mock_model Action
+        @callplan = mock_model Callplan, :company_name => @company_name
+        @inbound_number = mock_model InboundNumberManager, :phone_number => "475375"
+        Action.stub(:create!).and_return @action
+        Callplan.stub(:create!).and_return @callplan
+        @callplan.stub(:inbound_number).and_return @inbound_number
+        @callplan.stub(:action=)
+        @callplan.stub(:save!)
+        InboundNumberManager.stub(:allocate_free_number_to_callplan)
       end
 
       def do_post
@@ -64,29 +70,26 @@ describe DemoCallplansController do
         end
 
         it "has a callplan with the correct inbound_number name" do
+          InboundNumberManager.should_receive(:allocate_free_number_to_callplan).with(@callplan)
           do_post
-          assigns[:callplan].inbound_number.phone_number.should == @phone_number
         end
 
         describe "creating the action attached to the callplan" do
           it "will be an action attached to the callplan" do
+            @callplan.should_receive(:action=).with @action
             do_post
-            Callplan.find_by_company_name(@company_name).action.should_not be_nil
           end
-          it "will have an application_name attribute" do
+          it "will create the action with the right params" do
+            Action.should_receive(:create!).with(:application_name => "speak",
+                                                 :application_data => "Cepstral|Lawrence-8kHz|Welcome to #{@company_name}, all our operators are busy right now. Please call back soon" )
             do_post
-            Callplan.find_by_company_name(@company_name).action.application_name.should == "speak"
-          end
-          it "will have an application_data attribute" do
-            do_post
-            Callplan.find_by_company_name(@company_name).action.application_data.should == "Cepstral|Lawrence-8kHz|Welcome to #{@company_name}, all our operators are busy right now. Please call back soon"
           end
         end
       end
       describe "what happens if there is a problem with inbound number creation" do
         describe "when there are no more numbers available for allocation" do
           before do
-            InboundNumberManager.stub(:get_free_number).and_raise(Exceptions::OutOfCapacityError)
+            InboundNumberManager.stub(:allocate_free_number_to_callplan).and_raise(Exceptions::OutOfCapacityError)
           end
           it "catches all errors" do
             lambda {do_post}.should_not raise_error
