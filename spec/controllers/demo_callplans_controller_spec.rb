@@ -6,7 +6,7 @@ describe DemoCallplansController do
       @tab="tryit"
     end
     describe "the index page" do
-      def do_get 
+      def do_get
         get :index
       end
       it "responds to index" do
@@ -14,7 +14,7 @@ describe DemoCallplansController do
         response.should be_success
       end
       it "renders the index template" do
-        do_get 
+        do_get
         response.should render_template('demo_callplans/index')
       end
 
@@ -28,7 +28,7 @@ describe DemoCallplansController do
         Factory :inbound_number_manager, :phone_number=>@phone_number , :callplan_id=>nil
       end
 
-      def do_post 
+      def do_post
         post :create, :demo_callplan => {'company_name'=>@company_name}
       end
 
@@ -38,18 +38,18 @@ describe DemoCallplansController do
       end
 
       it "should assign the tab variable" do
-        do_post 
+        do_post
         assigns[:tab].should == @tab
       end
 
       it "renders the generate template" do
-        do_post 
+        do_post
         response.should render_template('demo_callplans/create')
       end
 
       describe "creating the callplan model" do
         it "should assign the tab variable" do
-          do_post 
+          do_post
           assigns[:tab].should == @tab
         end
 
@@ -108,7 +108,7 @@ describe DemoCallplansController do
             flash[:error].should == "We are sorry but there has been an unexpected problem. We are working to resolve it. Please try again soon."
           end
         end
- 
+
       end
       describe "the parameters not being in the request" do
         it "doesn't have a demo_callplan hash" do
@@ -120,7 +120,7 @@ describe DemoCallplansController do
           post :create, :demo_callplan => {'foo'=>"bar"}
           flash[:error].should == "We are sorry but there is a problem with the infomation you provided.  Please try again"
           response.should redirect_to(demo_callplans_url)
-        end 
+        end
       end
     end
 
@@ -131,7 +131,7 @@ describe DemoCallplansController do
         @email_address = "bob.basted@used.cars.net"
         @employee_phone_number = "0987654321"
         @action = mock_model Action, :application_name=>"SomeRandomApplication" , :application_data=>"Dummy Data"
-        @inbound_number = mock_model InboundNumberManager, :phone_number=>@phone_number 
+        @inbound_number = mock_model InboundNumberManager, :phone_number=>@phone_number
         @employee = mock_model Employee, :phone_number => @employee_phone_number,:email_address => @email_address
         Employee.stub(:create!).and_return @employee
         @callplan = mock_model Callplan, :company_name => @company_name, :action=>@action, :inbound_number => @inbound_number, :employee => @employee
@@ -152,14 +152,14 @@ describe DemoCallplansController do
         @ivr_menu_entry5 = mock_model IvrMenuEntry, @params5
         @ivr_menu_entry6 = mock_model IvrMenuEntry, @params6
         IvrMenuEntry.stub(:create!).and_return @ivr_menu_entry1, @ivr_menu_entry2, @ivr_menu_entry3, @ivr_menu_entry4, @ivr_menu_entry5, @ivr_menu_entry6
-        @ivr_menu_entries = [@ivr_menu_entry1, @ivr_menu_entry2, @ivr_menu_entry3, @ivr_menu_entry4, @ivr_menu_entry5, @ivr_menu_entry6] 
+        @ivr_menu_entries = [@ivr_menu_entry1, @ivr_menu_entry2, @ivr_menu_entry3, @ivr_menu_entry4, @ivr_menu_entry5, @ivr_menu_entry6]
         @ivr_menu = mock_model IvrMenu
         IvrMenu.stub(:create!).and_return @ivr_menu
         @inbound_number.stub(:ivr_menu=)
         @inbound_number.stub(:save!)
       end
 
-      def do_put 
+      def do_put
         put :update, :id => @callplan.id, :demo_callplan => {'company_name'=>@company_name, 'phone_number' => @employee_phone_number, 'email_address' => @email_address }
       end
 
@@ -169,12 +169,12 @@ describe DemoCallplansController do
       end
 
       it "should assign the tab variable" do
-        do_put 
+        do_put
         assigns[:tab].should == @tab
       end
 
       it "renders the generate template" do
-        do_put 
+        do_put
         response.should render_template('demo_callplans/update')
       end
 
@@ -184,7 +184,7 @@ describe DemoCallplansController do
       end
 
       it "assigns @callplan" do
-        do_put 
+        do_put
         assigns[:callplan].should_not be_nil
       end
 

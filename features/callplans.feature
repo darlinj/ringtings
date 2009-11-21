@@ -15,7 +15,7 @@ Story: Callplan management
       | ivr_menu_entry2_action | transfer 1234567890           |
     And I am logged in
     When I navigate to the "callplan_path" for <callplan_id>
-    And I should see "Incoming calls to 0192837465"
+    And I should see "Incoming calls to: 0192837465"
     And I should see "some long greeting"
     And I should see "when call presses 1"
     And I should see "computer generated voice"

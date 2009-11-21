@@ -1,7 +1,7 @@
 <div class="callplan_details" class="span-14">
   <% form_for :callplan, :url=>callplan_path do |f| %>
     <div id="incoming_call_box">
-      Incoming call from:<br/> 0123456789
+      Incoming calls to: <%= @callplan.inbound_number.phone_number %>
     </div>
     <div id="voicemail_top_box">
       <div class="text_padding">
