@@ -1,0 +1,22 @@
+<div id="ivr_top_box">
+  <div class="text_padding">
+    <div class="ivr_title">
+      Voice menu <br/>
+      <%= image_submit_tag "/images/close_button.png", :class => "ivr_close_button", :id => "delete_ivr_action1" %>
+    </div>
+    <div class="ivr_greeting_text">
+      Greeting: <br/>
+    </div>
+    <div>
+      <% greeting = ivr_menu.long_greeting %>
+      <%= text_area_tag(:greeting,greeting)%>
+    </div>
+  </div>
+</div>
+<div class="ivr_main_box">
+  <%= render :partial => 'ivr_menu_entry', :collection => ivr_menu.ivr_menu_entries, :as => :ivr_entry %>
+  <div class="ivr_end">
+    <%= image_submit_tag "/images/ivr_add_a_menu_option_button.png", :id => "add_menu_option_submit_image" %>
+  </div>
+</div>
+

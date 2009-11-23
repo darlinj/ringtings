@@ -8,6 +8,7 @@ Story: Callplan management
       | Action_params          | ivr_menu_0192837465           |
       | inbound_phone_number   | 0192837465                    |
     And we have an IVR Menu with:
+      | name                   | value                         |
       | long_greeting          | some long greeting            |
       | ivr_menu_entry1_digit  | 1                             |
       | ivr_menu_entry1_action | say something                 |
@@ -17,7 +18,7 @@ Story: Callplan management
     When I navigate to the "callplan_path" for <callplan_id>
     And I should see "Incoming calls to: 0192837465"
     And I should see "some long greeting"
-    And I should see "when call presses 1"
+    And I should see "1"
     And I should see "computer generated voice"
     And I should see "something"
     And I should see "when call presses 2"

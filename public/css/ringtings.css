@@ -143,14 +143,14 @@ div.step_box {
   font-size: 2em;
 }
 
-#voicemail_top_box {
+#ivr_top_box {
   background-image: url('/images/voice_menu_top.png');
   background-repeat: no-repeat;
   background-position: bottom center;
   height: 125;
 }
 
-.voicemail_main_box {
+.ivr_main_box {
 }
 
 
@@ -176,13 +176,13 @@ div.step_box {
   padding: 5px 0px 0px 35px;
 }
 
-#greeting_textbox {
+#greeting {
   width: 300px;
   height: 70px;
   float: left;
 }
 
-#ivr_action_params1 {
+#ivr_menu_entry_textbox{
   width: 240px;
   height: 40px;
 }
@@ -260,4 +260,10 @@ div.step_box {
   float: right;
   left: 150px;
   top: -30px;
+}
+
+#inbound_calls_text {
+  padding-top: 7px;
+  margin: auto;
+  width: 60%;
 }

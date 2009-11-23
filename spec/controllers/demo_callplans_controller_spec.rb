@@ -141,6 +141,7 @@ describe DemoCallplansController do
         Callplan.stub(:find).and_return @callplan
         @action.stub(:application_name=)
         @action.stub(:application_data=)
+        @action.stub(:ivr_menu=)
         @action.stub(:save!)
         @params1 = {:action => 'menu-exit', :digits => "*",:parameters => nil}
         @params2 = {:action => 'menu-exec-app', :digits => "1",:parameters => "transfer #{@employee_phone_number} XML default"}
@@ -252,7 +253,12 @@ describe DemoCallplansController do
         do_put
       end
 
-      describe "connecting the inbound number with the callplan" do
+      it "should assign the ivr_menu to the inbound number" do
+        @action.should_receive(:ivr_menu=).with(@ivr_menu)
+        do_put
+      end
+
+      describe "connecting the inbound number with the ivr menu" do
         it "should assign the ivr_menu to the inbound number" do
           @inbound_number.should_receive(:ivr_menu=).with(@ivr_menu)
           do_put

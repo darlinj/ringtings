@@ -50,6 +50,8 @@ class DemoCallplansController < ApplicationController
     ivr_menu = IvrMenu.create! :name => "ivr_menu_#{@callplan.inbound_number.phone_number}", :long_greeting => long_greeting, :ivr_menu_entries => ivr_menus
     @callplan.inbound_number.ivr_menu = ivr_menu
     @callplan.inbound_number.save!
+    @callplan.action.ivr_menu = ivr_menu
+    @callplan.action.save!
   end
 
   private

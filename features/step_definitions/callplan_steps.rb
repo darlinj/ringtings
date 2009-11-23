@@ -7,11 +7,12 @@ Given /^we create a Callplan \(and store it's ID as <([^\)]*)>\) with these vari
   Factory :inbound_number_manager, 
     :phone_number => args['inbound_phone_number'], 
     :callplan_id => callplan.id
-  Factory :action, 
+  action = Factory :action, 
     :application_name => args['Action_type'],
     :application_data => args['Action_params'], 
     :callplan_id => callplan.id
-  feature_vars[callplan_id] = callplan.id
+  feature_vars['callplan_id'] = callplan.id
+  feature_vars['action_id'] = action.id
 end
 
 Given /^we have an IVR Menu with:$/ do |table|
@@ -20,7 +21,8 @@ Given /^we have an IVR Menu with:$/ do |table|
     args[hash['name']] = hash['value']
   end
   ivr_menu = Factory :ivr_menu, 
-    :long_greeting => args['long_greeting'] 
+    :long_greeting => args['long_greeting'],
+    :action_id => feature_vars['action_id']
   Factory :ivr_menu_entry, 
     :digits => args['ivr_menu_entry1_digit'],
     :parameters => args['ivr_menu_entry1_action'], 
