@@ -11,18 +11,20 @@ Story: Callplan management
       | name                   | value                         |
       | long_greeting          | some long greeting            |
       | ivr_menu_entry1_digit  | 1                             |
-      | ivr_menu_entry1_action | say something                 |
+      | ivr_menu_entry1_prompt | Synthetic voice says:         |
+      | ivr_menu_entry1_action | say hello peeps               |
       | ivr_menu_entry2_digit  | 2                             |
+      | ivr_menu_entry2_prompt | Transfer call to:             |
       | ivr_menu_entry2_action | transfer 1234567890           |
     And I am logged in
     When I navigate to the "callplan_path" for <callplan_id>
     And I should see "Incoming calls to: 0192837465"
     And I should see "some long greeting"
     And I should see "1"
-    And I should see "computer generated voice"
-    And I should see "something"
-    And I should see "when call presses 2"
-    And I should see "transfer call to"
+    And I should see "Synthetic voice says:"
+    And I should see "hello peeps"
+    And I should see "2"
+    And I should see "Transfer call to:"
     And I should see "1234567890"
 
 

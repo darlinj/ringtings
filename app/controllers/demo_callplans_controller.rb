@@ -39,12 +39,12 @@ class DemoCallplansController < ApplicationController
     @callplan.action.application_name = "ivr"
     @callplan.action.application_data = "ivr_menu_#{@callplan.inbound_number.phone_number}"
     @callplan.action.save!
-    ivr_menu_1 = IvrMenuEntry.create! :action => 'menu-exit', :digits => "*",:parameters => nil
-    ivr_menu_2 = IvrMenuEntry.create! :action => 'menu-exec-app', :digits => "1",:parameters => "transfer #{@callplan.employee.phone_number} XML default"
-    ivr_menu_3 = IvrMenuEntry.create! :action => 'menu-exec-app', :digits => "2", :parameters => 'voicemail default ${domain_name} ${dialed_extension}'
-    ivr_menu_4 = IvrMenuEntry.create! :action => 'menu-exec-app', :digits => "3", :parameters => "playback ivr/suckingteeth.wav"
-    ivr_menu_5 = IvrMenuEntry.create! :action => 'menu-exec-app', :digits => "4", :parameters => "playback ivr/suckingteeth.wav"
-    ivr_menu_6 = IvrMenuEntry.create! :action => 'menu-exec-app', :digits => "5", :parameters => "playback ivr/suckingteeth.wav"
+    ivr_menu_1 = IvrMenuEntry.create! :action => 'menu-exit', :digits => "*",:parameters => nil, :prompt => "Exit the menu"
+    ivr_menu_2 = IvrMenuEntry.create! :action => 'menu-exec-app', :digits => "1",:parameters => "transfer #{@callplan.employee.phone_number} XML default", :prompt => "Transfer call to:"
+    ivr_menu_3 = IvrMenuEntry.create! :action => 'menu-exec-app', :digits => "2", :parameters => 'voicemail default ${domain_name} ${dialed_extension}', :prompt => "Transfer to voicemail:"
+    ivr_menu_4 = IvrMenuEntry.create! :action => 'menu-exec-app', :digits => "3", :parameters => "playback ivr/suckingteeth.wav", :prompt => "Synthetic voice says:"
+    ivr_menu_5 = IvrMenuEntry.create! :action => 'menu-exec-app', :digits => "4", :parameters => "playback ivr/suckingteeth.wav", :prompt => "Synthetic voice says:"
+    ivr_menu_6 = IvrMenuEntry.create! :action => 'menu-exec-app', :digits => "5", :parameters => "playback ivr/suckingteeth.wav", :prompt => "Synthetic voice says:"
     ivr_menus = [ ivr_menu_1, ivr_menu_2, ivr_menu_3, ivr_menu_4, ivr_menu_5, ivr_menu_6 ]
     long_greeting = "say:Welcome to #{@callplan.company_name}. please press one to be connected to one of our agents. press two to be connected to leave a message. press three to hear sucking of teeth. four is for an auto quote and 5 is if you want to pay your bill by credit card"
     ivr_menu = IvrMenu.create! :name => "ivr_menu_#{@callplan.inbound_number.phone_number}", :long_greeting => long_greeting, :ivr_menu_entries => ivr_menus

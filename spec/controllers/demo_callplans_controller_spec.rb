@@ -143,12 +143,12 @@ describe DemoCallplansController do
         @action.stub(:application_data=)
         @action.stub(:ivr_menu=)
         @action.stub(:save!)
-        @params1 = {:action => 'menu-exit', :digits => "*",:parameters => nil}
-        @params2 = {:action => 'menu-exec-app', :digits => "1",:parameters => "transfer #{@employee_phone_number} XML default"}
-        @params3 = {:action => 'menu-exec-app', :digits => "2", :parameters => 'voicemail default ${domain_name} ${dialed_extension}'}
-        @params4 = {:action => 'menu-exec-app', :digits => "3", :parameters => "playback ivr/suckingteeth.wav"}
-        @params5 = {:action => 'menu-exec-app', :digits => "4", :parameters => "playback ivr/suckingteeth.wav"}
-        @params6 = {:action => 'menu-exec-app', :digits => "5", :parameters => "playback ivr/suckingteeth.wav"}
+        @params1 = {:action => 'menu-exit', :digits => "*",:parameters => nil, :prompt => "Exit the menu" }
+        @params2 = {:action => 'menu-exec-app', :digits => "1",:parameters => "transfer #{@employee_phone_number} XML default", :prompt => "Transfer call to:" }
+        @params3 = {:action => 'menu-exec-app', :digits => "2", :parameters => 'voicemail default ${domain_name} ${dialed_extension}', :prompt => "Transfer to voicemail:" }
+        @params4 = {:action => 'menu-exec-app', :digits => "3", :parameters => "playback ivr/suckingteeth.wav", :prompt => "Synthetic voice says:" }
+        @params5 = {:action => 'menu-exec-app', :digits => "4", :parameters => "playback ivr/suckingteeth.wav", :prompt => "Synthetic voice says:" }
+        @params6 = {:action => 'menu-exec-app', :digits => "5", :parameters => "playback ivr/suckingteeth.wav", :prompt => "Synthetic voice says:" }
         @ivr_menu_entry1 = mock_model IvrMenuEntry, @params1
         @ivr_menu_entry2 = mock_model IvrMenuEntry, @params2
         @ivr_menu_entry3 = mock_model IvrMenuEntry, @params3
