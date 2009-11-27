@@ -33,6 +33,9 @@ class DemoCallplansController < ApplicationController
         redirect_to (demo_callplans_url)
         return
     end
+    unless params[:demo_callplan] && params[:demo_callplan]['phone_number'] && params[:demo_callplan]['email_address']
+      return
+    end
     Employee.create! :phone_number=> params[:demo_callplan]['phone_number'],
       :email_address => params[:demo_callplan]['email_address'],
       :callplan_id => params[:id].to_i

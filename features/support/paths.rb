@@ -7,10 +7,10 @@ module NavigationHelpers
   #
   def path_to(page_name)
     case page_name
-    
+
     when /the homepage/
       '/'
-    
+
     when /a restricted page/
       '/secret_stuff'
     when /the sign up page/i
@@ -19,6 +19,8 @@ module NavigationHelpers
       new_session_path
     when /the freeswitch interface/i
       freeswitch_index_path
+    when /the callplan page/i
+      callplan_path(1)
     when /the password reset request page/i
       new_password_path
 

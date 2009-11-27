@@ -1,21 +1,29 @@
 <div id="phone_configurator">
-  <img src="/images/phone_configurator.png"/>
-
-  <div id="dialplan_details" class="span-17">
+  <div id="dialplan_details" class="span-7">
     <div id="dialplan_details"> 
       <% form_for(:demo_callplan, :url=>demo_callplan_path(@callplan.id), :html => { :method => :put }) do |@form| %>
-       <div id="try_it_thread">
-        <div class="step_box">
-          <%= render :partial => 'instructions_step1' %>
-          <%= render :partial => 'company_name' %>
+        <div id="try_it_thread">
+          <div class="step_box">
+            There is your first RingTings call plan. Ring the number (<%= @callplan.inbound_number.phone_number %>) to hear what happens...
+          </div>
+          <div class="step_box">
+            Did you hear the message?  If not click <a href="screwed.html">here</a> for help.  Otherwise click next.
+          </div>
+          <%= image_submit_tag "/images/next.png", :id => "next_submit_image" %> 
         </div>
-        <div class="step_box">
-          <h3> Ring <%= @callplan.company_name %> at <%= @callplan.inbound_number.phone_number %> (It's free!)</h3>
-        </div>
-        <%= render :partial => 'instructions_step2' %>
-        <%= image_submit_tag "/images/next.png", :id => "next_submit_image" %> 
-      </div>
       <% end %>
+    </div>
+  </div>
+  <div id="callplan" class="span-10">
+    <h3>Callplan</h3>
+    <%= render :partial => '/shared/inbound_number', :locals => { :inbound_number => @callplan.inbound_number.phone_number } %>
+    <div class="synthetic_voice_box">
+      <div class="synthetic_voice_title">
+        Synthetic voice says:
+      </div>
+      <div class="synthetic_voice_text">
+        <%= @callplan.action.application_data.split("|")[2] %>
+      </div>
     </div>
   </div>
 </div>

@@ -1,23 +1,65 @@
 <div id="phone_configurator">
-  <img src="/images/phone_configurator.png"/>
-  <div id="dialplan_details" class="span-17">
-    <div id="dialplan_details"> 
-      <% form_for(:callplans, :url=>demo_callplan_path(1), :html => { :method => :put }) do |@form| %>
-       <div id="try_it_thread">
-        <div class="step_box">
-          <%= render :partial => 'instructions_step1' %>
-          <%= render :partial => 'company_name' %>
+  <div id="dialplan_details" class="span-7">
+    <div id="dialplan_details">
+      <div id="try_it_thread">
+        <% if @callplan.action.application_name == "ivr" %>
+          <% form_for(:demo_callplan, :url=>callplan_path(@callplan.id), :html => { :method => :put }) do |@form| %>
+            <div class="step_box">
+              That look more like a useful callplan.
+              Please ring <%= @callplan.inbound_number.phone_number %> again to hear how it sounds.
+              Feel free to change it (and save it) as you see fit.
+            </div>
+            <div class="step_box">
+              To keep this callplan and access all the other ringtings benefits (free for a month). Please create an account.
+              Please fill in: <br/>
+              <%= @form.label :email_address %>
+              <%= @form.text_field :email_address, :size=>20, :value => @callplan.employee.email_address %><br/>
+              <%= @form.label :password %>
+              <%= @form.text_field :password, :size=>20 %><br/>
+              <%= @form.label :confirm_password %>
+              <%= @form.text_field :confirm_password, :size=>20 %><br/>
+            </div>
+            <%= image_submit_tag "/images/next.png", :id => "next_submit_image" %>
+          <% end %>
+        <% else %>
+          <% form_for(:demo_callplan, :url=>demo_callplan_path(@callplan.id), :html => { :method => :put }) do |@form| %>
+            <div class="step_box">
+              So that was OK but we can do better...
+            </div>
+            <div class="step_box">
+              Please fill in your email address and a phone number. <br />
+              <%= @form.label :email_address %>
+              <%= @form.text_field :email_address, :size=>20 %><br/>
+              <%= @form.label :phone_number %>
+              <%= @form.text_field :phone_number, :size=>20 %><br/>
+            </div>
+            <%= image_submit_tag "/images/next.png", :id => "next_submit_image" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div id="callplan" class="span-10">
+    <h3>Callplan</h3>
+    <% if @callplan.action.application_name == "ivr" %>
+      <div class="callplan_details" class="span-10">
+        <%= render :partial => '/shared/inbound_number', :locals => { :inbound_number => @callplan.inbound_number.phone_number } %>
+        <%= render :partial => '/shared/ivr_menu', :locals => { :ivr_menu=>@callplan.action.ivr_menu } %>
+        <div class="save_button">
+          <%= image_submit_tag "/images/save_button.png", :id => "save_button" %>
         </div>
-        <div class="step_box">
-          <h3> Ring <%= @callplan.company_name %> at <%= @callplan.inbound_number.phone_number %> (It's free!)</h3>
+      </div>
+    <% else %>
+      <%= render :partial => '/shared/inbound_number', :locals => { :inbound_number => @callplan.inbound_number.phone_number } %>
+      <div class="synthetic_voice_box">
+        <div class="synthetic_voice_title">
+          Synthetic voice says:
         </div>
-        <%= render :partial => 'instructions_step2' %>
-        <div class="step_box">
-          Please ring <%= @callplan.inbound_number.phone_number %> again <br />
+        <div class="synthetic_voice_text">
+          <%= @callplan.action.application_data.split("|")[2] %>
         </div>
-        <%= image_submit_tag "/images/next.png", :id => "next_submit_image" %> 
       </div>
     <% end %>
   </div>
-  </div>
+</div>
 </div>
