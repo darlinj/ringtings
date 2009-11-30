@@ -1,8 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources  :demo_callplans, :only => [:index, :create, :update]
+  map.resources  :demo_callplans, :only => [:index, :create, :update, :show]
   map.resources  :callplans, :only => [:show]
-  
-  #map.resources  :freeswitch, :only => [:index, :create]
+
+  map.user 'users/new', :controller => 'users', :action => 'new'
+  map.user 'users', :controller => 'users', :action => 'create'
 
   map.sign_up  'sign_up',
     :controller => 'users',
@@ -13,21 +14,18 @@ ActionController::Routing::Routes.draw do |map|
     :action     => 'destroy',
     :method     => :delete
 
+
   map.resources :try_it, :only=>[:create]
   map.connect 'home', :controller => 'home', :action => 'index'
   map.connect 'secret_stuff', :controller => 'secret', :action => 'index'
-  #map.connect 'demo_callplan/', :controller => 'tryit', :action => 'index'
-  #map.connect 'demo_callplan/create', :controller => 'demo_callplan', :action => 'create'
-  #map.connect 'demo_callplan/update', :controller => 'demo_callplan', :action => 'update'
   map.connect 'freeswitch/callplan', :controller => 'freeswitch', :action => 'callplan'
   map.connect 'freeswitch/ivr_menus', :controller => 'freeswitch', :action => 'ivr_menus'
-
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
   # Keep in mind you can assign values other than :controller and :action
-  
+
   # Sample of named route:
   #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
   # This route can be invoked with purchase_url(:id => product.id)
@@ -40,7 +38,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Sample resource route with sub-resources:
   #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
-  
+
   # Sample resource route with more complex sub-resources
   #   map.resources :products do |products|
   #     products.resources :comments

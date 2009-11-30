@@ -2,6 +2,10 @@ class DemoCallplansController < ApplicationController
   protect_from_forgery
   before_filter :set_tab
 
+  def show
+    @callplan = Callplan.find params["id"].to_i
+  end
+
   def create
     RAILS_DEFAULT_LOGGER.error "params controller #{params.inspect}"
     unless params[:demo_callplan] && params[:demo_callplan]['company_name']

@@ -1,0 +1,45 @@
+<div id="phone_configurator">
+  <div id="dialplan_details" class="span-7">
+    <div id="dialplan_details">
+      <div id="try_it_thread">
+        <div class="step_box">
+          So what now....<br>
+          Well you can start editing your callplan to you own needs. For example:
+          <ul> 
+            <li>Try changing the text of the greeting, pressing save and phoning the number again.</li>
+            <li>Change the numbers you press for different options</li>
+            <li>Click on the X buttons to remove an unwanted menu item</li>
+            <li>Add a new menu item from our list by clicking on the "add menu item button"</li>
+          </ul>
+          When you are done click save to keep your changes and ring the number at the top of the screen to see how it sounds.
+        </div>
+        <div class="step_box">
+          Remember to check your email and validate your account to get access to all the ringtings functionality.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="callplan" class="span-10">
+    <h3>Callplan</h3>
+    <% if @callplan.action.application_name == "ivr" %>
+      <div class="callplan_details" class="span-10">
+        <%= render :partial => '/shared/inbound_number', :locals => { :inbound_number => @callplan.inbound_number.phone_number } %>
+        <%= render :partial => '/shared/ivr_menu', :locals => { :ivr_menu=>@callplan.action.ivr_menu } %>
+        <div class="save_button">
+          <%= image_submit_tag "/images/save_button.png", :id => "save_button" %>
+        </div>
+      </div>
+    <% else %>
+      <%= render :partial => '/shared/inbound_number', :locals => { :inbound_number => @callplan.inbound_number.phone_number } %>
+      <div class="synthetic_voice_box">
+        <div class="synthetic_voice_title">
+          Synthetic voice says:
+        </div>
+        <div class="synthetic_voice_text">
+          <%= @callplan.action.application_data.split("|")[2] %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+</div>

@@ -316,26 +316,39 @@ describe DemoCallplansController do
           do_put
         end
       end
-      describe "when the password field are completed" do
-        before do
-          @email = "harry@hat.com"
-          @password = "password"
-        end
-        def do_put
-          put :update, :id => @callplan.id, :demo_callplan => {'email'=>@email, 'password' => @password, 'confirm_password' => @password }
-        end
-        it "creates the user" do
-          @user = mock_model User, :email => @email
-          @user_params = {:email => @email, :password => @password}
-          User.should_receive(:create!).with(@user_params).and_return @user
-          do_put
-        end
-        it "logs in"
-        it "sets the flash to welcome to ringtings"
-        it "redirects to the callplan page"
-        describe "when the passwords do not match" do
-          it "will let the user know what is going on and return them to the previous page"
-        end
+    end
+    describe "the show of a demo call plan" do
+      before do
+        @callplan = mock_model Callplan
+        Callplan.stub(:find).and_return @callplan
+      end
+      def do_get
+        get :show, :id => @callplan.id
+      end
+
+      it "responds to put" do
+        do_get
+        response.should be_success
+      end
+
+      it "should assign the tab variable" do
+        do_get
+        assigns[:tab].should == @tab
+      end
+
+      it "renders the generate template" do
+        do_get
+        response.should render_template('demo_callplans/show')
+      end
+
+      it 'will get a call to find the callplan' do
+        Callplan.should_receive(:find).with(@callplan.id)
+        do_get
+      end
+
+      it "assigns @callplan" do
+        do_get
+        assigns[:callplan].should == @callplan
       end
     end
   end
