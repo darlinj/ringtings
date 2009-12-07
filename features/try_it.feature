@@ -27,7 +27,7 @@ Story: Try it out page
     And I fill in "Confirm password" with "Password"
     When I click the form input with id "next_submit_image"
     Then I should see "You will receive an email within the next few minutes. It contains instructions for confirming your account."
-    And I should see "You can continue to play with this callplan as long as you like or you can confirm your account to see more of the ringTings functionality"
+    And I should see "Well you can start editing your callplan to you own needs"
     When Freeswitch posts "Caller-Destination-Number=0123456789" parameters to "ringtings.test.local/freeswitch/callplan"
     Then Freeswitch should find "application='ivr'" in the XML
     Then Freeswitch should find "data='ivr_menu_0123456789'" in the XML

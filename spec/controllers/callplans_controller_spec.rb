@@ -3,6 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe CallplansController do
   describe "the demo call plans resource" do
     before do
+      @user = Factory(:email_confirmed_user)
+      sign_in_as @user
       @tab="callplans"
       @callplan = mock_model Callplan
       @callplan_id =  @callplan.id

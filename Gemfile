@@ -21,7 +21,7 @@ gem 'roodi', '2.0.0', :except => :production
 gem 'rspec', '1.2.9', :except => :production
 gem 'rspec-rails', '1.2.7.1', :except => :production
 gem 'factory_girl', '1.2.3', :except => :production
-gem 'thoughtbot-shoulda', '2.10.1', :except => :production
+gem 'shoulda', '2.10.2', :except => :production
 gem 'webrat', '0.5.3', :except => :production
 
 disable_system_gems

@@ -22,13 +22,13 @@ Story: Homepage checks
     And I click on "Sign in"
     Then I should see "Signed in"
 
-  Scenario: Accessing restricted data 
+  Scenario: Accessing restricted data
     Given there is a validated user with email "joe@foo.com" and a passord of "password"
     And I am logged out
     When I go to a restricted page
     Then I should see "Sign in"
 
-    And I type "joe@somewhere.com" in the form field with an HTML id of "session_email"
+    And I type "joe@foo.com" in the form field with an HTML id of "session_email"
     And I type "password" in the form field with an HTML id of "session_password"
     And I click on "Sign in"
     Then I should see "Signed in"
@@ -37,13 +37,14 @@ Story: Homepage checks
 
   Scenario: logging in from the homepage
     Given I am logged out
+    And there is a validated user with email "joe@foo.com" and a passord of "password"
     When I go to the homepage
-    And I type "joe@somewhere.com" in the form field with an HTML id of "breadcrumbs_email"
+    And I type "joe@foo.com" in the form field with an HTML id of "breadcrumbs_email"
     And I type "password" in the form field with an HTML id of "breadcrumbs_password"
-    And I click on "Go" 
+    And I click on "Go"
     Then I should see "Signed in"
     When I go to the homepage
-    Then I should see "Welcome joe@somewhere.com"
+    Then I should see "Welcome joe@foo.com"
     When I follow "log out"
     Then I should see "Signed out"
     And I should be on the homepage
