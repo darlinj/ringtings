@@ -2,20 +2,12 @@
   <div id="dialplan_details" class="span-7">
     <div id="dialplan_details">
       <div id="try_it_thread">
-        <div class="step_box">
-          So what now....<br>
-          Well you can start editing your callplan to you own needs. For example:
-          <ul> 
-            <li>Try changing the text of the greeting, pressing save and phoning the number again.</li>
-            <li>Change the numbers you press for different options</li>
-            <li>Click on the X buttons to remove an unwanted menu item</li>
-            <li>Add a new menu item from our list by clicking on the "add menu item button"</li>
-          </ul>
-          When you are done click save to keep your changes and ring the number at the top of the screen to see how it sounds.
-        </div>
-        <div class="step_box">
-          Remember to check your email and validate your account to get access to all the ringtings functionality.
-        </div>
+        <% if session[:next_stage] == "2" %>
+          <%= render :partial => 'step_2_instructions' %>
+        <% end %>
+        <% if session[:next_stage] == "4" %>
+          <%= render :partial => 'step_4_instructions' %>
+        <% end %>
       </div>
     </div>
   </div>

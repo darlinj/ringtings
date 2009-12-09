@@ -27,7 +27,6 @@ When /Freeswitch posts to "(.*)"/ do |url|
 end
 
 Then /Freeswitch should find "(.*)" in the XML/ do |value|
-  puts "xmldoc = #{@xml_doc.to_s}"
   assert_match /#{value}/i, @xml_doc.to_s
 end
 

@@ -1,17 +1,15 @@
 <div id="phone_configurator">
   <div id="dialplan_details" class="span-7">
     <div id="dialplan_details"> 
-      <% form_for(:demo_callplan, :url=>demo_callplan_path(@callplan.id), :html => { :method => :put }) do |@form| %>
-        <div id="try_it_thread">
-          <div class="step_box">
-            There is your first RingTings call plan. Ring the number (<%= @callplan.inbound_number.phone_number %>) to hear what happens...
-          </div>
-          <div class="step_box">
-            Did you hear the message?  If not click <a href="screwed.html">here</a> for help.  Otherwise click next.
-          </div>
-          <%= image_submit_tag "/images/next.png", :id => "next_submit_image" %> 
+      <div id="try_it_thread">
+        <div class="step_box">
+          There is your first RingTings call plan. Ring the number (<%= @callplan.inbound_number.phone_number %>) to hear what happens...
         </div>
-      <% end %>
+        <div class="step_box">
+          Did you hear the message?  If not click <a href="screwed.html">here</a> for help.  Otherwise click next.
+        </div>
+        <%= link_to image_tag("/images/next.png", :border =>0), demo_callplan_path(@callplan.id), :id => "next_submit_image" %>
+      </div>
     </div>
   </div>
   <div id="callplan" class="span-10">

@@ -15,7 +15,7 @@ Story: Try it out page
     When Freeswitch posts "Caller-Destination-Number=0123456789" parameters to "ringtings.test.local/freeswitch/callplan"
     Then Freeswitch should find "Welcome to Mr Plumb the plumber, all our operators are busy right now. Please call back soon" in the XML
     And I should see "Did you hear the message?"
-    When I click the form input with id "next_submit_image"
+    When I hit the link with id "next_submit_image"
     Then I should see "Please fill in your email address and a phone number"
     Given I fill in "Email address" with "plumb@plumber.com"
     And I fill in "Phone number" with "0987654321"

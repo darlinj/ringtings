@@ -5,20 +5,38 @@ describe DemoCallplansController do
     before do
       @tab="tryit"
     end
+
     describe "the index page" do
       def do_get
         get :index
       end
+
       it "responds to index" do
         do_get
         response.should be_success
       end
+
       it "renders the index template" do
         do_get
         response.should render_template('demo_callplans/index')
       end
 
+      it "should set the session next stage to 1" do
+        do_get
+        session[:next_stage].should == "1"
+      end
+
+      describe "accessing the index page if the stage is not set to nil or 0" do
+        it "should redirect to the callplan page" do
+          session[:next_stage] = 2
+          @callplan_id = 99
+          session[:callplan_id] = @callplan_id
+          do_get
+          response.should redirect_to(demo_callplan_url(@callplan_id))
+        end
+      end
     end
+
     describe "the creation of a call plan" do
       before do
         @company_name = "foobar inc"
@@ -79,11 +97,22 @@ describe DemoCallplansController do
             @callplan.should_receive(:action=).with @action
             do_post
           end
+
           it "will create the action with the right params" do
             Action.should_receive(:create!).with(:application_name => "speak",
                                                  :application_data => "Cepstral|Lawrence-8kHz|Welcome to #{@company_name}, all our operators are busy right now. Please call back soon" )
             do_post
           end
+        end
+
+        it "should set the session next stage to 2" do
+          do_post
+          session[:next_stage].should == "2"
+        end
+
+        it "should set the session callplan_id" do
+          do_post
+          session[:callplan_id].should == @callplan.id
         end
       end
       describe "what happens if there is a problem with inbound number creation" do
@@ -126,6 +155,7 @@ describe DemoCallplansController do
         end
       end
     end
+
     describe "the update of a demo call plan" do
       before do
         @company_name = "foobar inc"
@@ -139,6 +169,7 @@ describe DemoCallplansController do
         @callplan = mock_model Callplan, :company_name => @company_name, :action=>@action, :inbound_number => @inbound_number, :employee => @employee
         Callplan.stub(:find).and_return @callplan
       end
+
       describe "when the email and employee number parameters are set" do
         before do
           @action.stub(:application_name=)
@@ -272,6 +303,11 @@ describe DemoCallplansController do
           end
         end
 
+        it "should set the session next stage to 4" do
+          do_put
+          session[:next_stage].should == "4"
+        end
+
         describe "if the callplan can't be found" do
           before do
             Callplan.stub(:find).and_return nil
@@ -315,6 +351,11 @@ describe DemoCallplansController do
         it "should not call Employee create" do
           Employee.should_not_receive :create!
           do_put
+        end
+
+        it "should set the session next stage to 3" do
+          do_put
+          session[:next_stage].should == "3"
         end
       end
     end

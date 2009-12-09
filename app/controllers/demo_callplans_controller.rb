@@ -2,6 +2,14 @@ class DemoCallplansController < ApplicationController
   protect_from_forgery
   before_filter :set_tab
 
+  def index
+    if session[:next_stage] && session[:next_stage].to_i > 1
+      redirect_to(demo_callplan_url(session[:callplan_id]))
+      return
+    end
+    session[:next_stage] = "1"
+  end
+
   def show
     @callplan = Callplan.find params["id"].to_i
   end
@@ -21,6 +29,8 @@ class DemoCallplansController < ApplicationController
     @callplan.action = Action.create! :application_name=>"speak",
       :application_data => "Cepstral|Lawrence-8kHz|Welcome to #{@callplan.company_name}, all our operators are busy right now. Please call back soon"
     @callplan.save!
+    session[:callplan_id] = @callplan.id
+    session[:next_stage] = "2"
   rescue Exceptions::OutOfCapacityError
     RAILS_DEFAULT_LOGGER.debug "OUT OF INBOUND NUMBERS!!!"
     flash[:error]="We are sorry but we have temporerily run out of free telephone numbers. We are taking steps to get more so please try again soon."
@@ -38,6 +48,7 @@ class DemoCallplansController < ApplicationController
         return
     end
     unless params[:demo_callplan] && params[:demo_callplan]['phone_number'] && params[:demo_callplan]['email_address']
+      session[:next_stage] = "3"
       return
     end
     Employee.create! :phone_number=> params[:demo_callplan]['phone_number'],
@@ -46,12 +57,13 @@ class DemoCallplansController < ApplicationController
     @callplan.action.application_name = "ivr"
     @callplan.action.application_data = "ivr_menu_#{@callplan.inbound_number.phone_number}"
     @callplan.action.save!
-    @callplan.inbound_number.ivr_menu = create_ivr_menu_options @callplan.employee.phone_number, 
+    @callplan.inbound_number.ivr_menu = create_ivr_menu_options @callplan.employee.phone_number,
       @callplan.inbound_number.phone_number,
       @callplan.company_name
     @callplan.inbound_number.save!
     @callplan.action.ivr_menu = @callplan.inbound_number.ivr_menu
     @callplan.action.save!
+    session[:next_stage] = "4"
   end
 
   private

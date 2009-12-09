@@ -22,6 +22,10 @@ When /^I press the submit button$/ do
   $browser.button(:type, "submit").click
 end
 
+When /I hit the link with id "(.*)"/ do |identity|
+  $browser.link(:id, /#{identity}/).click
+end
+
 Then /^I should be on (.*)$/ do |path|
   URI.parse($browser.url).path.should == path_to(path)
 end
