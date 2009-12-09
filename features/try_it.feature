@@ -21,7 +21,7 @@ Story: Try it out page
     And I fill in "Phone number" with "0987654321"
     When I click the form input with id "next_submit_image"
     Then I should see "Please ring 0123456789 again"
-    And I should see "That look more like a useful callplan."
+    And I should see "That looks more like a useful callplan."
     Then I should see "Please create an account."
     When I fill in "Password" with "Password"
     And I fill in "Confirm password" with "Password"

@@ -162,6 +162,7 @@ describe DemoCallplansController do
           @ivr_menu = mock_model IvrMenu
           IvrMenu.stub(:create!).and_return @ivr_menu
           @inbound_number.stub(:ivr_menu=)
+          @inbound_number.stub(:ivr_menu).and_return @ivr_menu
           @inbound_number.stub(:save!)
         end
 

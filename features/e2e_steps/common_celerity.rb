@@ -59,7 +59,6 @@ end
 Then /I should see "(.*)"/ do |text|
   # if we simply check for the browser.html content we don't find content that has been added dynamically, e.g. after an ajax call
   div = $browser.div(:text, /#{text}/)
-    puts div.html
   begin
     div.html
   rescue
