@@ -9,10 +9,12 @@ describe "/service_instances/ivr_menus.xml.builder" do
     @action2 = "some other action"
     @digits1 = "1"
     @digits2 = "2"
-    @params1 = "some params"
-    @params2 = "some other params"
-    @ivr_entry1 = mock_model IvrMenuEntry, :action=> @action1, :digits => @digits1 , :parameters => @params1
-    @ivr_entry2 = mock_model IvrMenuEntry, :action=> @action2, :digits => @digits2 , :parameters => @params2
+    @system_param_part1 = "some params"
+    @system_param_part2 = "some other params"
+    @user_param_part1 = "some user params"
+    @user_param_part2 = "some user other params"
+    @ivr_entry1 = mock_model IvrMenuEntry, :action=> @action1, :digits => @digits1 , :user_param_part => @user_param_part1, :system_param_part => @system_param_part1
+    @ivr_entry2 = mock_model IvrMenuEntry, :action=> @action2, :digits => @digits2 , :user_param_part => @user_param_part2, :system_param_part => @system_param_part2
     @ivr_menu_entries = [@ivr_entry1,@ivr_entry2]
     @ivr_menu = mock_model IvrMenu, :name => @name, :long_greeting => @long_greeting, :ivr_menu_entries => @ivr_menu_entries
     assigns[:ivr_menu] = @ivr_menu

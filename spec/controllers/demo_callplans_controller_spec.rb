@@ -170,18 +170,47 @@ describe DemoCallplansController do
         Callplan.stub(:find).and_return @callplan
       end
 
+      def do_put
+        put :update, :id => @callplan.id
+      end
+
+      it "responds to put" do
+        do_put
+        response.should be_success
+      end
+
+      it "should assign the tab variable" do
+        do_put
+        assigns[:tab].should == @tab
+      end
+
+      it "renders the generate template" do
+        do_put
+        response.should render_template('demo_callplans/update')
+      end
+
+      it 'will get a call to find the callplan' do
+        Callplan.should_receive(:find).with(@callplan.id)
+        do_put
+      end
+
+      it "assigns @callplan" do
+        do_put
+        assigns[:callplan].should_not be_nil
+      end
+
       describe "when the email and employee number parameters are set" do
         before do
           @action.stub(:application_name=)
           @action.stub(:application_data=)
           @action.stub(:ivr_menu=)
           @action.stub(:save!)
-          @params1 = {:action => 'menu-exit', :digits => "*",:parameters => nil, :prompt => "Exit the menu" }
-          @params2 = {:action => 'menu-exec-app', :digits => "1",:parameters => "transfer #{@employee_phone_number} XML default", :prompt => "Transfer call to:" }
-          @params3 = {:action => 'menu-exec-app', :digits => "2", :parameters => 'voicemail default ${domain_name} ${dialed_extension}', :prompt => "Transfer to voicemail:" }
-          @params4 = {:action => 'menu-exec-app', :digits => "3", :parameters => "playback ivr/suckingteeth.wav", :prompt => "Synthetic voice says:" }
-          @params5 = {:action => 'menu-exec-app', :digits => "4", :parameters => "playback ivr/suckingteeth.wav", :prompt => "Synthetic voice says:" }
-          @params6 = {:action => 'menu-exec-app', :digits => "5", :parameters => "playback ivr/suckingteeth.wav", :prompt => "Synthetic voice says:" }
+          @params1 = {:action => 'menu-exit', :digits => "*", :system_param_part => nil, :user_param_part => nil, :prompt => "Exit the menu" }
+          @params2 = {:action => 'menu-exec-app', :digits => "1", :system_param_part => "transfer", :user_param_part => "#{@employee_phone_number} XML default", :prompt => "Transfer call to:" }
+          @params3 = {:action => 'menu-exec-app', :digits => "2", :system_param_part => "voicemail default ${domain_name} ${dialed_extension}", :user_param_part => nil, :prompt => "Transfer to voicemail:" }
+          @params4 = {:action => 'menu-exec-app', :digits => "3", :system_param_part => "playback", :user_param_part => "ivr/suckingteeth.wav", :prompt => "Play an audio file:" }
+          @params5 = {:action => 'menu-exec-app', :digits => "4", :system_param_part => "playback", :user_param_part => "ivr/suckingteeth.wav", :prompt => "Play an audio file:" }
+          @params6 = {:action => 'menu-exec-app', :digits => "5", :system_param_part => "playback", :user_param_part => "ivr/suckingteeth.wav", :prompt => "Play an audio file:" }
           @ivr_menu_entry1 = mock_model IvrMenuEntry, @params1
           @ivr_menu_entry2 = mock_model IvrMenuEntry, @params2
           @ivr_menu_entry3 = mock_model IvrMenuEntry, @params3
@@ -199,31 +228,6 @@ describe DemoCallplansController do
 
         def do_put
           put :update, :id => @callplan.id, :demo_callplan => {'company_name'=>@company_name, 'phone_number' => @employee_phone_number, 'email_address' => @email_address }
-        end
-
-        it "responds to put" do
-          do_put
-          response.should be_success
-        end
-
-        it "should assign the tab variable" do
-          do_put
-          assigns[:tab].should == @tab
-        end
-
-        it "renders the generate template" do
-          do_put
-          response.should render_template('demo_callplans/update')
-        end
-
-        it 'will get a call to find the callplan' do
-          Callplan.should_receive(:find).with(@callplan.id)
-          do_put
-        end
-
-        it "assigns @callplan" do
-          do_put
-          assigns[:callplan].should_not be_nil
         end
 
         describe "creating the employee" do
@@ -319,43 +323,53 @@ describe DemoCallplansController do
           end
         end
       end
-      describe "when the email and employee phone number parameters are NOT set" do
+      describe "when the email,password and password confirmation are set" do
+        before do
+          @callplan = mock_model Callplan
+          @email_address = "freddy@rock.com"
+          @password = "secret"
+          @user = mock_model User
+          User.stub(:new).and_return @user
+          @user.stub(:save!)
+          ClearanceMailer.stub(:deliver_confirmation)
+        end
+
         def do_put
-          put :update, :id => @callplan.id, :demo_callplan => {}
-        end
-        it "responds to put" do
-          do_put
-          response.should be_success
-        end
-
-        it "should assign the tab variable" do
-          do_put
-          assigns[:tab].should == @tab
+          put :update, :id => @callplan.id,
+            :demo_callplan => {'email' => @email_address,
+              'password' => @password,
+              'password_confirmed' => @password}
         end
 
-        it "renders the generate template" do
-          do_put
-          response.should render_template('demo_callplans/update')
-        end
-
-        it 'will get a call to find the callplan' do
-          Callplan.should_receive(:find).with(@callplan.id)
+        it "creates a user" do
+          @expected_params = {'email' => @email_address, 'password' =>@password, 'password_confirmed' =>@password}
+          User.should_receive(:new).with(@expected_params)
           do_put
         end
 
-        it "assigns @callplan" do
-          do_put
-          assigns[:callplan].should_not be_nil
-        end
-
-        it "should not call Employee create" do
-          Employee.should_not_receive :create!
+        it "saves the user" do
+          @user.should_receive(:save!)
           do_put
         end
 
-        it "should set the session next stage to 3" do
+        it "send a confirmation email" do
+          ClearanceMailer.should_receive(:deliver_confirmation).with @user
           do_put
-          session[:next_stage].should == "3"
+        end
+
+        it "creates a flash message" do
+          do_put
+          flash[:notice].should == "You will receive an email within the next few minutes. It contains instructions for confirming your account."
+        end
+
+        it "should set the session next stage to 5" do
+          do_put
+          session[:next_stage].should == "5"
+        end
+
+        it "redirects to the show page" do
+          do_put
+          response.should redirect_to(demo_callplan_url(@callplan.id))
         end
       end
     end

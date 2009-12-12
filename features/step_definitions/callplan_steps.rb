@@ -25,12 +25,12 @@ Given /^we have an IVR Menu with:$/ do |table|
     :action_id => feature_vars['action_id']
   Factory :ivr_menu_entry, 
     :digits => args['ivr_menu_entry1_digit'],
-    :parameters => args['ivr_menu_entry1_action'], 
+    :user_param_part => args['ivr_menu_entry1_action'], 
     :prompt => args['ivr_menu_entry1_prompt'],
     :ivr_menu_id => ivr_menu.id
   Factory :ivr_menu_entry, 
     :digits => args['ivr_menu_entry2_digit'],
-    :parameters => args['ivr_menu_entry2_action'], 
+    :user_param_part => args['ivr_menu_entry2_action'], 
     :prompt => args['ivr_menu_entry2_prompt'],
     :ivr_menu_id => ivr_menu.id
 end

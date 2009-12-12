@@ -8,7 +8,7 @@
   <div class="ivr_step_action">
     <div class="ivr_action_text">
       <%= ivr_entry.prompt %>
-      <%= text_area_tag(:ivr_menu_entry_textbox,ivr_entry.parameters) %>
+      <%= text_area_tag(:ivr_menu_entry_textbox,ivr_entry.user_param_part) %>
       <%= image_submit_tag "/images/close_button.png", 
         :class => "action_close_button", 
         :id => "delete_ivr_action_#{ivr_entry.id}" %>
