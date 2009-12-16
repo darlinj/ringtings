@@ -1,19 +1,23 @@
-#set :application, 'cloud-portal'
 set :repository,  "/home/joe/work/ringtings"
 set :scm, :git
+set :deploy_via, :copy
+set :copy_strategy, :export
 
-set :host, "205.143.144.234"
+#EMI that includes rails and postgres is 	emi-4F901695
+#You need to go into /etc/yum.repos.d/Centos-Base and change the achitecture variable to "i386"
+set :host, "205.143.144.249"
 set :application, "ringtings"
 set :application_user, "ringtings"
+set :deploy_to, "/home/#{application_user}/ringtings_home"
 
-role :web, host
+#role :web, host
 role :app, host
 role :db, host, :primary => true
 
-set :database_name, application
-set :user, 'joe'
-set :admin_runner, application_user
-set :use_sudo, false
+set :database_name, "#{application}_production"
+set :user, 'root'
+set :admin_runner, "ringtings" #application_user
+#set :use_sudo, false
 default_run_options[:pty] = true
 
 
@@ -43,27 +47,24 @@ def try_sudo_with_proxy_if_set command
 end
 
 # Sets a variable from environment or prompt, unless it's already set.
-def set_from_user_input(message, variable, echo = false)
-  unless exists?(variable)
-    set(variable) {
-      if echo
-        Capistrano::CLI.ui.ask message
-      else
-        Capistrano::CLI.password_prompt message
-      end
-    }
-    # use the variable here, just to force user input prompt
-    foo = fetch(variable)
-  end
-end
+#def set_from_user_input(message, variable, echo = false)
+#  unless exists?(variable)
+#    set(variable) {
+#      if echo
+#        Capistrano::CLI.ui.ask message
+#      else
+#        Capistrano::CLI.password_prompt message
+#      end
+#    }
+#    # use the variable here, just to force user input prompt
+#    foo = fetch(variable)
+#  end
+#end
 
 
 task :after_update_code do
   run "ln -nfs #{shared_path}/config/production.rb #{release_path}/config/environments/production.rb"
   run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-  run "ln -nfs #{shared_path}/cache #{release_path}/public/cache"
-  run "ln -nfs #{shared_path}/views #{release_path}/tmp/views"
-  run "ln -nfs #{shared_path}/uploads #{release_path}/tmp/uploads"
   run "cd #{release_path} && gem bundle --cached"
 end
 
@@ -71,7 +72,7 @@ task :list_home do
   run "ls -la"
 end
 
-desc 'Install the Portal'
+desc 'Install ringtings'
 task :install do
   set :use_sudo, true
   #deploy.ask
@@ -91,7 +92,7 @@ task :install do
   deploy.restart_apache
 end
 
-desc 'Update the Portal'
+desc 'Update ringtings'
 task :update do
   set :user, application_user
   deploy.migrations
@@ -127,11 +128,8 @@ namespace :deploy do
 
   task :create_deployment_folders do
     try_sudo "mkdir -p #{deploy_to}/releases"
-    try_sudo "mkdir -p #{deploy_to}/shared/cache"
-    try_sudo "mkdir -p #{deploy_to}/shared/views"
     try_sudo "mkdir -p #{deploy_to}/shared/config"
     try_sudo "mkdir -p #{deploy_to}/shared/log"
-    try_sudo "mkdir -p #{deploy_to}/shared/uploads"
     try_sudo "mkdir -p #{deploy_to}/shared/system"
   end
 
@@ -177,7 +175,7 @@ production:
   end
 
   task :passenger_config do
-    #run "cp #{release_path}/config/deploy/passenger_config /etc/httpd/conf.d/portal.conf"
+    #run "cp #{release_path}/config/deploy/passenger_config /etc/httpd/conf.d/ringtings.conf"
     passenger_config = ERB.new(File.read('config/deploy/passenger_config.erb')).result(binding)
     put passenger_config, "/etc/httpd/conf.d/#{application}.conf"
   end
