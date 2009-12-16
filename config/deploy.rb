@@ -82,6 +82,8 @@ task :install do
   deploy.create_postgres_user
   deploy.create_deployment_folders
   deploy.create_gemrc
+  deploy.update_rubygems
+  deploy.install_bundler
   #deploy.install_geminstaller
   deploy.update
   deploy.correct_ownership
@@ -160,6 +162,14 @@ production:
     run "chown -R #{application_user}:#{application_user} #{shared_path}/log"
     # wrapping the following command with a 'bash -c' because it contains a 'cd' which doesn't work under sudo otherwise.
     try_sudo_with_proxy_if_set "cd #{release_path} && rake db:create db:migrate RAILS_ENV=production"
+  end
+
+  task :update_rubygems do
+    run "gem update --system"
+  end
+
+  task :install_bundler do
+    run "gem install bundler"
   end
 
   task :create_gemrc do

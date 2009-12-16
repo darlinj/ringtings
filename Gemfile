@@ -3,7 +3,7 @@ source 'http://gems.github.com'
 bundle_path 'vendor/bundled_gems'
 bin_path 'vendor/bundled_gems/bin'
 
-gem 'rails', '2.3.4'
+gem 'rails', '2.3.5'
 gem 'bundler', '0.6.0'
 
 gem 'capistrano', '2.5.8'
