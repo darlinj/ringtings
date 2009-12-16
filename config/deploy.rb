@@ -65,7 +65,7 @@ end
 task :after_update_code do
   run "ln -nfs #{shared_path}/config/production.rb #{release_path}/config/environments/production.rb"
   run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-  run "cd #{release_path} && gem bundle --cached"
+  run "cd #{release_path} && gem bundle"
 end
 
 task :list_home do
@@ -114,7 +114,7 @@ namespace :deploy do
 
   desc 'Install require packages'
   task :install_packages do
-    run_with_proxy_if_set 'yum install -y libxml2-devel libxslt libxslt-devel libxml2'
+    run_with_proxy_if_set 'yum install -y libxml2-devel libxslt libxslt-devel libxml2 curl-devel'
   end
 
   desc 'Create application user'
@@ -161,7 +161,7 @@ production:
   task :create_and_migrate_database do
     run "chown -R #{application_user}:#{application_user} #{shared_path}/log"
     # wrapping the following command with a 'bash -c' because it contains a 'cd' which doesn't work under sudo otherwise.
-    try_sudo_with_proxy_if_set "cd #{release_path} && rake db:create db:migrate RAILS_ENV=production"
+    try_sudo_with_proxy_if_set "bash -c 'cd #{release_path} && rake db:create db:migrate RAILS_ENV=production'"
   end
 
   task :update_rubygems do
@@ -175,9 +175,9 @@ production:
   task :create_gemrc do
     try_sudo "echo -e '---\\n:sources:\\n- http://gems.rubyforge.org/\\n- http://gems.github.com/\\n- http://gemcutter.org/\\ngem: --no-rdoc --no-ri' > ~#{application_user}/.gemrc"
   end
-
-#  task :install_geminstaller do
-#    sudo_gem_install 'geminstaller'
+#
+##  task :install_geminstaller do
+##    sudo_gem_install 'geminstaller'
 #  end
 
   task :correct_ownership do
@@ -186,7 +186,7 @@ production:
 
   task :passenger_config do
     #run "cp #{release_path}/config/deploy/passenger_config /etc/httpd/conf.d/ringtings.conf"
-    passenger_config = ERB.new(File.read('config/deploy/passenger_config.erb')).result(binding)
+    passenger_config = ERB.new(File.read('config/passenger_config.erb')).result(binding)
     put passenger_config, "/etc/httpd/conf.d/#{application}.conf"
   end
 
