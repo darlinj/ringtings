@@ -176,9 +176,9 @@ production:
     try_sudo "echo -e '---\\n:sources:\\n- http://gems.rubyforge.org/\\n- http://gems.github.com/\\n- http://gemcutter.org/\\ngem: --no-rdoc --no-ri' > ~#{application_user}/.gemrc"
   end
 
-  task :install_geminstaller do
-    sudo_gem_install 'geminstaller'
-  end
+#  task :install_geminstaller do
+#    sudo_gem_install 'geminstaller'
+#  end
 
   task :correct_ownership do
     run "chown -R #{application_user}:#{application_user} #{release_path}"
