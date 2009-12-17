@@ -5,30 +5,18 @@ set :copy_strategy, :export
 
 #EMI that includes rails and postgres is 	emi-4F901695
 #You need to go into /etc/yum.repos.d/Centos-Base and change the achitecture variable to "i386"
-set :host, "205.143.144.249"
+set :host, "ringtings.com"
 set :application, "ringtings"
 set :application_user, "ringtings"
 set :deploy_to, "/home/#{application_user}/ringtings_home"
 
-#role :web, host
 role :app, host
 role :db, host, :primary => true
 
 set :database_name, "#{application}_production"
 set :user, 'root'
 set :admin_runner, "ringtings" #application_user
-#set :use_sudo, false
 default_run_options[:pty] = true
-
-
-def sudo_gem_install gem
-  command = "gem install #{gem}"
-  if exists?(:http_proxy)
-    run "sudo #{command} -p #{http_proxy}"
-  else
-    run "sudo #{command}"
-  end
-end
 
 def run_with_proxy_if_set command
   if exists?(:http_proxy)
@@ -46,45 +34,22 @@ def try_sudo_with_proxy_if_set command
   end
 end
 
-# Sets a variable from environment or prompt, unless it's already set.
-#def set_from_user_input(message, variable, echo = false)
-#  unless exists?(variable)
-#    set(variable) {
-#      if echo
-#        Capistrano::CLI.ui.ask message
-#      else
-#        Capistrano::CLI.password_prompt message
-#      end
-#    }
-#    # use the variable here, just to force user input prompt
-#    foo = fetch(variable)
-#  end
-#end
-
-
 task :after_update_code do
   run "ln -nfs #{shared_path}/config/production.rb #{release_path}/config/environments/production.rb"
   run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
   run "cd #{release_path} && gem bundle"
 end
 
-task :list_home do
-  run "ls -la"
-end
-
 desc 'Install ringtings'
 task :install do
   set :use_sudo, true
-  #deploy.ask
   deploy.create_user
   deploy.install_packages
-  #deploy.allow_user_to_geminstall
   deploy.create_postgres_user
   deploy.create_deployment_folders
   deploy.create_gemrc
   deploy.update_rubygems
   deploy.install_bundler
-  #deploy.install_geminstaller
   deploy.update
   deploy.correct_ownership
   deploy.database_config
@@ -92,6 +57,7 @@ task :install do
   deploy.create_and_migrate_database
   deploy.passenger_config
   deploy.restart_apache
+  deploy.install_freeswitch
 end
 
 desc 'Update ringtings'
@@ -102,15 +68,6 @@ task :update do
 end
 
 namespace :deploy do
-
-#  desc 'Recompile Ruby (to include readline)'
-#  task :recompile_ruby do
-#    run_with_proxy_if_set 'yum install -y readline-devel'
-#    # download latest ruby - version on image doesn't work with readline
-#    run_with_proxy_if_set 'wget ftp://ftp.ruby-lang.org/pub/ruby/ruby-1.8.6-p383.tar.gz'
-#    run 'tar xvfz ruby-1.8.6-p383.tar.gz'
-#    run 'cd ruby-1.8.6-p383 && ./configure --prefix=/usr && make && make install'
-#  end
 
   desc 'Install require packages'
   task :install_packages do
@@ -175,10 +132,6 @@ production:
   task :create_gemrc do
     try_sudo "echo -e '---\\n:sources:\\n- http://gems.rubyforge.org/\\n- http://gems.github.com/\\n- http://gemcutter.org/\\ngem: --no-rdoc --no-ri' > ~#{application_user}/.gemrc"
   end
-#
-##  task :install_geminstaller do
-##    sudo_gem_install 'geminstaller'
-#  end
 
   task :correct_ownership do
     run "chown -R #{application_user}:#{application_user} #{release_path}"
@@ -204,4 +157,15 @@ production:
     task t, :roles => :app do ; end
   end
 
+  task :install_freeswitch do
+    run_with_proxy_if_set 'yum install -y ncurses-devel'
+    run "cd /usr/local/freeswitch/ && wget http://files.freeswitch.org/freeswitch-1.0.4.tar.gz"
+    run "cd /usr/local/freeswitch/ && tar xvfz freeswitch-1.0.4.tar.gz"
+    run "cp #{current_path}/freeswitch_stuff/modules.conf /usr/local/freeswitch/freeswitch-1.0.4/"
+    run "cd /usr/local/freeswitch/freeswitch-1.0.4/ && ./configure"
+    run "cd /usr/local/freeswitch/freeswitch-1.0.4/ && make"
+    run "cd /usr/local/freeswitch/freeswitch-1.0.4/ && make install"
+    run "cp #{current_path}/freeswitch_stuff/xml_curl.conf.xml /usr/local/freeswitch/conf/autoload_configs/"
+    run "cp #{current_path}/freeswitch_stuff/suckingteeth.wav /usr/local/freeswitch/sounds/en/us/callie/ivr/8000/"
+  end
 end
