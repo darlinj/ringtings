@@ -9,6 +9,9 @@ set :host, "ringtings.com"
 set :application, "ringtings"
 set :application_user, "ringtings"
 set :deploy_to, "/home/#{application_user}/ringtings_home"
+set :freeswitch_dir, "/usr/local/freeswitch"
+
+default_environment['SWIFT_HOME'] = "/opt/swift"
 
 role :app, host
 role :db, host, :primary => true
@@ -57,6 +60,7 @@ task :install do
   deploy.create_and_migrate_database
   deploy.passenger_config
   deploy.restart_apache
+  deploy.install_tts_voice
   deploy.install_freeswitch
 end
 
@@ -157,6 +161,19 @@ production:
     task t, :roles => :app do ; end
   end
 
+  task :install_tts_voice do
+    set :voice, "Cepstral_Lawrence-8kHz_i386-linux_5.1.0"
+    run "mkdir -p #{freeswitch_dir}/downloads"
+    run "mkdir -p #{freeswitch_dir}/downloads"
+    run "cd #{freeswitch_dir}/downloads && wget http://downloads.cepstral.com/cepstral/i386-linux/#{voice}.tar.gz"
+    run "cd #{freeswitch_dir}/downloads && tar -xvf #{voice}.tar.gz"
+    run "cd #{freeswitch_dir}/downloads && cp -r #{voice} /opt"
+    run "cd /opt/#{voice} && ./install.sh"
+    run "if ! grep -q '/opt/swift/lib' /etc/ld.so.conf;then echo '/opt/swift/lib' >> /etc/ld.so.conf; fi"
+    run "cd /opt/#{voice} && ldconfig"
+    run "echo 'export SWIFT_HOME=/opt/swift' >> .profile"
+  end
+
   task :install_freeswitch do
     run_with_proxy_if_set 'yum install -y ncurses-devel'
     run "cd /usr/local/freeswitch/ && wget http://files.freeswitch.org/freeswitch-1.0.4.tar.gz"
@@ -166,6 +183,7 @@ production:
     run "cd /usr/local/freeswitch/freeswitch-1.0.4/ && make"
     run "cd /usr/local/freeswitch/freeswitch-1.0.4/ && make install"
     run "cp #{current_path}/freeswitch_stuff/xml_curl.conf.xml /usr/local/freeswitch/conf/autoload_configs/"
+    run "cp #{current_path}/freeswitch_stuff/modules.conf.xml /usr/local/freeswitch/conf/autoload_configs/"
     run "cp #{current_path}/freeswitch_stuff/suckingteeth.wav /usr/local/freeswitch/sounds/en/us/callie/ivr/8000/"
   end
 end
