@@ -48,10 +48,15 @@ task :install do
   set :use_sudo, true
   deploy.create_user
   deploy.install_packages
+  deploy.install_ruby
+  deploy.install_passenger
+  deploy.install_postgres
   deploy.create_postgres_user
   deploy.create_deployment_folders
+  deploy.install_rubygems
   deploy.create_gemrc
   deploy.update_rubygems
+  deploy.install_rails
   deploy.install_bundler
   deploy.update
   deploy.correct_ownership
@@ -75,7 +80,8 @@ namespace :deploy do
 
   desc 'Install require packages'
   task :install_packages do
-    run_with_proxy_if_set 'yum install -y libxml2-devel libxslt libxslt-devel libxml2 curl-devel'
+    run 'yum install -y httpd libxml2-devel libxslt libxslt-devel libxml2 curl-devel glibc glibc-devel'
+    run 'yum install -y expect'
   end
 
   desc 'Create application user'
@@ -94,6 +100,39 @@ namespace :deploy do
     try_sudo "mkdir -p #{deploy_to}/shared/config"
     try_sudo "mkdir -p #{deploy_to}/shared/log"
     try_sudo "mkdir -p #{deploy_to}/shared/system"
+  end
+
+  task :install_ruby do
+    set :ruby_version, "ruby-1.8.6-p383"
+    run 'yum install -y gcc make readline-devel'
+    # download latest ruby - version on image doesn't work with readline
+    run "wget ftp://ftp.ruby-lang.org/pub/ruby/#{ruby_version}.tar.gz"
+    run "tar xvfz #{ruby_version}.tar.gz"
+    run "cd #{ruby_version} && ./configure --prefix=/usr && make && make install"
+    run "rm -f #{ruby_version}.tar.gz"
+    run "rm -rf #{ruby_version}"
+  end
+
+  task :install_rails do
+    run 'gem install rails -v 2.3.4'
+  end
+
+  task :install_rubygems do
+    run "cd /tmp && wget http://rubyforge.org/frs/download.php/60718/rubygems-1.3.5.tgz"
+    run "cd /tmp && tar -xvf rubygems-1.3.5.tgz"
+    run "cd /tmp/rubygems-1.3.5 && ruby setup.rb"
+  end
+
+  task :install_passenger do
+    run 'yum install -y httpd-devel apr-devel'
+    run 'gem install passenger -v 2.2.8'
+    run "/usr/bin/expect -d -c 'set timeout -1; spawn passenger-install-apache2-module; sleep 1; send -- \\r; sleep 4; send -- \\r; expect eof'"
+  end
+
+  task :install_postgres do
+    run "yum install -y postgresql"
+    run "yum install -y postgresql-server"
+    run "/etc/init.d/postgresql start"
   end
 
   task :create_postgres_user do
@@ -130,7 +169,7 @@ production:
   end
 
   task :install_bundler do
-    run "gem install bundler"
+    run "gem install bundler -v 0.6.0"
   end
 
   task :create_gemrc do
@@ -142,7 +181,7 @@ production:
   end
 
   task :passenger_config do
-    #run "cp #{release_path}/config/deploy/passenger_config /etc/httpd/conf.d/ringtings.conf"
+    top.upload("config/passenger_site_config", "/etc/httpd/conf.d/001_passenger_site.conf")
     passenger_config = ERB.new(File.read('config/passenger_config.erb')).result(binding)
     put passenger_config, "/etc/httpd/conf.d/#{application}.conf"
   end
@@ -162,26 +201,27 @@ production:
   end
 
   task :install_tts_voice do
-    set :voice, "Cepstral_Lawrence-8kHz_i386-linux_5.1.0"
+    set :voice, "Cepstral_Lawrence-8kHz_x86-64-linux_5.1.0"
+    run 'yum install -y expect'
     run "mkdir -p #{freeswitch_dir}/downloads"
     run "mkdir -p #{freeswitch_dir}/downloads"
-    run "cd #{freeswitch_dir}/downloads && wget http://downloads.cepstral.com/cepstral/i386-linux/#{voice}.tar.gz"
+    run "cd #{freeswitch_dir}/downloads && wget http://downloads.cepstral.com/cepstral/x86-64-linux/#{voice}.tar.gz"
     run "cd #{freeswitch_dir}/downloads && tar -xvf #{voice}.tar.gz"
     run "cd #{freeswitch_dir}/downloads && cp -r #{voice} /opt"
-    run "cd /opt/#{voice} && ./install.sh"
+    run "rm -rf /opt/swift"
+    run "cd /opt/#{voice} && /usr/bin/expect -d -c 'set timeout -1; spawn ./install.sh; sleep 1; send -- q; sleep 1; send -- yes\\r; send -- \\r; send -- y\\r; send -- yes\\r; sleep 5; expect eof'"
     run "if ! grep -q '/opt/swift/lib' /etc/ld.so.conf;then echo '/opt/swift/lib' >> /etc/ld.so.conf; fi"
     run "cd /opt/#{voice} && ldconfig"
-    run "echo 'export SWIFT_HOME=/opt/swift' >> .profile"
   end
 
   task :install_freeswitch do
-    run_with_proxy_if_set 'yum install -y ncurses-devel'
+    run 'yum install -y ncurses-devel gcc-c++'
     run "cd /usr/local/freeswitch/ && wget http://files.freeswitch.org/freeswitch-1.0.4.tar.gz"
     run "cd /usr/local/freeswitch/ && tar xvfz freeswitch-1.0.4.tar.gz"
     run "cp #{current_path}/freeswitch_stuff/modules.conf /usr/local/freeswitch/freeswitch-1.0.4/"
     run "cd /usr/local/freeswitch/freeswitch-1.0.4/ && ./configure"
     run "cd /usr/local/freeswitch/freeswitch-1.0.4/ && make"
-    run "cd /usr/local/freeswitch/freeswitch-1.0.4/ && make install"
+    run "cd /usr/local/freeswitch/freeswitch-1.0.4/ && make install sounds-install moh-install"
     run "cp #{current_path}/freeswitch_stuff/xml_curl.conf.xml /usr/local/freeswitch/conf/autoload_configs/"
     run "cp #{current_path}/freeswitch_stuff/modules.conf.xml /usr/local/freeswitch/conf/autoload_configs/"
     run "cp #{current_path}/freeswitch_stuff/suckingteeth.wav /usr/local/freeswitch/sounds/en/us/callie/ivr/8000/"
