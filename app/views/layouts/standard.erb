@@ -18,7 +18,6 @@
         </div>
         <ul id="tabnav">
           <li class="home"><a href="/">home</a></li>
-          <li class="more"><a href="">more info</a></li>
           <li class="tryit"><a href="/demo_callplans">try it free</a></li>
           <% if signed_in? %>
             <% callplan_id = current_user.callplan ? current_user.callplan.id : nil %>
