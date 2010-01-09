@@ -71,9 +71,11 @@ end
 
 desc 'Update ringtings'
 task :update do
-  set :user, application_user
-  deploy.migrations
-  deploy.cleanup
+  set :user, 'root'
+  deploy.update
+  deploy.correct_ownership
+  deploy.migrate_database
+  deploy.restart_apache
 end
 
 namespace :deploy do
@@ -164,6 +166,10 @@ production:
     try_sudo_with_proxy_if_set "bash -c 'cd #{release_path} && rake db:create db:migrate RAILS_ENV=production'"
   end
 
+  task :migrate_database do
+    try_sudo "bash -c 'cd #{release_path} && rake db:migrate RAILS_ENV=production'"
+  end
+
   task :update_rubygems do
     run "gem update --system"
   end
@@ -212,6 +218,7 @@ production:
     run "cd /opt/#{voice} && /usr/bin/expect -d -c 'set timeout -1; spawn ./install.sh; sleep 1; send -- q; sleep 1; send -- yes\\r; send -- \\r; send -- y\\r; send -- yes\\r; sleep 5; expect eof'"
     run "if ! grep -q '/opt/swift/lib' /etc/ld.so.conf;then echo '/opt/swift/lib' >> /etc/ld.so.conf; fi"
     run "cd /opt/#{voice} && ldconfig"
+    run 'swift --reg-voice --customer-name "J Darling" --company-name "" --voice-name "Lawrence-8kHz" --license-key "a7-15c271-556301-ef7d81-b43bec-9d604e"'
   end
 
   task :install_freeswitch do
@@ -222,6 +229,10 @@ production:
     run "cd /usr/local/freeswitch/freeswitch-1.0.4/ && ./configure"
     run "cd /usr/local/freeswitch/freeswitch-1.0.4/ && make"
     run "cd /usr/local/freeswitch/freeswitch-1.0.4/ && make install sounds-install moh-install"
+    deploy.configure_freeswitch
+  end
+
+  task :configure_freeswitch do
     run "cp #{current_path}/freeswitch_stuff/xml_curl.conf.xml /usr/local/freeswitch/conf/autoload_configs/"
     run "cp #{current_path}/freeswitch_stuff/modules.conf.xml /usr/local/freeswitch/conf/autoload_configs/"
     run "cp #{current_path}/freeswitch_stuff/suckingteeth.wav /usr/local/freeswitch/sounds/en/us/callie/ivr/8000/"
