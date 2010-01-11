@@ -63,3 +63,8 @@ Rails::Initializer.run do |config|
 
   DO_NOT_REPLY = "customer_service@ringtings.com"
 end
+
+ActionMailer::Base.smtp_settings = {
+   :address => "localhost"
+   :domain => "localhost"
+}
