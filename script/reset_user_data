@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+ENV['RAILS_ENV'] = 'production'
+require File.dirname(__FILE__) + '/../config/environment'
+#require File.dirname(__FILE__) + '/../config/boot'
+#require 'commands/runner'
+User.destroy_all
+Callplan.destroy_all
+Action.destroy_all
+Employee.destroy_all
+IvrMenu.destroy_all
+IvrMenuEntry.destroy_all
+InboundNumberManager.all.each do |inbound_number|
+  inbound_number.callplan_id = nil
+  inbound_number.ivr_menu_id = nil
+  inbound_number.save!
+end

@@ -51,6 +51,7 @@ task :install do
   deploy.install_ruby
   deploy.install_passenger
   deploy.install_postgres
+  deploy.install_sendmail
   deploy.create_postgres_user
   deploy.create_deployment_folders
   deploy.install_rubygems
@@ -236,5 +237,10 @@ production:
     run "cp #{current_path}/freeswitch_stuff/xml_curl.conf.xml /usr/local/freeswitch/conf/autoload_configs/"
     run "cp #{current_path}/freeswitch_stuff/modules.conf.xml /usr/local/freeswitch/conf/autoload_configs/"
     run "cp #{current_path}/freeswitch_stuff/suckingteeth.wav /usr/local/freeswitch/sounds/en/us/callie/ivr/8000/"
+  end
+
+  task :install_sendmail do
+    run 'yum install -y sendmail'
+    run '/etc/init.d/sendmail start'
   end
 end
