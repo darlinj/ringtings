@@ -65,6 +65,6 @@ Rails::Initializer.run do |config|
 end
 
 ActionMailer::Base.smtp_settings = {
-   :address => "localhost"
+   :address => "localhost",
    :domain => "localhost"
 }
