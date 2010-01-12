@@ -242,5 +242,9 @@ production:
   task :install_sendmail do
     run 'yum install -y sendmail'
     run '/etc/init.d/sendmail start'
+    #########  HOSTS FILE #############
+    #The hosts file must be changed so that it has the following entry high in the file
+    # 127.0.0.1 ringtings.com [boxname] localhost
+    # remove all other references to localhost et
   end
 end
