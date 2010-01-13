@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources  :demo_callplans, :only => [:index, :create, :update, :show]
-  map.resources  :callplans, :only => [:show]
+  map.resources  :callplans, :only => [:show, :update]
 
   map.user 'users/new', :controller => 'users', :action => 'new'
   map.user 'users', :controller => 'users', :action => 'create'

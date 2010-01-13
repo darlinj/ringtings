@@ -31,5 +31,42 @@ describe CallplansController do
         assigns[:callplan].should == @callplan
       end
     end
+    describe "saving the callplan" do
+      before do
+        @callplan = mock_model Callplan
+        Callplan.stub(:find).and_return @callplan
+          @callplan.stub(:update_attributes).and_return true
+      end
+      def do_put 
+        put :update, :id => @callplan.id, :callplan => @callplan
+      end
+      it "finds the right callplan" do
+        Callplan.should_receive(:find).with(@callplan.id)
+        do_put
+      end
+      it "saves the callplan" do
+        @callplan.should_receive(:update_attributes).with @callplan
+        do_put
+      end
+      describe "sucessfully" do
+        it "should set the flash to apropriate text" do
+          do_put
+          flash[:notice].should == "Callplan sucessfully saved"
+        end
+      end
+      describe "UN-sucessfully" do
+        before do
+          @callplan.stub(:update_attributes).and_return false
+        end
+        it "should set the flash to apropriate text" do
+          do_put
+          flash[:notice].should == "Callplan failed to save"
+        end
+      end
+      it "should redirect to the callpln show page" do
+        do_put
+        response.should redirect_to(callplan_url(@callplan.id))
+      end
+    end
   end
 end

@@ -1,9 +1,9 @@
 <div class="callplan_details" class="span-14">
-  <% form_for :callplan, :url=>callplan_path do |f| %>
+  <% form_for :callplan, :put, :url=>callplan_path, :html => { :method => :put } do |f| %>
     <%= render :partial => '/shared/inbound_number', :locals => { :inbound_number=>@callplan.inbound_number.phone_number } %>
     <%= render :partial => '/shared/ivr_menu', :locals => { :ivr_menu=>@callplan.action.ivr_menu } %>
     <div class="save_button">
-    <%= image_submit_tag "/images/save_button.png", :id => "save_button" %>
+      <%= image_submit_tag "/images/save_button.png", :id => "save_button" %>
     </div>
   <% end %>
 </div>

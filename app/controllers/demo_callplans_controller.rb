@@ -53,13 +53,14 @@ class DemoCallplansController < ApplicationController
         :callplan_id => params[:id].to_i
       @callplan.action.application_name = "ivr"
       @callplan.action.application_data = "ivr_menu_#{@callplan.inbound_number.phone_number}"
-      @callplan.action.save!
+#      @callplan.action.save!
       @callplan.inbound_number.ivr_menu = create_ivr_menu_options @callplan.employee.phone_number,
         @callplan.inbound_number.phone_number,
         @callplan.company_name
-      @callplan.inbound_number.save!
+#      @callplan.inbound_number.save!
       @callplan.action.ivr_menu = @callplan.inbound_number.ivr_menu
-      @callplan.action.save!
+#      @callplan.action.save!
+      @callplan.save
       session[:next_stage] = "4"
       return
     end

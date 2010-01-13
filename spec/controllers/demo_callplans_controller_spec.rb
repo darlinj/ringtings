@@ -168,6 +168,7 @@ describe DemoCallplansController do
         Employee.stub(:create!).and_return @employee
         @callplan = mock_model Callplan, :company_name => @company_name, :action=>@action, :inbound_number => @inbound_number, :employee => @employee
         Callplan.stub(:find).and_return @callplan
+        @callplan.stub(:save)
       end
 
       def do_put
@@ -299,10 +300,6 @@ describe DemoCallplansController do
         describe "connecting the inbound number with the ivr menu" do
           it "should assign the ivr_menu to the inbound number" do
             @inbound_number.should_receive(:ivr_menu=).with(@ivr_menu)
-            do_put
-          end
-          it "will save the ivr_menu" do
-            @inbound_number.should_receive(:save!)
             do_put
           end
         end

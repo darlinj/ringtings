@@ -1,4 +1,4 @@
 class Action < ActiveRecord::Base
   belongs_to :callplan
-  has_one :ivr_menu
+  has_one :ivr_menu, :autosave => true
 end
