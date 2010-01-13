@@ -2,56 +2,42 @@
   <div id="dialplan_details" class="span-7">
     <div id="dialplan_details">
       <div id="try_it_thread">
-        <% if @callplan.action.application_name == "ivr" %>
-          <div class="step_box">
-            That looks more like a useful callplan.
-            Please ring <%= @callplan.inbound_number.phone_number %> again to hear how it sounds.
-            Feel free to change it (and save it) as you see fit.
-          </div>
-          <div class="step_box">
-            To keep this callplan and access all the other ringtings benefits (free for a month). Please create an account.
-            Please fill in: <br/>
-            <% form_for(:demo_callplan, :url=>demo_callplan_path(@callplan.id), :html => { :method => :put }) do |form| %>
-              <%= form.error_messages %>
-              <div class="text_field">
-                <%= form.label :email %>
-                <%= form.text_field :email, :size=>20, :value => @callplan.employee.email_address %>
-              </div>
-              <div class="password_field">
-                <%= form.label :password %>
-                <%= form.password_field :password, :size =>20 %>
-              </div>
-              <div class="password_field">
-                <%= form.label :password_confirmation, "Confirm password" %>
-                <%= form.password_field :password_confirmation, :size =>20 %>
-              </div>
-              <%= image_submit_tag "/images/next.png", :id => "next_submit_image" %> 
-            <% end %>
-          </div>
-        <% end %>
+        <div class="step_box">
+          That looks more like a useful callplan.
+          Please ring <%= @callplan.inbound_number.phone_number %> again to hear how it sounds.
+          Feel free to change it (and save it) as you see fit.
+        </div>
+        <div class="step_box">
+          To keep this callplan and access all the other ringtings benefits (free for a month). Please create an account.
+          Please fill in: <br/>
+          <% form_for(:demo_callplan, :url=>demo_callplan_path(@callplan.id), :html => { :method => :put }) do |form| %>
+            <%= form.error_messages %>
+            <div class="text_field">
+              <%= form.label :email %>
+              <%= form.text_field :email, :size=>20, :value => @callplan.employee.email_address %>
+            </div>
+            <div class="password_field">
+              <%= form.label :password %>
+              <%= form.password_field :password, :size =>20 %>
+            </div>
+            <div class="password_field">
+              <%= form.label :password_confirmation, "Confirm password" %>
+              <%= form.password_field :password_confirmation, :size =>20 %>
+            </div>
+            <%= image_submit_tag "/images/next.png", :id => "next_submit_image" %> 
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
   <div id="callplan" class="span-10">
     <h3>Callplan</h3>
-    <% if @callplan.action.application_name == "ivr" %>
-      <div class="callplan_details" class="span-10">
-        <%= render :partial => '/shared/inbound_number', :locals => { :inbound_number => @callplan.inbound_number.phone_number } %>
-        <%= render :partial => '/shared/ivr_menu', :locals => { :ivr_menu=>@callplan.action.ivr_menu } %>
-        <div class="save_button">
-          <%= image_submit_tag "/images/save_button.png", :id => "save_button" %>
-        </div>
-      </div>
-    <% else %>
+    <div class="callplan_details" class="span-10">
       <%= render :partial => '/shared/inbound_number', :locals => { :inbound_number => @callplan.inbound_number.phone_number } %>
-      <div class="synthetic_voice_box">
-        <div class="synthetic_voice_title">
-          Synthetic voice says:
-        </div>
-        <div class="synthetic_voice_text">
-          <%= @callplan.action.application_data.split("|")[2] %>
-        </div>
+      <%= render :partial => '/shared/ivr_menu', :locals => { :ivr_menu=>@callplan.action.ivr_menu } %>
+      <div class="save_button">
+        <%= image_submit_tag "/images/save_button.png", :id => "save_button" %>
       </div>
-    <% end %>
+    </div>
   </div>
 </div>
