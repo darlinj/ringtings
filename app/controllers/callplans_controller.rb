@@ -7,7 +7,6 @@ class CallplansController < ApplicationController
   end
 
   def update
-    RAILS_DEFAULT_LOGGER.debug "Updated params: ######{params.inspect}"
     @callplan = Callplan.find(params[:id].to_i)
     if @callplan.update_attributes(params[:callplan])
       flash[:notice] = "Callplan sucessfully saved"

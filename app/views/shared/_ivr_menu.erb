@@ -1,22 +1,33 @@
-<div id="ivr_top_box">
-  <div class="text_padding">
-    <div class="ivr_title">
-      Voice menu <br/>
-      <%= image_submit_tag "/images/close_button.png", :class => "ivr_close_button", :id => "delete_ivr_action1" %>
+<% callplan_form.fields_for :action do |action_form| %>
+  <% action_form.fields_for :ivr_menu do |ivr_menu_form| %>
+    <div id="ivr_top_box">
+      <div class="text_padding">
+        <div class="ivr_title">
+          Voice menu <br/>
+          <%= image_submit_tag "/images/close_button.png", :class => "ivr_close_button", :id => "delete_ivr_menu[#{ivr_menu.id}]" %>
+        </div>
+        <div class="ivr_greeting_text">
+          Greeting: <br/>
+        </div>
+        <div>
+          <% greeting = ivr_menu.long_greeting %>
+          <%# text_area_tag(:greeting,greeting)%>
+          <%= ivr_menu_form.text_area(:long_greeting, :class => "long_greeting") %>
+        </div>
+      </div>
     </div>
-    <div class="ivr_greeting_text">
-      Greeting: <br/>
-    </div>
-    <div>
-      <% greeting = ivr_menu.long_greeting %>
-      <%= text_area_tag(:greeting,greeting)%>
-    </div>
-  </div>
-</div>
-<div class="ivr_main_box">
-  <%= render :partial => '/shared/ivr_menu_entry', :collection => ivr_menu.ivr_menu_entries, :as => :ivr_entry %>
-  <div class="ivr_end">
-    <%= image_submit_tag "/images/ivr_add_a_menu_option_button.png", :id => "add_menu_option_submit_image" %>
-  </div>
-</div>
+    <div class="ivr_main_box">
+      <% ivr_menu.ivr_menu_entries.each do |ivr_menu_entry| %>
+        <% ivr_menu_form.fields_for :ivr_menu_entries, ivr_menu_entry do |ivr_menu_entries_fields| %>
+          <%= render :partial => '/shared/ivr_menu_entry', 
+            :locals => { :ivr_menu_entries_fields => ivr_menu_entries_fields,
+              :ivr_menu_entry => ivr_menu_entry } %>
+            <% end %>
+          <% end %>
+          <div class="ivr_end">
+            <%= image_submit_tag "/images/ivr_add_a_menu_option_button.png", :id => "add_menu_option_submit_image" %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
 

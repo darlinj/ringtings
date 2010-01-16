@@ -24,7 +24,7 @@
               <%= form.label :password_confirmation, "Confirm password" %>
               <%= form.password_field :password_confirmation, :size =>20 %>
             </div>
-            <%= image_submit_tag "/images/next.png", :id => "next_submit_image" %> 
+            <%= image_submit_tag "/images/next.png", :id => "next_submit_image" %>
           <% end %>
         </div>
       </div>
@@ -32,12 +32,15 @@
   </div>
   <div id="callplan" class="span-10">
     <h3>Callplan</h3>
-    <div class="callplan_details" class="span-10">
-      <%= render :partial => '/shared/inbound_number', :locals => { :inbound_number => @callplan.inbound_number.phone_number } %>
-      <%= render :partial => '/shared/ivr_menu', :locals => { :ivr_menu=>@callplan.action.ivr_menu } %>
-      <div class="save_button">
-        <%= image_submit_tag "/images/save_button.png", :id => "save_button" %>
+    <% form_for :callplan, @callplan, :put, :url=>callplan_path, :html => { :method => :put } do |callplan_form| %>
+      <div class="callplan_details" class="span-10">
+        <%= render :partial => '/shared/inbound_number', :locals => { :inbound_number => @callplan.inbound_number.phone_number } %>
+        <%= render :partial => '/shared/ivr_menu',
+          :locals => { :ivr_menu=>@callplan.action.ivr_menu, :callplan_form => callplan_form } %>
+        <div class="save_button">
+          <%= image_submit_tag "/images/save_button.png", :id => "save_button" %>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>
