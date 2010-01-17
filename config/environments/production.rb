@@ -27,12 +27,5 @@ config.log_level = :debug
 # Clearance stuff
 HOST="localhost"
 
-config.action_mailer.raise_delivery_errors = true
-
-ActionMailer::Base.delivery_method = :sendmail
-
-ActionMailer::Base.sendmail_settings = {
-:location       => '/usr/sbin/sendmail',
-:arguments      => '-i -t'
-}
+ActionMailer::Base.delivery_method = :test
 

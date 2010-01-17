@@ -41,34 +41,43 @@ class DemoCallplansController < ApplicationController
   end
 
   def update
+    RAILS_DEFAULT_LOGGER.debug "######################{params.inspect}"
     @callplan = Callplan.find(params[:id].to_i)
     unless @callplan
         flash[:error]="We are very sorry but we can't complete this operation.  This should not happen if you are using the website as we expect.  We will look into this problem.  Please try again"
         redirect_to (demo_callplans_url)
         return
     end
-    if params[:demo_callplan] && params[:demo_callplan]['phone_number'] && params[:demo_callplan]['email_address']
-      Employee.create! :phone_number=> params[:demo_callplan]['phone_number'],
-        :email_address => params[:demo_callplan]['email_address'],
-        :callplan_id => params[:id].to_i
-      @callplan.action.application_name = "ivr"
-      @callplan.action.application_data = "ivr_menu_#{@callplan.inbound_number.phone_number}"
-      @callplan.inbound_number.ivr_menu = create_ivr_menu_options @callplan.employee.phone_number,
-        @callplan.inbound_number.phone_number,
-        @callplan.company_name
-      @callplan.action.ivr_menu = @callplan.inbound_number.ivr_menu
-      @callplan.save
-      session[:next_stage] = "4"
+  end
+
+  def generate_full_demo_callplan
+    @callplan = Callplan.find(params[:id].to_i)
+    unless @callplan
+      flash[:error]="We are very sorry but we can't complete this operation.  This should not happen if you are using the website as we expect.  We will look into this problem.  Please try again"
+      redirect_to (demo_callplans_url)
       return
     end
-    if params[:demo_callplan] && params[:demo_callplan]['email']
-      @user = User.new params[:demo_callplan]
-      @user.save!
-      ClearanceMailer.deliver_confirmation @user
-      flash[:notice] = "You will receive an email within the next few minutes. It contains instructions for confirming your account."
-      session[:next_stage] = "5"
-      redirect_to demo_callplan_path(params[:id])
-    end
+    Employee.create! :phone_number=> params[:demo_callplan]['phone_number'],
+      :email_address => params[:demo_callplan]['email_address'],
+      :callplan_id => params[:id].to_i
+    @callplan.action.application_name = "ivr"
+    @callplan.action.application_data = "ivr_menu_#{@callplan.inbound_number.phone_number}"
+    @callplan.inbound_number.ivr_menu = create_ivr_menu_options @callplan.employee.phone_number,
+      @callplan.inbound_number.phone_number,
+      @callplan.company_name
+    @callplan.action.ivr_menu = @callplan.inbound_number.ivr_menu
+    @callplan.save
+    session[:next_stage] = "4"
+    true
+  end
+
+  def create_user 
+    @user = User.new params[:demo_callplan]
+    @user.save!
+    ClearanceMailer.deliver_confirmation @user
+    flash[:notice] = "You will receive an email within the next few minutes. It contains instructions for confirming your account."
+    session[:next_stage] = "5"
+    redirect_to demo_callplan_path(params[:id])
   end
 
   private

@@ -10,7 +10,7 @@
         <div class="step_box">
           To keep this callplan and access all the other ringtings benefits (free for a month). Please create an account.
           Please fill in: <br/>
-          <% form_for(:demo_callplan, :url=>demo_callplan_path(@callplan.id), :html => { :method => :put }) do |form| %>
+          <% form_for(:demo_callplan, :url=>"/demo_callplans/create_user/#{@callplan.id}", :html => { :method => :put }) do |form| %>
             <%= form.error_messages %>
             <div class="text_field">
               <%= form.label :email %>
@@ -32,7 +32,7 @@
   </div>
   <div id="callplan" class="span-10">
     <h3>Callplan</h3>
-    <% form_for :callplan, @callplan, :put, :url=>callplan_path, :html => { :method => :put } do |callplan_form| %>
+    <% form_for :callplan, @callplan, :put, :url=>demo_callplan_path, :html => { :method => :put } do |callplan_form| %>
       <div class="callplan_details" class="span-10">
         <%= render :partial => '/shared/inbound_number', :locals => { :inbound_number => @callplan.inbound_number.phone_number } %>
         <%= render :partial => '/shared/ivr_menu',

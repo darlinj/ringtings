@@ -228,7 +228,7 @@ describe DemoCallplansController do
         end
 
         def do_put
-          put :update, :id => @callplan.id, :demo_callplan => {'company_name'=>@company_name, 'phone_number' => @employee_phone_number, 'email_address' => @email_address }
+          put :generate_full_demo_callplan, :id => @callplan.id, :demo_callplan => {'company_name'=>@company_name, 'phone_number' => @employee_phone_number, 'email_address' => @email_address }
         end
 
         describe "creating the employee" do
@@ -332,7 +332,7 @@ describe DemoCallplansController do
         end
 
         def do_put
-          put :update, :id => @callplan.id,
+          put :create_user, :id => @callplan.id,
             :demo_callplan => {'email' => @email_address,
               'password' => @password,
               'password_confirmed' => @password}
