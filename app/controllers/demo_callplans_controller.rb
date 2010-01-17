@@ -41,13 +41,18 @@ class DemoCallplansController < ApplicationController
   end
 
   def update
-    RAILS_DEFAULT_LOGGER.debug "######################{params.inspect}"
     @callplan = Callplan.find(params[:id].to_i)
     unless @callplan
         flash[:error]="We are very sorry but we can't complete this operation.  This should not happen if you are using the website as we expect.  We will look into this problem.  Please try again"
         redirect_to (demo_callplans_url)
         return
     end
+    if @callplan.update_attributes(params[:callplan])
+      flash[:notice] = "Callplan sucessfully saved"
+    else
+      flash[:notice] = "Callplan failed to save"
+    end
+    redirect_to demo_callplan_path(params[:id])
   end
 
   def generate_full_demo_callplan
