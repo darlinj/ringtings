@@ -18,12 +18,15 @@
         </div>
         <ul id="tabnav">
           <li class="home"><a href="/">home</a></li>
-          <li class="tryit"><a href="/demo_callplans">try it free</a></li>
-          <% if signed_in? %>
+          <% unless signed_in? %>
+            <li class="tryit"><a href="/demo_callplans">try it free</a></li>
+            <li class="signup"><a href="/users/new">sign up</a></li>
+          <% else %>
             <% callplan_id = current_user.callplan ? current_user.callplan.id : nil %>
             <li class="callplan"><a href="/callplans/<%= callplan_id if callplan_id %>">callplan</a></li>
+            <li class="voicemail"><a href="/voicemail">voicemail</a></li>
+            <li class="account"><a href="/account">my account</a></li>
           <% end %>
-          <li class="signup"><a href="/users/new">sign up</a></li>
         </ul>
       </div>
     </div>

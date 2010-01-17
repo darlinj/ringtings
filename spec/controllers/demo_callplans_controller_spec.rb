@@ -169,6 +169,8 @@ describe DemoCallplansController do
         @callplan = mock_model Callplan, :company_name => @company_name, :action=>@action, :inbound_number => @inbound_number, :employee => @employee
         Callplan.stub(:find).and_return @callplan
         @callplan.stub(:save)
+        @callplan.stub(:save!)
+        @callplan.stub(:user_id=)
       end
 
       describe "when the email and employee number parameters are set" do
@@ -229,7 +231,7 @@ describe DemoCallplansController do
 
         describe "creating the employee" do
           it "creates the employee" do
-            @attributes = {:phone_number=> @employee_phone_number, :email_address => @email_address, :callplan_id => @callplan.id}
+            @attributes = {:phone_number=> @employee_phone_number, :callplan_id => @callplan.id}
             Employee.should_receive(:create!).with(@attributes)
             do_put
           end
@@ -319,12 +321,15 @@ describe DemoCallplansController do
       describe "when the email,password and password confirmation are set" do
         before do
           @callplan = mock_model Callplan
+          Callplan.stub(:find).and_return @callplan
           @email_address = "freddy@rock.com"
           @password = "secret"
           @user = mock_model User
           User.stub(:new).and_return @user
           @user.stub(:save!)
           ClearanceMailer.stub(:deliver_confirmation)
+          @callplan.stub(:user_id=)
+          @callplan.stub(:save!)
         end
 
         def do_put
@@ -344,6 +349,24 @@ describe DemoCallplansController do
           @user.should_receive(:save!)
           do_put
         end
+
+        it "looks up the callplan" do
+          Callplan.should_receive(:find).with(@callplan.id)
+          do_put
+        end
+
+        describe "when there is a callplan" do
+          it "assigns the user id to the callplan" do
+            @callplan.should_receive(:user_id=).with(@user.id)
+            do_put
+          end
+          
+          it "saves the callplan" do
+            @callplan.should_receive(:save!)
+            do_put
+          end
+        end
+
 
         it "send a confirmation email" do
           ClearanceMailer.should_receive(:deliver_confirmation).with @user

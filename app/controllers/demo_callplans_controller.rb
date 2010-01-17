@@ -63,7 +63,6 @@ class DemoCallplansController < ApplicationController
       return
     end
     Employee.create! :phone_number=> params[:demo_callplan]['phone_number'],
-      :email_address => params[:demo_callplan]['email_address'],
       :callplan_id => params[:id].to_i
     @callplan.action.application_name = "ivr"
     @callplan.action.application_data = "ivr_menu_#{@callplan.inbound_number.phone_number}"
@@ -79,6 +78,11 @@ class DemoCallplansController < ApplicationController
   def create_user 
     @user = User.new params[:demo_callplan]
     @user.save!
+    @callplan = Callplan.find(params[:id].to_i)
+    if @callplan
+      @callplan.user_id = @user.id
+      @callplan.save!
+    end
     ClearanceMailer.deliver_confirmation @user
     flash[:notice] = "You will receive an email within the next few minutes. It contains instructions for confirming your account."
     session[:next_stage] = "5"

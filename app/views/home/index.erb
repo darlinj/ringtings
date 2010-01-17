@@ -2,9 +2,9 @@
   telephone systems</b> very <b>cheaply</b> and very <b>quickly</b> with ringTings.
 </h3>
 <p>
-<img src="/images/what_is_ringtings.jpeg" align="middle">
+<%= link_to image_tag ("/images/what_is_ringtings.png", :border =>0), demo_callplans_path %>
 </p>
-<div>
+<div class="basic_text_box">
 With ringTings you can:
 <ul>
   <li>Have a single number for your business</li>
@@ -13,9 +13,5 @@ With ringTings you can:
   <li>Route customer enquiries to the right people or group of people</li>
   <li>Get access to voice messages over the internet or via phone</li>
   <li>Send calls to voicemail when you are on holiday</li>
-  <li>etc...</li>
+  <li><%= link_to "Try it now", demo_callplans_path %></li>
 </div>
-<p>This is a paragraph</p>
-<% if signed_in? %>
-  Signed in
-<% end %>
