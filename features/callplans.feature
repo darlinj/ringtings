@@ -45,7 +45,7 @@ Story: Callplan management
       | ivr_menu_entry2_action | transfer 1234567890           |
     And I am logged in
     When I navigate to the "callplan_path" for <callplan_id>
-    And I type "some new greeting" in the form field with an HTML id of "greeting"
+    And I type "some new greeting" in the form field with an HTML id of "callplan_action_attributes_ivr_menu_attributes_long_greeting"
     And I click the form input with id "save_button"
     Then I should see "Callplan sucessfully saved"
     And I should see "some new greeting"
