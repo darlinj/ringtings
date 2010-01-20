@@ -12,7 +12,8 @@
         <%= ivr_menu_entry.prompt %>
         <%= ivr_menu_entries_fields.text_area(:user_param_part, 
                                               :id => "ivr_menu_entry_textbox") %>
-                                              <%= link_to image_tag ("/images/close_button.png", :class => "action_close_button", :border =>0), "/demo_callplans/delete_ivr_menu_entry/#{ivr_menu_entry.id}", :method => :post %>
+        <%= link_to image_tag ("/images/close_button.png", :class => "action_close_button", :border =>0),
+          "/callplans/delete_ivr_menu_entry/#{@callplan.id}?ivr_menu_entry_id=#{ivr_menu_entry.id}", :class => "delete_IVR_menu_entry", :method => :post %>
       </div>
     </div>
   </div>

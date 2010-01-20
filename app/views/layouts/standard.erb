@@ -1,54 +1,56 @@
-<head>
-  <script src="/javascripts/jquery.js" type="text/javascript"></script>
-  <script src="/javascripts/jquery-ui.js" type="text/javascript"></script>
-  <script src="/javascripts/jrails.js" type="text/javascript"></script>
-  <script src="/javascripts/application.js" type="text/javascript"></script>
-  <link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection">
-  <link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print">	
-  <link rel="stylesheet" href="/stylesheets/ringtings.css" type="text/css" media="screen,projection">	
-  <!--[if lt IE 8]><link rel="stylesheet" href="stylesheets/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
-</head>
-<body id="<%= @tab %>">
-  <div class="container">
-    <div class="span-24 last">
-      <div class="top_section">
-        <%= render :partial => '/shared/breadcrumbs' %>
-        <div class="page_header">
-          <a href="/"><img src="/images/ringtings.gif" /></a>
+<html>
+  <head>
+    <script src="/javascripts/jquery.js" type="text/javascript"></script>
+    <script src="/javascripts/jquery-ui.js" type="text/javascript"></script>
+    <script src="/javascripts/jrails.js" type="text/javascript"></script>
+    <script src="/javascripts/application.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print" />	
+    <link rel="stylesheet" href="/stylesheets/ringtings.css" type="text/css" media="screen,projection" />	
+    <!--[if lt IE 8]><link rel="stylesheet" href="stylesheets/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+  </head>
+  <body id="<%= @tab %>">
+    <div class="container">
+      <div class="span-24 last">
+        <div class="top_section">
+          <%= render :partial => '/shared/breadcrumbs' %>
+          <div class="page_header">
+            <a href="/"><img src="/images/ringtings.gif" /></a>
+          </div>
+          <ul id="tabnav">
+            <li class="home"><a href="/">home</a></li>
+            <% unless signed_in? %>
+              <li class="tryit"><a href="/demo_callplans">try it free</a></li>
+              <li class="signup"><a href="/users/new">sign up</a></li>
+            <% else %>
+              <% callplan_id = current_user.callplan ? current_user.callplan.id : nil %>
+              <li class="callplan"><a href="/callplans/<%= callplan_id if callplan_id %>">callplan</a></li>
+              <li class="voicemail"><a href="/voicemail">voicemail</a></li>
+              <li class="account"><a href="/account">my account</a></li>
+            <% end %>
+          </ul>
         </div>
-        <ul id="tabnav">
-          <li class="home"><a href="/">home</a></li>
-          <% unless signed_in? %>
-            <li class="tryit"><a href="/demo_callplans">try it free</a></li>
-            <li class="signup"><a href="/users/new">sign up</a></li>
-          <% else %>
-            <% callplan_id = current_user.callplan ? current_user.callplan.id : nil %>
-            <li class="callplan"><a href="/callplans/<%= callplan_id if callplan_id %>">callplan</a></li>
-            <li class="voicemail"><a href="/voicemail">voicemail</a></li>
-            <li class="account"><a href="/account">my account</a></li>
+      </div>
+      <div class="span-24 last">
+        <div class="main_content" >
+          <% if flash[:success] %>
+            <div class="success"><%= flash[:success] %></div>
           <% end %>
-        </ul>
+          <% if flash[:failure] %>
+            <div class="failure"><%= flash[:failure] %></div>
+          <% end %>
+          <% if flash[:notice] %>
+            <div class="notice"><%= flash[:notice] %></div>
+          <% end %>
+          <% if flash[:error] %>
+            <div class="notice"><%= flash[:error] %></div>
+          <% end %>
+          <%= yield -%>
+        </div>
+      </div>
+      <div class="span-24 last">
+        Footer
       </div>
     </div>
-    <div class="span-24 last">
-      <div class="main_content" >
-        <% if flash[:success] %>
-          <div class="success"><%= flash[:success] %></div>
-        <% end %>
-        <% if flash[:failure] %>
-          <div class="failure"><%= flash[:failure] %></div>
-        <% end %>
-        <% if flash[:notice] %>
-          <div class="notice"><%= flash[:notice] %></div>
-        <% end %>
-        <% if flash[:error] %>
-          <div class="notice"><%= flash[:error] %></div>
-        <% end %>
-        <%= yield -%>
-      </div>
-    </div>
-    <div class="span-24 last">
-      Footer
-    </div>
-  </div>
-</body>
+  </body>
+</html>

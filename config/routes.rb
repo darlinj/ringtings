@@ -18,6 +18,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :try_it, :only=>[:create]
   map.connect 'demo_callplans/generate_full_demo_callplan/:id', :controller => 'demo_callplans', :action => 'generate_full_demo_callplan'
   map.connect 'demo_callplans/create_user/:id', :controller => 'demo_callplans', :action => 'create_user'
+  map.connect 'callplans/delete_ivr_menu_entry/:id', :controller => 'callplans', :action => 'delete_ivr_menu_entry', :method => :post
   map.connect 'home', :controller => 'home', :action => 'index'
   map.connect 'secret_stuff', :controller => 'secret', :action => 'index'
   map.connect 'freeswitch/callplan', :controller => 'freeswitch', :action => 'callplan'

@@ -1,5 +1,6 @@
 require 'culerity'
 require 'uri'
+require 'rexml/document'
 
 Before do
   puts "in before"
@@ -14,6 +15,16 @@ at_exit do
   $server.close
 end
 
+Then /^the response should have (.*) elements that match "(.*)"$/ do |count , xpath|
+  doc = REXML::Document.new($browser.html).root
+  REXML::XPath.first(doc, "count(#{xpath})").should == count.to_i
+end
+
+Then /^the response should have an? "(.*)" element$/ do |xpath|
+  doc = REXML::Document.new($browser.html).root
+  REXML::XPath.match(doc, xpath).should_not be_empty
+end
+
 Given /I am logged out/ do 
   $browser.clear_cookies
 end
@@ -24,6 +35,11 @@ end
 
 When /I hit the link with id "(.*)"/ do |identity|
   $browser.link(:id, /#{identity}/).click
+end
+
+When /I click the link with class: "(.*)"/ do |text|
+  $browser.link(:class, /#{text}/).click
+  assert_successful_response
 end
 
 Then /^I should be on (.*)$/ do |path|
