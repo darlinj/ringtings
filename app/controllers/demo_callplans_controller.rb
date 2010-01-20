@@ -89,6 +89,13 @@ class DemoCallplansController < ApplicationController
     redirect_to demo_callplan_path(params[:id])
   end
 
+#  def delete_ivr_menu_entry
+#    ivr_menu_entry = IvrMenuEntry.find params["ivr_menu_entry_id"].to_i
+#    callplan = ivr_menu_entry.ivr_menu.action.callplan
+#    IvrMenuEntry.destroy params["ivr_menu_entry_id"].to_i
+#    redirect_to demo_callplan_path(callplan.id)
+#  end
+
   private
   def set_tab
     @tab="tryit"

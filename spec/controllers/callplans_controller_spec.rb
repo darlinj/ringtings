@@ -79,35 +79,5 @@ describe CallplansController do
         response.should redirect_to(callplan_url(@callplan.id))
       end
     end
-
-    describe "deleting an IVR menu item" do
-      before do
-        @callplan = mock_model Callplan
-        @action = mock_model Action, :callplan => @callplan
-        @ivr_menu = mock_model IvrMenu, :action => @action
-        @ivr_menu_entry = mock_model IvrMenuEntry, :ivr_menu => @ivr_menu
-        IvrMenuEntry.stub(:find).and_return @ivr_menu_entry
-        IvrMenuEntry.stub(:destroy)
-      end
-
-      def do_post
-        post :delete_ivr_menu_entry, :ivr_menu_entry_id => @ivr_menu_entry.id
-      end
-
-      it "looks up the ivr menu entry" do
-        IvrMenuEntry.should_receive(:find).with(@ivr_menu_entry.id)
-        do_post
-      end
-
-      it "destroys the ivr menu entry" do
-        IvrMenuEntry.should_receive(:destroy).with(@ivr_menu_entry.id)
-        do_post
-      end
-
-      it "should redirect to the callplan show page" do
-        do_post
-        response.should redirect_to(callplan_url(@callplan.id))
-      end
-    end
   end
 end

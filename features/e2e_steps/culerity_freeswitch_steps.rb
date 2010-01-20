@@ -1,18 +1,18 @@
 require 'culerity'
 require 'uri'
 
-Before do
-  puts "in before"
-  $freeswitch_server ||= Culerity::run_server
-  $freeswitch_browser = Culerity::RemoteBrowserProxy.new $freeswitch_server, {:browser => :firefox}
-  @host = 'http://ringtings.test.local'
-end
-
-at_exit do
-  puts "exiting"
-  $freeswitch_browser.exit
-  $freeswitch_server.close
-end
+#Before do
+#  puts "in before"
+#  $freeswitch_server ||= Culerity::run_server
+#  $freeswitch_browser = Culerity::RemoteBrowserProxy.new $freeswitch_server, {:browser => :firefox}
+#  @host = 'http://ringtings.test.local'
+#end
+#
+#at_exit do
+#  puts "exiting"
+#  $freeswitch_browser.exit
+#  $freeswitch_server.close
+#end
 
 When /Freeswitch posts "(.*)" parameters to "(.*)"/ do |parameters,url|
   curl_response = Curl::Easy.http_post(url,parameters)
