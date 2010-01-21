@@ -5,6 +5,9 @@
         <% if session[:next_stage] == "2" %>
           <%= render :partial => 'step_2_instructions' %>
         <% end %>
+        <% if session[:next_stage] == "4" %>
+          <%= render :partial => 'step_4_instructions' %>
+        <% end %>
         <% if session[:next_stage] == "5" %>
           <%= render :partial => 'step_5_instructions' %>
         <% end %>

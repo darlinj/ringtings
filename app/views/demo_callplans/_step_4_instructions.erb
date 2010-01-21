@@ -1,15 +1,26 @@
 <div class="step_box">
-  So what now....<br>
-  Well you can start editing your callplan to you own needs. For example:
-  <ul> 
-    <li>Try changing the text of the greeting, pressing save and phoning the number again.</li>
-    <li>Change the numbers you press for different options</li>
-    <li>Click on the X buttons to remove an unwanted menu item</li>
-    <li>Add a new menu item from our list by clicking on the "add menu item button"</li>
-  </ul>
-  When you are done click save to keep your changes and ring the number at the top of the screen to see how it sounds.
+  That looks more like a useful callplan.
+  Please ring <%= @callplan.inbound_number.phone_number %> again to hear how it sounds.
+  Feel free to change it (and save it) as you see fit.
 </div>
 <div class="step_box">
-  Remember to check your email and validate your account to get access to all the ringtings functionality.
+  To keep this callplan and access all the other ringtings benefits (free for a month). Please create an account.
+  Please fill in: <br/>
+  <% form_for(:demo_callplan, :url=>"/demo_callplans/create_user/#{@callplan.id}", :html => { :method => :put }) do |form| %>
+    <%= form.error_messages %>
+    <div class="text_field">
+      <%= form.label :email %>
+      <%= form.text_field :email, :size=>20 %>
+    </div>
+    <div class="password_field">
+      <%= form.label :password %>
+      <%= form.password_field :password, :size =>20 %>
+    </div>
+    <div class="password_field">
+      <%= form.label :password_confirmation, "Confirm password" %>
+      <%= form.password_field :password_confirmation, :size =>20 %>
+    </div>
+    <%= image_submit_tag "/images/next.png", :id => "next_submit_image" %>
+  <% end %>
 </div>
 

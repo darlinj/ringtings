@@ -2,31 +2,7 @@
   <div id="dialplan_details" class="span-7">
     <div id="dialplan_details">
       <div id="try_it_thread">
-        <div class="step_box">
-          That looks more like a useful callplan.
-          Please ring <%= @callplan.inbound_number.phone_number %> again to hear how it sounds.
-          Feel free to change it (and save it) as you see fit.
-        </div>
-        <div class="step_box">
-          To keep this callplan and access all the other ringtings benefits (free for a month). Please create an account.
-          Please fill in: <br/>
-          <% form_for(:demo_callplan, :url=>"/demo_callplans/create_user/#{@callplan.id}", :html => { :method => :put }) do |form| %>
-            <%= form.error_messages %>
-            <div class="text_field">
-              <%= form.label :email %>
-              <%= form.text_field :email, :size=>20 %>
-            </div>
-            <div class="password_field">
-              <%= form.label :password %>
-              <%= form.password_field :password, :size =>20 %>
-            </div>
-            <div class="password_field">
-              <%= form.label :password_confirmation, "Confirm password" %>
-              <%= form.password_field :password_confirmation, :size =>20 %>
-            </div>
-            <%= image_submit_tag "/images/next.png", :id => "next_submit_image" %>
-          <% end %>
-        </div>
+        <%= render :partial => 'step_4_instructions' %>
       </div>
     </div>
   </div>

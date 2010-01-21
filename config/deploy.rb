@@ -58,7 +58,6 @@ task :install do
   deploy.install_rubygems
   deploy.create_gemrc
   deploy.update_rubygems
-  deploy.install_rails
   deploy.install_bundler
   deploy.update
   deploy.correct_ownership
@@ -117,10 +116,6 @@ namespace :deploy do
     run "rm -rf #{ruby_version}"
   end
 
-  task :install_rails do
-    run 'gem install rails -v 2.3.4'
-  end
-
   task :install_rubygems do
     run "cd /tmp && wget http://rubyforge.org/frs/download.php/60718/rubygems-1.3.5.tgz"
     run "cd /tmp && tar -xvf rubygems-1.3.5.tgz"
@@ -136,6 +131,7 @@ namespace :deploy do
   task :install_postgres do
     run "yum install -y postgresql"
     run "yum install -y postgresql-server"
+    # Had a problem on Amazon with it asking me to run somthing like "service database init"
     run "/etc/init.d/postgresql start"
   end
 
@@ -228,6 +224,7 @@ production:
     run "cd /usr/local/freeswitch/ && wget http://files.freeswitch.org/freeswitch-1.0.4.tar.gz"
     run "cd /usr/local/freeswitch/ && tar xvfz freeswitch-1.0.4.tar.gz"
     run "cp #{current_path}/freeswitch_stuff/modules.conf /usr/local/freeswitch/freeswitch-1.0.4/"
+    #May need to add the --without_libcurl option for some centos boxes
     run "cd /usr/local/freeswitch/freeswitch-1.0.4/ && ./configure"
     run "cd /usr/local/freeswitch/freeswitch-1.0.4/ && make"
     run "cd /usr/local/freeswitch/freeswitch-1.0.4/ && make install sounds-install moh-install"
