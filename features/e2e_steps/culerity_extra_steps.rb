@@ -2,19 +2,6 @@ require 'culerity'
 require 'uri'
 require 'rexml/document'
 
-#Before do
-#  puts "in before"
-#  $server ||= Culerity::run_server
-#  $browser = Culerity::RemoteBrowserProxy.new $server, {:browser => :firefox}
-#  @host = 'http://ringtings.test.local'
-#end
-#
-#at_exit do
-#  puts "exiting"
-#  $browser.exit
-#  $server.close
-#end
-
 Then /^the response should have (.*) elements that match "(.*)"$/ do |count , xpath|
   doc = REXML::Document.new($browser.html).root
   REXML::XPath.first(doc, "count(#{xpath})").should == count.to_i
