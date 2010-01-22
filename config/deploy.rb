@@ -5,8 +5,7 @@ set :copy_strategy, :export
 
 #EMI that includes rails and postgres is 	emi-4F901695
 #You need to go into /etc/yum.repos.d/Centos-Base and change the achitecture variable to "i386"
-#set :host, "ringtings.com"
-set :host, "ec2-204-236-192-53.compute-1.amazonaws.com"
+set :host, "ringtings.com"
 set :application, "ringtings"
 set :application_user, "ringtings"
 set :deploy_to, "/home/#{application_user}/ringtings_home"
