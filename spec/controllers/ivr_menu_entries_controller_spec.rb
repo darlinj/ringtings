@@ -1,6 +1,24 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe IvrMenuEntryController do
+describe IvrMenuEntriesController do
+  describe "creating an entry" do
+    before do
+      @type = "foo"
+      @ivr_menu = mock_model IvrMenu
+      @expected_params = {:someparams => "foo"}
+      @ivr_menu_entry = mock_model IvrMenuEntry
+      IvrMenuEntry.stub(:create).and_return @ivr_menu_entry
+    end
+    def do_post
+      post :create, :type=>@type, :ivr_menu=>@ivr_menu.id
+    end
+    it "creates the ivr menu entry" do
+      IvrMenuEntry.should_receive(:create).with(@type)
+      do_post
+    end
+    it "assigns the menu entry to the menu"
+    it "redirects to the callplan directory"
+  end
   describe "deleting an entry" do
     before do
       @callplan = mock_model Callplan

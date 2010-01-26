@@ -24,6 +24,11 @@ When /I hit the link with id "(.*)"/ do |identity|
   $browser.link(:id, /#{identity}/).click
 end
 
+When /I click the link with id: "(.*)"/ do |text|
+  $browser.link(:id, /#{text}/).click
+  assert_successful_response
+end
+
 When /I click the link with class: "(.*)"/ do |text|
   $browser.link(:class, /#{text}/).click
   assert_successful_response

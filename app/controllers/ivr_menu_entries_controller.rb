@@ -1,4 +1,8 @@
-class IvrMenuEntryController < ApplicationController
+class IvrMenuEntriesController < ApplicationController
+  def create
+
+  end
+
   def destroy
     callplan_id = IvrMenuEntry.find(params[:id].to_i).ivr_menu.action.callplan.id
     IvrMenuEntry.destroy params[:id].to_i

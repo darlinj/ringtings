@@ -11,7 +11,6 @@
         </div>
         <div>
           <% greeting = ivr_menu.long_greeting %>
-          <%# text_area_tag(:greeting,greeting)%>
           <%= ivr_menu_form.text_area(:long_greeting, :class => "long_greeting") %>
         </div>
       </div>
@@ -21,13 +20,14 @@
         <% ivr_menu_form.fields_for :ivr_menu_entries, ivr_menu_entry do |ivr_menu_entries_fields| %>
           <%= render :partial => '/shared/ivr_menu_entry', 
             :locals => { :ivr_menu_entries_fields => ivr_menu_entries_fields,
-              :ivr_menu_entry => ivr_menu_entry } %>
-            <% end %>
-          <% end %>
-          <div class="ivr_end">
-            <%= image_submit_tag "/images/ivr_add_a_menu_option_button.png", :id => "add_menu_option_submit_image" %>
-          </div>
-        </div>
+            :ivr_menu_entry => ivr_menu_entry } %>
+        <% end %>
       <% end %>
-    <% end %>
+      <div class="ivr_end">
+        <%= link_to image_tag ("/images/ivr_add_a_menu_option_button.png", :id => "add_menu_option_submit_image",
+          :border =>0), "/ivr_menu_entry_prototypes", :class => "add_IVR_menu_entry" %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
 

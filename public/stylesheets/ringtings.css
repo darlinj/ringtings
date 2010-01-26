@@ -145,7 +145,7 @@ div.step_box {
   background-repeat: no-repeat;
   background-position:center;
   text-align: center;
-  height: 125;
+  height: 130px;
   font-size: 2em;
 }
 
@@ -175,7 +175,7 @@ div.step_box {
   background-image: url('/images/voice_menu_top.png');
   background-repeat: no-repeat;
   background-position: bottom center;
-  height: 125;
+  height: 125px;
 }
 
 .ivr_main_box {
@@ -206,25 +206,25 @@ div.step_box {
 
 .long_greeting {
   width: 300px;
-  height: 70px;
+  height: 60px;
   float: left;
 }
 
 #ivr_menu_entry_textbox{
-  width: 240px;
-  height: 40px;
+  height:30px;
+  width:225px;
 }
 
 .ivr_step {
-  height: 85;
-  width: 99px;
+  height: 85px;
+  width: 98px;
   background-image: url('/images/ivr_step.png');
   background-repeat: no-repeat;
   background-position: right;
 }
 
 .ivr_end {
-  width: 170px;
+  width: 168px;
   height: 70px;
   background-image: url('/images/ivr_end.png');
   background-repeat: no-repeat;
