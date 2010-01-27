@@ -1,3 +1,10 @@
 <div>
-  <%= link_to "Synthetic voice announcement", ivr_menu_entries_path, :method=>:post %>
+  <% @ivr_menu_entry_prototypes.each do |ivr_menu_entry_prototype| %>
+    <% form_for :ivr_menu_entry, ivr_menu_entry_prototype, :url=>ivr_menu_entries_path do |ivr_menu_entry_form| %>
+      <%= hidden_field_tag :ivr_menu_id, @ivr_menu_id %>
+      <%= ivr_menu_entry_form.hidden_field :name %>
+      <%= ivr_menu_entry_prototype.description %>
+      <%= image_submit_tag "/images/#{ivr_menu_entry_prototype.image}" %>
+    <% end %>
+  <% end %>
 </div>
