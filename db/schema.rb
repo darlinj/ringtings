@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(:version => 20100127131958) do
     t.string   "user_param_part"
   end
 
-  create_table "ivr_menu_entry_prototype", :force => true do |t|
+  create_table "ivr_menu_entry_prototypes", :force => true do |t|
     t.string "name"
     t.string "description"
     t.string "freeswitch_command_template"

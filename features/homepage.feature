@@ -28,13 +28,6 @@ Story: Homepage checks
     When I go to a restricted page
     Then I should see "Sign in"
 
-    And I type "joe@foo.com" in the form field with an HTML id of "session_email"
-    And I type "password" in the form field with an HTML id of "session_password"
-    And I click on "Sign in"
-    Then I should see "Signed in"
-
-    Then I should see "Here is your restricted content. Exciting isn't it!"
-
   Scenario: logging in from the homepage
     Given I am logged out
     And there is a validated user with email "joe@foo.com" and a passord of "password"

@@ -12,7 +12,7 @@ module NavigationHelpers
       '/'
 
     when /a restricted page/
-      '/secret_stuff'
+      callplan_path(1)
     when /the sign up page/i
       new_user_path
     when /the sign in page/i

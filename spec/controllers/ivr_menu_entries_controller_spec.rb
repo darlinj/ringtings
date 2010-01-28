@@ -5,19 +5,46 @@ describe IvrMenuEntriesController do
     before do
       @type = "foo"
       @ivr_menu = mock_model IvrMenu
-      @expected_params = {:someparams => "foo"}
+      @expected_params = {:type => @type, :action => 'menu-exec-app', :digits => "1", :system_param_part => "say", :user_param_part => "type your announcement here", :prompt => "Synthetic vocie says:" }
       @ivr_menu_entry = mock_model IvrMenuEntry
-      IvrMenuEntry.stub(:create).and_return @ivr_menu_entry
+      IvrMenuEntry.stub(:new).and_return @ivr_menu_entry
+      IvrMenu.stub(:find).with(@ivr_menu.id).and_return(@ivr_menu)
+      @ivr_menu_entry.stub(:ivr_menu=)
+      @ivr_menu.stub(:ivr_menu_entries).and_return nil
+      @ivr_menu_entry.stub(:save)
     end
+
     def do_post
-      post :create, :type=>@type, :ivr_menu=>@ivr_menu.id
+      post :create, :type=>@type, :ivr_menu_id=>@ivr_menu.id
     end
+
     it "creates the ivr menu entry" do
-      IvrMenuEntry.should_receive(:create).with(@type)
+      IvrMenuEntry.should_receive(:new).with(@expected_params)
       do_post
     end
-    it "assigns the menu entry to the menu"
-    it "redirects to the callplan directory"
+
+    it "assigns the menu entry to the menu" do
+      @ivr_menu_entry.should_receive(:ivr_menu=).with @ivr_menu
+      do_post
+    end
+
+    describe "set the digit to the first available" do
+      describe "if there are existing menu entries with digits set" do
+        before do
+          @existing_ivr_menu_entry = mock_model IvrMenuEntry, :digits => "3", :ivr_menu=>@ivr_menu
+          @ivr_menu.stub(:ivr_menu_entries).and_return [@existing_ivr_menu_entry]
+        end
+
+        it "should assign the next number up" do
+          @ivr_menu_entry.should_receive(:digits=).with "4"
+          do_post
+        end
+      end
+    end
+    it "saves the menu entry" do
+      @ivr_menu_entry.should_receive(:save)
+      do_post
+    end
   end
   describe "deleting an entry" do
     before do
