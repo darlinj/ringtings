@@ -5,6 +5,7 @@ class CreateIvrMenuEntry < ActiveRecord::Migration
       t.string :description
       t.string :freeswitch_command_template
       t.string :image
+      t.string :prompt
     end
   end
 

@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20100127131958) do
     t.string "description"
     t.string "freeswitch_command_template"
     t.string "image"
+    t.string "prompt"
   end
 
   create_table "ivr_menus", :force => true do |t|
