@@ -7,6 +7,12 @@ class IvrMenuEntriesController < ApplicationController
     end
     ivr_menu_entry.ivr_menu=ivr_menu
     ivr_menu_entry.save
+    callplan_id = ivr_menu.action.callplan.id
+    if signed_in?
+      redirect_to callplan_path(callplan_id)
+    else
+      redirect_to demo_callplan_path(callplan_id)
+    end
   end
 
   def destroy

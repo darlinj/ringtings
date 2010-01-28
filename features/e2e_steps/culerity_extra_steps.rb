@@ -16,6 +16,10 @@ Given /I am logged out/ do
   $browser.clear_cookies
 end
 
+When /^I print the response$/ do
+  puts $browser.html
+end
+
 When /^I press the submit button$/ do
   $browser.button(:type, "submit").click
 end

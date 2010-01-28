@@ -1,10 +1,15 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe IvrMenuEntriesController do
+  before do
+    @callplan = mock_model Callplan
+    @action = mock_model Action, :callplan => @callplan
+    controller.stub(:signed_in?).and_return true
+  end
   describe "creating an entry" do
     before do
       @type = "foo"
-      @ivr_menu = mock_model IvrMenu
+      @ivr_menu = mock_model IvrMenu, :action=> @action
       @expected_params = {:type => @type, :action => 'menu-exec-app', :digits => "1", :system_param_part => "say", :user_param_part => "type your announcement here", :prompt => "Synthetic vocie says:" }
       @ivr_menu_entry = mock_model IvrMenuEntry
       IvrMenuEntry.stub(:new).and_return @ivr_menu_entry
@@ -45,16 +50,29 @@ describe IvrMenuEntriesController do
       @ivr_menu_entry.should_receive(:save)
       do_post
     end
+    describe "redirects the response to the relevant callplan page" do
+      describe "when signed in" do
+        it "should redirect to the callplan show url" do
+          do_post
+          response.should redirect_to(callplan_path(@callplan.id))
+        end
+      end
+
+      describe "when NOT signed in" do
+        it "should redirect to the demo callplan show url" do
+          controller.stub(:signed_in?).and_return false
+          do_post
+          response.should redirect_to(demo_callplan_path(@callplan.id))
+        end
+      end
+    end
   end
   describe "deleting an entry" do
     before do
-      @callplan = mock_model Callplan
-      @action = mock_model Action, :callplan => @callplan
       @ivr_menu = mock_model IvrMenu, :action => @action
       @ivr_menu_entry = mock_model IvrMenuEntry, :ivr_menu => @ivr_menu
       IvrMenuEntry.stub(:destroy)
       IvrMenuEntry.stub(:find).and_return @ivr_menu_entry
-      controller.stub(:signed_in?).and_return true
     end
 
     def do_delete

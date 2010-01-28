@@ -1,7 +1,8 @@
 @e2e
 Feature: IVR menu entry
   Scenario: Adding an IVR menu entry
-    Given we create a Callplan (and store it's ID as <callplan_id>) with these variables:
+    Given we create some ivr menu entry prototypes
+    And we create a Callplan (and store it's ID as <callplan_id>) with these variables:
       | name                   | value                         |
       | Action_type            | ivr                           |
       | Action_params          | ivr_menu_0192837465           |
@@ -18,11 +19,9 @@ Feature: IVR menu entry
     And I am logged in
     When I navigate to the "callplan_path" for <callplan_id>
     And I click the "Add a menu option" image button
-    And I follow "Synthetic voice announcement"
-    And I fill in "some new announcement" in the "Announcement" field
-    And I click on "OK"
+    And I click the form input with id "synthetic_voice"
     Then the response should have 3 elements that match "//div[@class='ivr_step_action']"
-    And I should not see "some new announcement"
+    And I should see "your announcement here"
 
   Scenario: Deleting a IVR menu entry
     Given we create a Callplan (and store it's ID as <callplan_id>) with these variables:
