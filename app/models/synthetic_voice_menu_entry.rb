@@ -1,0 +1,3 @@
+class SyntheticVoiceMenuEntry < IvrMenuEntry
+
+end
