@@ -1,8 +1,7 @@
 @e2e
 Feature: IVR menu entry
   Scenario: Adding an IVR menu entry
-    Given we create some ivr menu entry prototypes
-    And we create a Callplan (and store it's ID as <callplan_id>) with these variables:
+    Given we create a Callplan (and store it's ID as <callplan_id>) with these variables:
       | name                   | value                         |
       | Action_type            | ivr                           |
       | Action_params          | ivr_menu_0192837465           |
@@ -11,11 +10,11 @@ Feature: IVR menu entry
       | name                   | value                         |
       | long_greeting          | some long greeting            |
       | ivr_menu_entry1_digit  | 1                             |
-      | ivr_menu_entry1_prompt | Synthetic voice says:         |
-      | ivr_menu_entry1_action | say hello peeps               |
+      | ivr_menu_entry1_type   | synthetic_voice               |
+      | ivr_menu_entry1_action | hello peeps                   |
       | ivr_menu_entry2_digit  | 2                             |
-      | ivr_menu_entry2_prompt | Transfer call to:             |
-      | ivr_menu_entry2_action | transfer 1234567890           |
+      | ivr_menu_entry2_type   | call_transfer                 |
+      | ivr_menu_entry2_action | 1234567890                    |
     And I am logged in
     When I navigate to the "callplan_path" for <callplan_id>
     And I click the "Add a menu option" image button
@@ -33,11 +32,11 @@ Feature: IVR menu entry
       | name                   | value                         |
       | long_greeting          | some long greeting            |
       | ivr_menu_entry1_digit  | 1                             |
-      | ivr_menu_entry1_prompt | Synthetic voice says:         |
-      | ivr_menu_entry1_action | say hello peeps               |
+      | ivr_menu_entry1_type   | synthetic_voice               |
+      | ivr_menu_entry1_action | hello peeps                   |
       | ivr_menu_entry2_digit  | 2                             |
-      | ivr_menu_entry2_prompt | Transfer call to:             |
-      | ivr_menu_entry2_action | transfer 1234567890           |
+      | ivr_menu_entry2_type   | call_transfer                 |
+      | ivr_menu_entry2_action | 1234567890                    |
     And I am logged in
     When I navigate to the "callplan_path" for <callplan_id>
     And I click the delete button for the first ivr menu entry

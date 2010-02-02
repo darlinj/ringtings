@@ -1,4 +1,28 @@
 class IvrMenuEntry < ActiveRecord::Base
   belongs_to :ivr_menu
-  has_one :prototype, :class_name => 'IvrMenuEntryPrototype'
+  belongs_to :prototype, :class_name => 'IvrMenuEntryPrototype'
+end
+
+class SyntheticVoiceMenuEntry < IvrMenuEntry
+
+end
+
+class MenuExitMenuEntry < IvrMenuEntry
+
+end
+
+class VoiceMailMenuEntry < IvrMenuEntry
+
+end
+
+class TransferCallMenuEntry < IvrMenuEntry
+
+end
+
+class SyntheticVoiceMenuEntry < IvrMenuEntry
+
+end
+
+class PlayAudioFileMenuEntry < IvrMenuEntry
+
 end

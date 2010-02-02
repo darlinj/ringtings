@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100127131958) do
+ActiveRecord::Schema.define(:version => 20100129193611) do
 
   create_table "actions", :force => true do |t|
     t.integer  "callplan_id"
@@ -40,14 +40,12 @@ ActiveRecord::Schema.define(:version => 20100127131958) do
   end
 
   create_table "ivr_menu_entries", :force => true do |t|
-    t.string   "action"
     t.string   "digits"
-    t.string   "system_param_part"
     t.integer  "ivr_menu_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "prompt"
     t.string   "user_param_part"
+    t.integer  "prototype_id"
   end
 
   create_table "ivr_menu_entry_prototypes", :force => true do |t|
@@ -56,6 +54,8 @@ ActiveRecord::Schema.define(:version => 20100127131958) do
     t.string "freeswitch_command_template"
     t.string "image"
     t.string "prompt"
+    t.string "type"
+    t.string "action"
   end
 
   create_table "ivr_menus", :force => true do |t|

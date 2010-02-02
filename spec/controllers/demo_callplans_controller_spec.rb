@@ -183,16 +183,16 @@ describe DemoCallplansController do
           @call_transfer_prototype = mock_model IvrMenuEntryPrototype
           @voicemail_prototype = mock_model IvrMenuEntryPrototype
           @play_audio_file_prototype = mock_model IvrMenuEntryPrototype
-          @params1 = {:action => 'menu-exit', :digits => "*", :system_param_part => nil, :user_param_part => nil, :prompt => "Exit the menu", :prototype => @menu_exit_prototype }
-          @params2 = {:action => 'menu-exec-app', :digits => "1", :system_param_part => "transfer", :user_param_part => "#{@employee_phone_number} XML default", :prompt => "Transfer call to:" , :prototype => @call_transfer_prototype}
-          @params3 = {:action => 'menu-exec-app', :digits => "2", :system_param_part => "voicemail default ${domain_name} ${dialed_extension}", :user_param_part => nil, :prompt => "Transfer to voicemail:" , :prototype => @voicemail_prototype}
-          @params4 = {:action => 'menu-exec-app', :digits => "3", :system_param_part => "playback", :user_param_part => "ivr/suckingteeth.wav", :prompt => "Play an audio file:" , :prototype => @play_audio_file_prototype}
-          @params5 = {:action => 'menu-exec-app', :digits => "4", :system_param_part => "playback", :user_param_part => "ivr/suckingteeth.wav", :prompt => "Play an audio file:" , :prototype => @play_audio_file_prototype}
-          @params6 = {:action => 'menu-exec-app', :digits => "5", :system_param_part => "playback", :user_param_part => "ivr/suckingteeth.wav", :prompt => "Play an audio file:" , :prototype => @play_audio_file_prototype}
-          IvrMenuEntryPrototype.stub(:find_by_type).with("menu_exit").and_return @menu_exit_prototype
-          IvrMenuEntryPrototype.stub(:find_by_type).with("call_transfer").and_return @call_transfer_prototype
-          IvrMenuEntryPrototype.stub(:find_by_type).with("voicemail").and_return @voicemail_prototype
-          IvrMenuEntryPrototype.stub(:find_by_type).with("play_audio_file").and_return @play_audio_file_prototype
+          @params1 = { :digits => "*", :user_param_part => nil, :prototype => @menu_exit_prototype }
+          @params2 = { :digits => "1", :user_param_part => "#{@employee_phone_number}", :prototype => @call_transfer_prototype}
+          @params3 = { :digits => "2", :user_param_part => nil, :prototype => @voicemail_prototype}
+          @params4 = { :digits => "3", :user_param_part => "ivr/suckingteeth.wav", :prototype => @play_audio_file_prototype}
+          @params5 = { :digits => "4", :user_param_part => "ivr/suckingteeth.wav", :prototype => @play_audio_file_prototype}
+          @params6 = { :digits => "5", :user_param_part => "ivr/suckingteeth.wav", :prototype => @play_audio_file_prototype}
+          IvrMenuEntryPrototype.stub(:find_by_name).with("menu_exit").and_return @menu_exit_prototype
+          IvrMenuEntryPrototype.stub(:find_by_name).with("call_transfer").and_return @call_transfer_prototype
+          IvrMenuEntryPrototype.stub(:find_by_name).with("voicemail").and_return @voicemail_prototype
+          IvrMenuEntryPrototype.stub(:find_by_name).with("play_audio_file").and_return @play_audio_file_prototype
           @ivr_menu_entry1 = mock_model IvrMenuEntry, @params1
           @ivr_menu_entry2 = mock_model IvrMenuEntry, @params2
           @ivr_menu_entry3 = mock_model IvrMenuEntry, @params3

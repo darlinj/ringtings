@@ -13,9 +13,13 @@ xml.document :type => 'freeswitch/xml' do
           'timeout' => '15000',
           'max-failures' => '3' do
           @ivr_menu.ivr_menu_entries.each  do |entry|
-            xml.entry 'action' => entry.action, 'digits' => entry.digits, 'param' => "#{entry.system_param_part} #{entry.user_param_part}"
+            if entry.prototype.freeswitch_command_template && entry.user_param_part
+              xml.entry 'action' => entry.prototype.action, 'digits' => entry.digits, 'param' => "#{entry.prototype.freeswitch_command_template.gsub('<param1>',entry.user_param_part)}"
+            else
+              xml.entry 'action' => entry.prototype.action, 'digits' => entry.digits
+            end
           end
-        end
+          end
       end
     end
   end

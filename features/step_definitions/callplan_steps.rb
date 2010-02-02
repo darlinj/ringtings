@@ -20,19 +20,20 @@ Given /^we have an IVR Menu with:$/ do |table|
   table.hashes.each do |hash|
     args[hash['name']] = hash['value']
   end
+
   ivr_menu = Factory :ivr_menu,
     :long_greeting => args['long_greeting'],
     :action_id => feature_vars['action_id']
   Factory :ivr_menu_entry,
     :digits => args['ivr_menu_entry1_digit'],
     :user_param_part => args['ivr_menu_entry1_action'],
-    :prompt => args['ivr_menu_entry1_prompt'],
-    :ivr_menu_id => ivr_menu.id
+    :ivr_menu_id => ivr_menu.id,
+    :prototype => IvrMenuEntryPrototype.find_by_name(args['ivr_menu_entry1_type'])
   Factory :ivr_menu_entry,
     :digits => args['ivr_menu_entry2_digit'],
     :user_param_part => args['ivr_menu_entry2_action'],
-    :prompt => args['ivr_menu_entry2_prompt'],
-    :ivr_menu_id => ivr_menu.id
+    :ivr_menu_id => ivr_menu.id,
+    :prototype => IvrMenuEntryPrototype.find_by_name(args['ivr_menu_entry2_type'])
 end
 
 Given /^we store the Callplan ID as <callplan_id>$/ do

@@ -14,3 +14,5 @@ Factory.find_definitions
 
 require 'curb'
 require 'rexml/document'
+
+require 'rake'

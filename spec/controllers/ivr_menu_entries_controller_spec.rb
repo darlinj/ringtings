@@ -10,9 +10,11 @@ describe IvrMenuEntriesController do
     before do
       @type = "foo"
       @ivr_menu = mock_model IvrMenu, :action=> @action
-      @expected_params = {:type => @type, :action => 'menu-exec-app', :digits => "1", :system_param_part => "say", :user_param_part => "type your announcement here", :prompt => "Synthetic vocie says:" }
       @ivr_menu_entry = mock_model IvrMenuEntry
-      IvrMenuEntry.stub(:new).and_return @ivr_menu_entry
+      @ivr_menu_entry_prototype = mock_model IvrMenuEntryPrototype
+      @expected_params = { :digits => "1", :user_param_part => "type your announcement here", :prototype => @ivr_menu_entry_prototype }
+      IvrMenuEntryPrototype.stub(:find_by_name).and_return @ivr_menu_entry_prototype
+      SyntheticVoiceMenuEntry.stub(:new).and_return @ivr_menu_entry
       IvrMenu.stub(:find).with(@ivr_menu.id).and_return(@ivr_menu)
       @ivr_menu_entry.stub(:ivr_menu=)
       @ivr_menu.stub(:ivr_menu_entries).and_return nil
@@ -24,7 +26,7 @@ describe IvrMenuEntriesController do
     end
 
     it "creates the ivr menu entry" do
-      IvrMenuEntry.should_receive(:new).with(@expected_params)
+      SyntheticVoiceMenuEntry.should_receive(:new).with(@expected_params)
       do_post
     end
 
@@ -36,7 +38,7 @@ describe IvrMenuEntriesController do
     describe "set the digit to the first available" do
       describe "if there are existing menu entries with digits set" do
         before do
-          @existing_ivr_menu_entry = mock_model IvrMenuEntry, :digits => "3", :ivr_menu=>@ivr_menu
+          @existing_ivr_menu_entry = mock_model SyntheticVoiceMenuEntry, :digits => "3", :ivr_menu=>@ivr_menu
           @ivr_menu.stub(:ivr_menu_entries).and_return [@existing_ivr_menu_entry]
         end
 
