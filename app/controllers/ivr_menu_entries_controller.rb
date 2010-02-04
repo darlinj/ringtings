@@ -1,7 +1,7 @@
 class IvrMenuEntriesController < ApplicationController
   def create
     ivr_menu_entry = Module.const_get(params['type']).new :digits => "1",
-      :user_param_part => "type your announcement here",
+      :param_1 => "type your announcement here",
       :prototype => IvrMenuEntryPrototype.find_by_name(params['type'])
     ivr_menu = IvrMenu.find(params['ivr_menu_id'].to_i)
     if ivr_menu.ivr_menu_entries

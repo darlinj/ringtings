@@ -15,35 +15,35 @@ IvrMenuEntryPrototype.destroy_all
 
 IvrMenuEntryPrototype.create! :name => "MenuExitMenuEntry",
   :description => "Exit the current menu",
-  :freeswitch_command_template => "somthing containing an @ symbol",
+  :freeswitch_command_template => "",
   :image => "ivr_step_action.png",
   :prompt => "Menu exit",
   :action => "menu-exit"
 
 IvrMenuEntryPrototype.create! :name => "VoiceMailMenuEntry",
   :description => "Voicemail system",
-  :freeswitch_command_template => "somthing containing an @ symbol",
+  :freeswitch_command_template => "voicemail commady thing",
   :image => "ivr_step_action.png",
   :prompt => "Go to voicemail",
   :action => "menu-exec-app"
 
 IvrMenuEntryPrototype.create! :name => "TransferCallMenuEntry",
   :description => "Transfer call to another number",
-  :freeswitch_command_template => "transfer <param1> XML default",
+  :freeswitch_command_template => "transfer <param_1> XML default",
   :image => "ivr_step_action.png",
   :prompt => "Transfer call to:",
   :action => "transferything-exec-app"
 
 IvrMenuEntryPrototype.create! :name => "SyntheticVoiceMenuEntry",
   :description => "Synthetic voice",
-  :freeswitch_command_template => "somthing containing an @ symbol",
+  :freeswitch_command_template => "say <param_1> foo",
   :image => "ivr_step_action.png",
   :prompt => "Synthetic voice says:",
   :action => "menu-exec-app"
 
 IvrMenuEntryPrototype.create! :name => "PlayAudioFileMenuEntry",
   :description => "Play audio file",
-  :freeswitch_command_template => "somthing containing an @ symbol",
+  :freeswitch_command_template => "play <param_1>",
   :image => "ivr_step_action.png",
   :prompt => "Play audio file:",
   :action => "menu-exec-app"
