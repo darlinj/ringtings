@@ -179,27 +179,30 @@ describe DemoCallplansController do
           @action.stub(:application_data=)
           @action.stub(:ivr_menu=)
           @action.stub(:save!)
-          @menu_exit_prototype = mock_model IvrMenuEntryPrototype
-          @call_transfer_prototype = mock_model IvrMenuEntryPrototype
-          @voicemail_prototype = mock_model IvrMenuEntryPrototype
-          @play_audio_file_prototype = mock_model IvrMenuEntryPrototype
+          @menu_exit_prototype = mock_model MenuExitMenuEntry
+          @call_transfer_prototype = mock_model TransferCallMenuEntry
+          @voicemail_prototype = mock_model VoiceMailMenuEntry
+          @play_audio_file_prototype = mock_model PlayAudioFileMenuEntry
           @params1 = { :digits => "*", :user_param_part => nil, :prototype => @menu_exit_prototype }
           @params2 = { :digits => "1", :user_param_part => "#{@employee_phone_number}", :prototype => @call_transfer_prototype}
           @params3 = { :digits => "2", :user_param_part => nil, :prototype => @voicemail_prototype}
           @params4 = { :digits => "3", :user_param_part => "ivr/suckingteeth.wav", :prototype => @play_audio_file_prototype}
           @params5 = { :digits => "4", :user_param_part => "ivr/suckingteeth.wav", :prototype => @play_audio_file_prototype}
           @params6 = { :digits => "5", :user_param_part => "ivr/suckingteeth.wav", :prototype => @play_audio_file_prototype}
-          IvrMenuEntryPrototype.stub(:find_by_name).with("menu_exit").and_return @menu_exit_prototype
-          IvrMenuEntryPrototype.stub(:find_by_name).with("call_transfer").and_return @call_transfer_prototype
-          IvrMenuEntryPrototype.stub(:find_by_name).with("voicemail").and_return @voicemail_prototype
-          IvrMenuEntryPrototype.stub(:find_by_name).with("play_audio_file").and_return @play_audio_file_prototype
+          IvrMenuEntryPrototype.stub(:find_by_name).with("MenuExitMenuEntry").and_return @menu_exit_prototype
+          IvrMenuEntryPrototype.stub(:find_by_name).with("TransferCallMenuEntry").and_return @call_transfer_prototype
+          IvrMenuEntryPrototype.stub(:find_by_name).with("VoiceMailMenuEntry").and_return @voicemail_prototype
+          IvrMenuEntryPrototype.stub(:find_by_name).with("PlayAudioFileMenuEntry").and_return @play_audio_file_prototype
           @ivr_menu_entry1 = mock_model IvrMenuEntry, @params1
           @ivr_menu_entry2 = mock_model IvrMenuEntry, @params2
           @ivr_menu_entry3 = mock_model IvrMenuEntry, @params3
           @ivr_menu_entry4 = mock_model IvrMenuEntry, @params4
           @ivr_menu_entry5 = mock_model IvrMenuEntry, @params5
           @ivr_menu_entry6 = mock_model IvrMenuEntry, @params6
-          IvrMenuEntry.stub(:create!).and_return @ivr_menu_entry1, @ivr_menu_entry2, @ivr_menu_entry3, @ivr_menu_entry4, @ivr_menu_entry5, @ivr_menu_entry6
+          MenuExitMenuEntry.stub(:create!).and_return @ivr_menu_entry1
+          TransferCallMenuEntry.stub(:create!).and_return @ivr_menu_entry2
+          VoiceMailMenuEntry.stub(:create!).and_return @ivr_menu_entry3
+          PlayAudioFileMenuEntry.stub(:create!).and_return @ivr_menu_entry4, @ivr_menu_entry5, @ivr_menu_entry6
           @ivr_menu_entries = [@ivr_menu_entry1, @ivr_menu_entry2, @ivr_menu_entry3, @ivr_menu_entry4, @ivr_menu_entry5, @ivr_menu_entry6]
           @ivr_menu = mock_model IvrMenu
           IvrMenu.stub(:create!).and_return @ivr_menu
@@ -276,17 +279,13 @@ describe DemoCallplansController do
         end
 
         describe "creating the ivr menu entries" do
-          it "creates 5 ivr menu entries" do
-            IvrMenuEntry.should_receive(:create!).exactly(6).times
-            do_put
-          end
           it "has an exit option in the first entry" do
-            IvrMenuEntry.should_receive(:create!).with(@params1)
-            IvrMenuEntry.should_receive(:create!).with(@params2)
-            IvrMenuEntry.should_receive(:create!).with(@params3)
-            IvrMenuEntry.should_receive(:create!).with(@params4)
-            IvrMenuEntry.should_receive(:create!).with(@params5)
-            IvrMenuEntry.should_receive(:create!).with(@params6)
+            MenuExitMenuEntry.should_receive(:create!).with(@params1)
+            TransferCallMenuEntry.should_receive(:create!).with(@params2)
+            VoiceMailMenuEntry.should_receive(:create!).with(@params3)
+            PlayAudioFileMenuEntry.should_receive(:create!).with(@params4)
+            PlayAudioFileMenuEntry.should_receive(:create!).with(@params5)
+            PlayAudioFileMenuEntry.should_receive(:create!).with(@params6)
             do_put
           end
         end

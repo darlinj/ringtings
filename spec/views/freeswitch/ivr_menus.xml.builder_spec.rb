@@ -13,8 +13,8 @@ describe "/service_instances/ivr_menus.xml.builder" do
     @system_param_part2 = "some other params"
     @user_param_part1 = "some user params"
     @user_param_part2 = "some user other params"
-    @ivr_entry1 = mock_model IvrMenuEntry, :digits => @digits1 , :user_param_part => @user_param_part1, :prototype => IvrMenuEntryPrototype.find_by_name("synthetic_voice")
-    @ivr_entry2 = mock_model IvrMenuEntry, :digits => @digits2 , :user_param_part => @user_param_part2, :prototype => IvrMenuEntryPrototype.find_by_name("synthetic_voice")
+    @ivr_entry1 = mock_model IvrMenuEntry, :digits => @digits1 , :user_param_part => @user_param_part1, :prototype => IvrMenuEntryPrototype.find_by_name("SyntheticVoiceMenuEntry")
+    @ivr_entry2 = mock_model IvrMenuEntry, :digits => @digits2 , :user_param_part => @user_param_part2, :prototype => IvrMenuEntryPrototype.find_by_name("SyntheticVoiceMenuEntry")
     @ivr_menu_entries = [@ivr_entry1,@ivr_entry2]
     @ivr_menu = mock_model IvrMenu, :name => @name, :long_greeting => @long_greeting, :ivr_menu_entries => @ivr_menu_entries
     assigns[:ivr_menu] = @ivr_menu

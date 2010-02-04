@@ -13,35 +13,35 @@ InboundNumberManager.create! :phone_number=>"0123456009"
 
 IvrMenuEntryPrototype.destroy_all
 
-IvrMenuEntryPrototype.create! :name => "menu_exit",
+IvrMenuEntryPrototype.create! :name => "MenuExitMenuEntry",
   :description => "Exit the current menu",
   :freeswitch_command_template => "somthing containing an @ symbol",
   :image => "ivr_step_action.png",
   :prompt => "Menu exit",
   :action => "menu-exit"
 
-IvrMenuEntryPrototype.create! :name => "voicemail",
+IvrMenuEntryPrototype.create! :name => "VoiceMailMenuEntry",
   :description => "Voicemail system",
   :freeswitch_command_template => "somthing containing an @ symbol",
   :image => "ivr_step_action.png",
   :prompt => "Go to voicemail",
   :action => "menu-exec-app"
 
-IvrMenuEntryPrototype.create! :name => "call_transfer",
+IvrMenuEntryPrototype.create! :name => "TransferCallMenuEntry",
   :description => "Transfer call to another number",
   :freeswitch_command_template => "transfer <param1> XML default",
   :image => "ivr_step_action.png",
   :prompt => "Transfer call to:",
   :action => "transferything-exec-app"
 
-IvrMenuEntryPrototype.create! :name => "synthetic_voice",
+IvrMenuEntryPrototype.create! :name => "SyntheticVoiceMenuEntry",
   :description => "Synthetic voice",
   :freeswitch_command_template => "somthing containing an @ symbol",
   :image => "ivr_step_action.png",
   :prompt => "Synthetic voice says:",
   :action => "menu-exec-app"
 
-IvrMenuEntryPrototype.create! :name => "play_audio_file",
+IvrMenuEntryPrototype.create! :name => "PlayAudioFileMenuEntry",
   :description => "Play audio file",
   :freeswitch_command_template => "somthing containing an @ symbol",
   :image => "ivr_step_action.png",

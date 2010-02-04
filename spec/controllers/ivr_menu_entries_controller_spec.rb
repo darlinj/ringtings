@@ -8,12 +8,12 @@ describe IvrMenuEntriesController do
   end
   describe "creating an entry" do
     before do
-      @type = "foo"
+      @type = "SyntheticVoiceMenuEntry"
       @ivr_menu = mock_model IvrMenu, :action=> @action
       @ivr_menu_entry = mock_model IvrMenuEntry
       @ivr_menu_entry_prototype = mock_model IvrMenuEntryPrototype
       @expected_params = { :digits => "1", :user_param_part => "type your announcement here", :prototype => @ivr_menu_entry_prototype }
-      IvrMenuEntryPrototype.stub(:find_by_name).and_return @ivr_menu_entry_prototype
+      IvrMenuEntryPrototype.stub(:find_by_name).with(@type).and_return @ivr_menu_entry_prototype
       SyntheticVoiceMenuEntry.stub(:new).and_return @ivr_menu_entry
       IvrMenu.stub(:find).with(@ivr_menu.id).and_return(@ivr_menu)
       @ivr_menu_entry.stub(:ivr_menu=)

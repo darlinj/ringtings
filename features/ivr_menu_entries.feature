@@ -10,15 +10,15 @@ Feature: IVR menu entry
       | name                   | value                         |
       | long_greeting          | some long greeting            |
       | ivr_menu_entry1_digit  | 1                             |
-      | ivr_menu_entry1_type   | synthetic_voice               |
+      | ivr_menu_entry1_type   | SyntheticVoiceMenuEntry       |
       | ivr_menu_entry1_action | hello peeps                   |
       | ivr_menu_entry2_digit  | 2                             |
-      | ivr_menu_entry2_type   | call_transfer                 |
+      | ivr_menu_entry2_type   | TransferCallMenuEntry         |
       | ivr_menu_entry2_action | 1234567890                    |
     And I am logged in
     When I navigate to the "callplan_path" for <callplan_id>
     And I click the "Add a menu option" image button
-    And I click the form input with id "synthetic_voice"
+    And I click the form input with id "SyntheticVoiceMenuEntry"
     Then the response should have 3 elements that match "//div[@class='ivr_step_action']"
     And I should see "your announcement here"
 
@@ -32,10 +32,10 @@ Feature: IVR menu entry
       | name                   | value                         |
       | long_greeting          | some long greeting            |
       | ivr_menu_entry1_digit  | 1                             |
-      | ivr_menu_entry1_type   | synthetic_voice               |
+      | ivr_menu_entry1_type   | SyntheticVoiceMenuEntry       |
       | ivr_menu_entry1_action | hello peeps                   |
       | ivr_menu_entry2_digit  | 2                             |
-      | ivr_menu_entry2_type   | call_transfer                 |
+      | ivr_menu_entry2_type   | TransferCallMenuEntry         |
       | ivr_menu_entry2_action | 1234567890                    |
     And I am logged in
     When I navigate to the "callplan_path" for <callplan_id>
