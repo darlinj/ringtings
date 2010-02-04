@@ -11,8 +11,9 @@ describe IvrMenuEntriesController do
       @type = "SyntheticVoiceMenuEntry"
       @ivr_menu = mock_model IvrMenu, :action=> @action
       @ivr_menu_entry = mock_model IvrMenuEntry
-      @ivr_menu_entry_prototype = mock_model IvrMenuEntryPrototype
-      @expected_params = { :digits => "1", :param_1 => "type your announcement here", :prototype => @ivr_menu_entry_prototype }
+      @param_1_default = "some menu here"
+      @ivr_menu_entry_prototype = mock_model IvrMenuEntryPrototype, :param_1_default => @param_1_default
+      @expected_params = { :digits => "1", :param_1 => @param_1_default, :prototype => @ivr_menu_entry_prototype }
       IvrMenuEntryPrototype.stub(:find_by_name).with(@type).and_return @ivr_menu_entry_prototype
       SyntheticVoiceMenuEntry.stub(:new).and_return @ivr_menu_entry
       IvrMenu.stub(:find).with(@ivr_menu.id).and_return(@ivr_menu)

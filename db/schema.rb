@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100204194554) do
+ActiveRecord::Schema.define(:version => 20100204202217) do
 
   create_table "actions", :force => true do |t|
     t.integer  "callplan_id"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20100204194554) do
     t.string "prompt"
     t.string "type"
     t.string "action"
+    t.string "param_1_default"
   end
 
   create_table "ivr_menus", :force => true do |t|

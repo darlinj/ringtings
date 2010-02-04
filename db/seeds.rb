@@ -32,6 +32,7 @@ IvrMenuEntryPrototype.create! :name => "TransferCallMenuEntry",
   :freeswitch_command_template => "transfer <param_1> XML default",
   :image => "ivr_step_action.png",
   :prompt => "Transfer call to:",
+  :param_1_default => "441234-SOME-NUM",
   :action => "transferything-exec-app"
 
 IvrMenuEntryPrototype.create! :name => "SyntheticVoiceMenuEntry",
@@ -39,6 +40,7 @@ IvrMenuEntryPrototype.create! :name => "SyntheticVoiceMenuEntry",
   :freeswitch_command_template => "say <param_1> foo",
   :image => "ivr_step_action.png",
   :prompt => "Synthetic voice says:",
+  :param_1_default => "your announcement here",
   :action => "menu-exec-app"
 
 IvrMenuEntryPrototype.create! :name => "PlayAudioFileMenuEntry",
@@ -46,4 +48,5 @@ IvrMenuEntryPrototype.create! :name => "PlayAudioFileMenuEntry",
   :freeswitch_command_template => "play <param_1>",
   :image => "ivr_step_action.png",
   :prompt => "Play audio file:",
+  :param_1_default => "/some/file.wav",
   :action => "menu-exec-app"
