@@ -14,7 +14,9 @@ xml.document :type => 'freeswitch/xml' do
           'max-failures' => '3' do
           @ivr_menu.ivr_menu_entries.each  do |entry|
             if entry.prototype.freeswitch_command_template && entry.param_1
-              xml.entry 'action' => entry.prototype.action, 'digits' => entry.digits, 'param' => "#{entry.prototype.freeswitch_command_template.gsub('<param_1>',entry.param_1)}"
+              xml.entry 'action' => entry.prototype.action, 
+                'digits' => entry.digits,
+                'param' => "#{entry.prototype.freeswitch_command_template.gsub('<param_1>',entry.param_1)}"
             else
               xml.entry 'action' => entry.prototype.action, 'digits' => entry.digits
             end

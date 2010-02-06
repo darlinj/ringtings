@@ -23,19 +23,28 @@ class DemoCallplansController < ApplicationController
       return
     end
     @callplan = Callplan.create! :company_name => params[:demo_callplan]['company_name']
-    RAILS_DEFAULT_LOGGER.debug "Trying to assign inbound number"
     InboundNumberManager.allocate_free_number_to_callplan(@callplan)
     RAILS_DEFAULT_LOGGER.debug "assigned inbound number #{@callplan.inbound_number.phone_number}"
-    @callplan.action = Action.create! :application_name=>"speak",
-      :application_data => "Cepstral|Lawrence-8kHz|Welcome to #{@callplan.company_name}, all our operators are busy right now. Please call back soon"
+
+    Employee.create! :phone_number=> params[:demo_callplan]['phone_number'],
+      :callplan => @callplan
+    @callplan.action = Action.create! :application_name => "ivr",
+      :application_data => "ivr_menu_#{@callplan.inbound_number.phone_number}"
+    @callplan.inbound_number.ivr_menu = create_ivr_menu_options @callplan.employee.phone_number,
+      @callplan.inbound_number.phone_number,
+      @callplan.company_name
+    @callplan.action.ivr_menu = @callplan.inbound_number.ivr_menu
+    RAILS_DEFAULT_LOGGER.debug "##################{@callplan.action.ivr_menu.inspect}"
+    session[:next_stage] = "4"
+
     @callplan.save!
     session[:callplan_id] = @callplan.id
-    session[:next_stage] = "2"
   rescue Exceptions::OutOfCapacityError
     RAILS_DEFAULT_LOGGER.debug "OUT OF INBOUND NUMBERS!!!"
     flash[:error]="We are sorry but we have temporerily run out of free telephone numbers. We are taking steps to get more so please try again soon."
     redirect_to (demo_callplans_url)
   rescue Exception
+    RAILS_DEFAULT_LOGGER.debug "SOME SHIT WENT WRONG!!"
     flash[:error]="We are sorry but there has been an unexpected problem. We are working to resolve it. Please try again soon."
     redirect_to (demo_callplans_url)
   end
@@ -55,27 +64,7 @@ class DemoCallplansController < ApplicationController
     redirect_to demo_callplan_path(params[:id])
   end
 
-  def generate_full_demo_callplan
-    @callplan = Callplan.find(params[:id].to_i)
-    unless @callplan
-      flash[:error]="We are very sorry but we can't complete this operation.  This should not happen if you are using the website as we expect.  We will look into this problem.  Please try again"
-      redirect_to (demo_callplans_url)
-      return
-    end
-    Employee.create! :phone_number=> params[:demo_callplan]['phone_number'],
-      :callplan_id => params[:id].to_i
-    @callplan.action.application_name = "ivr"
-    @callplan.action.application_data = "ivr_menu_#{@callplan.inbound_number.phone_number}"
-    @callplan.inbound_number.ivr_menu = create_ivr_menu_options @callplan.employee.phone_number,
-      @callplan.inbound_number.phone_number,
-      @callplan.company_name
-    @callplan.action.ivr_menu = @callplan.inbound_number.ivr_menu
-    @callplan.save
-    session[:next_stage] = "4"
-    true
-  end
-
-  def create_user 
+  def create_user
     @user = User.new params[:demo_callplan]
     @user.save!
     @callplan = Callplan.find(params[:id].to_i)

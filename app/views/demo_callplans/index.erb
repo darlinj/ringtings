@@ -3,10 +3,12 @@
     <% form_for :demo_callplan, :url=>demo_callplans_path do |@form| %>
       <div id="try_it_thread">
         <div class="step_box">
-          Enter the name of your business and click next
-          <br />
+          Enter the name of your business and click next<br/>
           <%= @form.label :company_name %>
           <%= @form.text_field :company_name, :size=>30, :value => @company_name %><br/>
+          Please fill in the phone number of a handy phone: <br/>
+          <%= @form.label :phone_number %>
+          <%= @form.text_field :phone_number, :size=>20 %><br/>
         </div>
         <%= image_submit_tag "/images/next.png", :id => "next_submit_image" %> 
       <% end %>
