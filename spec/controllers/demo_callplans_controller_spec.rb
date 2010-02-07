@@ -208,19 +208,6 @@ describe DemoCallplansController do
             flash[:error].should == "We are sorry but we have temporerily run out of free telephone numbers. We are taking steps to get more so please try again soon."
           end
         end
-        describe "when there is an unexpected error" do
-          before do
-            Callplan.stub(:create!).and_raise(StandardError)
-          end
-          it "catches all errors" do
-            lambda {do_post}.should_not raise_error
-          end
-          it "creates a flash message" do
-            do_post
-            flash[:error].should == "We are sorry but there has been an unexpected problem. We are working to resolve it. Please try again soon."
-          end
-        end
-
       end
       describe "the parameters not being in the request" do
         it "doesn't have a demo_callplan hash" do

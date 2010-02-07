@@ -16,7 +16,7 @@ class DemoCallplansController < ApplicationController
 
   def create
     RAILS_DEFAULT_LOGGER.error "params controller #{params.inspect}"
-    unless params[:demo_callplan] && params[:demo_callplan]['company_name']
+    unless params[:demo_callplan] && params[:demo_callplan]['company_name'] && params[:demo_callplan]['phone_number']
       RAILS_DEFAULT_LOGGER.debug "Bad params. Redirecting back to form"
       flash[:error]="We are sorry but there is a problem with the infomation you provided.  Please try again"
       redirect_to (demo_callplans_url)
@@ -24,7 +24,6 @@ class DemoCallplansController < ApplicationController
     end
     @callplan = Callplan.create! :company_name => params[:demo_callplan]['company_name']
     InboundNumberManager.allocate_free_number_to_callplan(@callplan)
-    RAILS_DEFAULT_LOGGER.debug "assigned inbound number #{@callplan.inbound_number.phone_number}"
 
     Employee.create! :phone_number=> params[:demo_callplan]['phone_number'],
       :callplan => @callplan
@@ -34,18 +33,12 @@ class DemoCallplansController < ApplicationController
       @callplan.inbound_number.phone_number,
       @callplan.company_name
     @callplan.action.ivr_menu = @callplan.inbound_number.ivr_menu
-    RAILS_DEFAULT_LOGGER.debug "##################{@callplan.action.ivr_menu.inspect}"
-    session[:next_stage] = "4"
-
     @callplan.save!
+    session[:next_stage] = "4"
     session[:callplan_id] = @callplan.id
   rescue Exceptions::OutOfCapacityError
     RAILS_DEFAULT_LOGGER.debug "OUT OF INBOUND NUMBERS!!!"
     flash[:error]="We are sorry but we have temporerily run out of free telephone numbers. We are taking steps to get more so please try again soon."
-    redirect_to (demo_callplans_url)
-  rescue Exception
-    RAILS_DEFAULT_LOGGER.debug "SOME SHIT WENT WRONG!!"
-    flash[:error]="We are sorry but there has been an unexpected problem. We are working to resolve it. Please try again soon."
     redirect_to (demo_callplans_url)
   end
 
