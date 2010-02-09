@@ -5,7 +5,7 @@ set :copy_strategy, :export
 
 #EMI that includes rails and postgres is 	emi-4F901695
 #You need to go into /etc/yum.repos.d/Centos-Base and change the achitecture variable to "i386"
-set :host, "ringtings.com"
+set :host, "74.50.49.157"
 set :application, "ringtings"
 set :application_user, "ringtings"
 set :deploy_to, "/home/#{application_user}/ringtings_home"
@@ -49,12 +49,12 @@ task :install do
   deploy.create_user
   deploy.install_packages
   deploy.install_ruby
+  deploy.install_rubygems
   deploy.install_passenger
   deploy.install_postgres
   deploy.install_sendmail
   deploy.create_postgres_user
   deploy.create_deployment_folders
-  deploy.install_rubygems
   deploy.create_gemrc
   deploy.update_rubygems
   deploy.install_bundler
@@ -108,7 +108,7 @@ namespace :deploy do
     set :ruby_version, "ruby-1.8.6-p383"
     run 'yum install -y gcc make readline-devel'
     # download latest ruby - version on image doesn't work with readline
-    run "wget ftp://ftp.ruby-lang.org/pub/ruby/#{ruby_version}.tar.gz"
+    run "wget ftp://ftp.ruby-lang.org/pub/ruby/1.8/#{ruby_version}.tar.gz"
     run "tar xvfz #{ruby_version}.tar.gz"
     run "cd #{ruby_version} && ./configure --prefix=/usr && make && make install"
     run "rm -f #{ruby_version}.tar.gz"
@@ -204,11 +204,11 @@ production:
   end
 
   task :install_tts_voice do
-    set :voice, "Cepstral_Lawrence-8kHz_x86-64-linux_5.1.0"
+    set :voice, "Cepstral_Lawrence-8kHz_i386-linux_5.1.0"
     run 'yum install -y expect'
     run "mkdir -p #{freeswitch_dir}/downloads"
     run "mkdir -p #{freeswitch_dir}/downloads"
-    run "cd #{freeswitch_dir}/downloads && wget http://downloads.cepstral.com/cepstral/x86-64-linux/#{voice}.tar.gz"
+    run "cd #{freeswitch_dir}/downloads && wget http://downloads.cepstral.com/cepstral/i386-linux/#{voice}.tar.gz"
     run "cd #{freeswitch_dir}/downloads && tar -xvf #{voice}.tar.gz"
     run "cd #{freeswitch_dir}/downloads && cp -r #{voice} /opt"
     run "rm -rf /opt/swift"

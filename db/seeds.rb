@@ -1,8 +1,8 @@
 InboundNumberManager.destroy_all
 
-InboundNumberManager.create! :phone_number=>"0123456000"
-InboundNumberManager.create! :phone_number=>"0123456001"
-InboundNumberManager.create! :phone_number=>"0123456002"
+InboundNumberManager.create! :phone_number=>"07031917560"
+InboundNumberManager.create! :phone_number=>"08444843729"
+InboundNumberManager.create! :phone_number=>"08715041970"
 InboundNumberManager.create! :phone_number=>"0123456003"
 InboundNumberManager.create! :phone_number=>"0123456004"
 InboundNumberManager.create! :phone_number=>"0123456005"
