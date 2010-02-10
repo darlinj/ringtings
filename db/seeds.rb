@@ -22,7 +22,7 @@ IvrMenuEntryPrototype.create! :name => "MenuExitMenuEntry",
 
 IvrMenuEntryPrototype.create! :name => "VoiceMailMenuEntry",
   :description => "Voicemail system",
-  :freeswitch_command_template => "voicemail commady thing",
+  :freeswitch_command_template => "voicemail default ${domain_name} ${dialed_extension}",
   :image => "ivr_step_action.png",
   :prompt => "Go to voicemail",
   :action => "menu-exec-app"
@@ -33,11 +33,11 @@ IvrMenuEntryPrototype.create! :name => "TransferCallMenuEntry",
   :image => "ivr_step_action.png",
   :prompt => "Transfer call to:",
   :param_1_default => "441234-SOME-NUM",
-  :action => "transferything-exec-app"
+  :action => "menu-exec-app"
 
 IvrMenuEntryPrototype.create! :name => "SyntheticVoiceMenuEntry",
   :description => "Synthetic voice",
-  :freeswitch_command_template => "say <param_1> foo",
+  :freeswitch_command_template => "say:<param_1>",
   :image => "ivr_step_action.png",
   :prompt => "Synthetic voice says:",
   :param_1_default => "your announcement here",
