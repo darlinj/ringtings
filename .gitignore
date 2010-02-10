@@ -1,3 +1,5 @@
 *.swp
 *.log
 vendor/*
+freeswitch_stuff/gafachi.xml
+config/database.yml

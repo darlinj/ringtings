@@ -1,0 +1,7 @@
+<include>
+  <gateway name="sip.gafachi.com">
+    <param name="username" value="Some value"/>
+    <param name="password" value="Some value"/>
+    <param name="register" value="true"/>
+  </gateway>
+</include>

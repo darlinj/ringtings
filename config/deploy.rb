@@ -234,6 +234,9 @@ production:
     run "cp #{current_path}/freeswitch_stuff/xml_curl.conf.xml /usr/local/freeswitch/conf/autoload_configs/"
     run "cp #{current_path}/freeswitch_stuff/modules.conf.xml /usr/local/freeswitch/conf/autoload_configs/"
     run "cp #{current_path}/freeswitch_stuff/suckingteeth.wav /usr/local/freeswitch/sounds/en/us/callie/ivr/8000/"
+    run "cp #{current_path}/freeswitch_stuff/dialplan_default.xml /usr/local/freeswitch/conf/dialplans/default.xml"
+    # Remember to set the username and password for your gafachi account
+    run "cp #{current_path}/freeswitch_stuff/gafachi.xml.example /usr/local/freeswitch/conf/sip_profiles/external/gafachi.xml"
   end
 
   task :install_sendmail do
