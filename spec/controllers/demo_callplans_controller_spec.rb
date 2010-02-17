@@ -97,11 +97,6 @@ describe DemoCallplansController do
         post :create, :demo_callplan => {'company_name'=>@company_name, 'phone_number' => @employee_phone_number}
       end
 
-      it "responds to create" do
-        do_post
-        response.should be_success
-      end
-
       it "should assign the tab variable" do
         do_post
         assigns[:tab].should == @tab
@@ -109,7 +104,7 @@ describe DemoCallplansController do
 
       it "renders the generate template" do
         do_post
-        response.should render_template('demo_callplans/create')
+        response.should redirect_to(demo_callplan_url(@callplan.id))
       end
 
       describe "creating the callplan model" do
@@ -209,6 +204,7 @@ describe DemoCallplansController do
           end
         end
       end
+
       describe "the parameters not being in the request" do
         it "doesn't have a demo_callplan hash" do
           post :create

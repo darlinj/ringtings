@@ -268,9 +268,9 @@ div.step_box {
 }
 
 .action_close_button {
-  position: relative;
+  position: absolute;
   float: right;
-  top: -22px;
+  top: 10px;
   right: 32px;
 }
 

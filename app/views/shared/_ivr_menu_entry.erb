@@ -8,12 +8,10 @@
       </div>
     </div>
     <div class="ivr_step_action">
-      <div class="ivr_action_text">
-        <%= ivr_menu_entry.prototype.prompt %>
-        <%= ivr_menu_entries_fields.text_area(:param_1, 
-                                              :id => "ivr_menu_entry_textbox") %>
-        <%= link_to image_tag ("/images/close_button.png", :class => "action_close_button", :border =>0),
-          "/ivr_menu_entries/#{ivr_menu_entry.id}", :class => "delete_IVR_menu_entry", :method => :delete %>
-      </div>
-    </div>
+      <%= render :partial => "/shared/#{ivr_menu_entry.prototype.partial_name}", 
+            :locals => { :ivr_menu_entries_fields => ivr_menu_entries_fields,
+            :ivr_menu_entry => ivr_menu_entry } %>
+      <%= link_to image_tag ("/images/close_button.png", :class => "action_close_button", :border =>0),
+        "/ivr_menu_entries/#{ivr_menu_entry.id}", :class => "delete_IVR_menu_entry", :method => :delete %>
+   </div>
   </div>

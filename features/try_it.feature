@@ -30,3 +30,24 @@ Story: Try it out page
     Then Freeswitch should find "press two to be connected to leave a message" in the XML
     Then Freeswitch should find "transfer 0987654321" in the XML
 
+@wip
+  Scenario: running create multiple times in a session should not result in creating multiple callplans
+    Given I am logged out
+    And we clear the "InboundNumberManager" model
+    And and "0123456789" is stored in the "inbound_number_manager" table in the database
+    And and "0000000000" is stored in the "inbound_number_manager" table in the database
+    When I go to the homepage
+    And I follow "try it free"
+    Then I should see "Enter the name of your business"
+    When I fill in "Company name" with "Mr Plumb the plumber"
+    Then I should see "Please fill in the phone number of a handy phone"
+    And I fill in "Phone number" with "0987654321"
+    When I click the form input with id "next_submit_image"
+    And I should see "Here is your first callplan"
+    And I should see "0123456789"
+    And I click the back button
+    When I fill in "Company name" with "Mr Plumb the plumber"
+    And I fill in "Phone number" with "0987654321"
+    When I click the form input with id "next_submit_image"
+    Then I should see "0123456789"
+    Then I should not see "0000000000"

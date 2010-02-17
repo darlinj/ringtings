@@ -36,6 +36,7 @@ class DemoCallplansController < ApplicationController
     @callplan.save!
     session[:next_stage] = "4"
     session[:callplan_id] = @callplan.id
+    redirect_to demo_callplan_path(@callplan.id)
   rescue Exceptions::OutOfCapacityError
     RAILS_DEFAULT_LOGGER.debug "OUT OF INBOUND NUMBERS!!!"
     flash[:error]="We are sorry but we have temporerily run out of free telephone numbers. We are taking steps to get more so please try again soon."

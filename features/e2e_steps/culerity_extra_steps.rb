@@ -57,3 +57,9 @@ When /I navigate to the "(.*)" for <([^\)]*)>$/ do |target_url,id|
   $browser.goto @host + eval("#{target_url}(#{feature_vars[id]})")
   assert_successful_response 
 end
+
+When /^I click the back button$/ do
+  puts $browser.back 2
+  puts $browser.html
+end
+
