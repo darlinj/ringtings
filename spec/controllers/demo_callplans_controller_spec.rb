@@ -46,6 +46,7 @@ describe DemoCallplansController do
         @callplan = mock_model Callplan, :company_name => @company_name
         @inbound_number = mock_model InboundNumberManager, :phone_number => @phone_number
         Callplan.stub(:create!).and_return @callplan
+        Callplan.stub(:exists?).and_return false
         Action.stub(:create!).and_return @action
         @callplan.stub(:action).and_return @action
 
@@ -105,6 +106,23 @@ describe DemoCallplansController do
       it "renders the generate template" do
         do_post
         response.should redirect_to(demo_callplan_url(@callplan.id))
+      end
+
+      describe "when the session id is set" do
+        before do
+          session[:callplan_id] = @callplan.id
+          Callplan.stub(:exists?).and_return @callplan
+        end
+
+        it "will redirect to the existing callplan" do
+          do_post
+          response.should redirect_to(demo_callplan_url(@callplan.id))
+        end
+
+        it "will not call create" do
+          Callplan.should_not_receive(:create!)
+          do_post
+        end
       end
 
       describe "creating the callplan model" do
