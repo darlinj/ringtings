@@ -15,6 +15,10 @@ class DemoCallplansController < ApplicationController
   end
 
   def create
+    if Callplan.exists?(session[:callplan_id])
+      redirect_to demo_callplan_path(session[:callplan_id]) 
+      return
+    end
     RAILS_DEFAULT_LOGGER.error "params controller #{params.inspect}"
     unless params[:demo_callplan] && params[:demo_callplan]['company_name'] && params[:demo_callplan]['phone_number']
       RAILS_DEFAULT_LOGGER.debug "Bad params. Redirecting back to form"
@@ -46,9 +50,9 @@ class DemoCallplansController < ApplicationController
   def update
     @callplan = Callplan.find(params[:id].to_i)
     unless @callplan
-        flash[:error]="We are very sorry but we can't complete this operation.  This should not happen if you are using the website as we expect.  We will look into this problem.  Please try again"
-        redirect_to (demo_callplans_url)
-        return
+      flash[:error]="We are very sorry but we can't complete this operation.  This should not happen if you are using the website as we expect.  We will look into this problem.  Please try again"
+      redirect_to (demo_callplans_url)
+      return
     end
     if @callplan.update_attributes(params[:callplan])
       flash[:notice] = "Callplan sucessfully saved"
