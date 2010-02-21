@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 begin
-  load File.expand_path(File.dirname(__FILE__) + "/../vendor/bundled_gems/bin/cucumber")
-rescue LoadError => e
-  raise unless e.to_s =~ /cucumber/  
-  require "rubygems"
-  load File.join(Gem.bindir, "cucumber")
+  require 'rubygems'
+  require 'bundler'
+#Bundler.require(:default, :test)
+  require File.expand_path('../../.bundle/environment', __FILE__)
+  load File.expand_path(File.dirname(__FILE__) + "/../gems/bin/cucumber")
 end

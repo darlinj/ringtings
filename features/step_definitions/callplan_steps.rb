@@ -29,11 +29,13 @@ Given /^we have an IVR Menu with:$/ do |table|
     :param_1 => args['ivr_menu_entry1_action'],
     :ivr_menu_id => ivr_menu.id,
     :prototype => IvrMenuEntryPrototype.find_by_name(args['ivr_menu_entry1_type'])
-  Factory :ivr_menu_entry,
-    :digits => args['ivr_menu_entry2_digit'],
-    :param_1 => args['ivr_menu_entry2_action'],
-    :ivr_menu_id => ivr_menu.id,
-    :prototype => IvrMenuEntryPrototype.find_by_name(args['ivr_menu_entry2_type'])
+  if args['ivr_menu_entry2_action']
+    Factory :ivr_menu_entry,
+      :digits => args['ivr_menu_entry2_digit'],
+      :param_1 => args['ivr_menu_entry2_action'],
+      :ivr_menu_id => ivr_menu.id,
+      :prototype => IvrMenuEntryPrototype.find_by_name(args['ivr_menu_entry2_type'])
+  end
 end
 
 Given /^we store the Callplan ID as <callplan_id>$/ do

@@ -9,12 +9,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100217090630) do
+ActiveRecord::Schema.define(:version => 20100218193516) do
 
   create_table "actions", :force => true do |t|
     t.integer  "callplan_id"
     t.string   "application_name"
     t.string   "application_data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "audio_files", :force => true do |t|
+    t.string   "user_id"
+    t.string   "media_file_name"
+    t.string   "media_content_type"
+    t.integer  "media_file_size"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
