@@ -1,5 +1,9 @@
-When /^I click the upload file button for the first ivr menu entry$/ do
-  When %{I click the link with class: "upload_media_file"}
+When /^I click the upload file button$/ do
+  $browser.button(:id, "upload_button").click
+end
+
+When /^I click the change button for the first ivr menu entry$/ do
+  When %{I click the link with class: "change_audio_file"}
 end
 
 When /^I click the delete button for the first ivr menu entry$/ do

@@ -2,14 +2,12 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe IvrMenuEntriesController do
   before do
-    @callplan = mock_model Callplan
-    @action = mock_model Action, :callplan => @callplan
-    controller.stub(:signed_in?).and_return true
+    controller.stub(:redirect_to_callplan)
   end
   describe "creating an entry" do
     before do
       @type = "SyntheticVoiceMenuEntry"
-      @ivr_menu = mock_model IvrMenu, :action=> @action
+      @ivr_menu = mock_model IvrMenu#, :action=> @action
       @ivr_menu_entry = mock_model IvrMenuEntry
       @param_1_default = "some menu here"
       @ivr_menu_entry_prototype = mock_model IvrMenuEntryPrototype, :param_1_default => @param_1_default
@@ -53,27 +51,15 @@ describe IvrMenuEntriesController do
       @ivr_menu_entry.should_receive(:save)
       do_post
     end
-    describe "redirects the response to the relevant callplan page" do
-      describe "when signed in" do
-        it "should redirect to the callplan show url" do
-          do_post
-          response.should redirect_to(callplan_path(@callplan.id))
-        end
-      end
 
-      describe "when NOT signed in" do
-        it "should redirect to the demo callplan show url" do
-          controller.stub(:signed_in?).and_return false
-          do_post
-          response.should redirect_to(demo_callplan_path(@callplan.id))
-        end
-      end
+    it "redirects to the correct controller" do
+      controller.should_receive(:redirect_to_callplan).with(@ivr_menu_entry)
+      do_post
     end
   end
   describe "deleting an entry" do
     before do
-      @ivr_menu = mock_model IvrMenu, :action => @action
-      @ivr_menu_entry = mock_model IvrMenuEntry, :ivr_menu => @ivr_menu
+      @ivr_menu_entry = mock_model IvrMenuEntry#, :ivr_menu => @ivr_menu
       IvrMenuEntry.stub(:destroy)
       IvrMenuEntry.stub(:find).and_return @ivr_menu_entry
     end
@@ -87,19 +73,9 @@ describe IvrMenuEntriesController do
       do_delete
     end
 
-    describe "when signed in" do
-      it "should redirect to the callplan show url" do
-        do_delete
-        response.should redirect_to(callplan_path(@callplan.id))
-      end
-    end
-
-    describe "when NOT signed in" do
-      it "should redirect to the demo callplan show url" do
-        controller.stub(:signed_in?).and_return false
-        do_delete
-        response.should redirect_to(demo_callplan_path(@callplan.id))
-      end
+    it "redirects to the correct controller" do
+      controller.should_receive(:redirect_to_callplan).with(@ivr_menu_entry)
+      do_delete
     end
   end
 end

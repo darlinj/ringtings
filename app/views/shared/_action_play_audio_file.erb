@@ -1,6 +1,11 @@
 <div class="ivr_action_text">
-  <%= ivr_menu_entry.prototype.prompt %>
-  <%= ivr_menu_entries_fields.text_area(:param_1, :id => "ivr_menu_entry_textbox") %>
+  <%= ivr_menu_entry.prototype.prompt %> <br>
+  <div>
+    <% if ivr_menu_entry.audio_file %>
+      > <%= ivr_menu_entry.audio_file.audio_file_name %>
+    <% else %>
+      > No file attached
+    <% end %>
+    <%= link_to image_tag ("/images/change_audio_file_button.png", :border =>0), edit_play_audio_file_menu_entry_url(ivr_menu_entry.id), :class => "change_audio_file" %>
+  </div>
 </div>
-<%= link_to image_tag ("/images/upload_media_file_button.png", :class => "upload_media_file", :border =>0),
-  "/audio_files/", :class => "upload_media_file_link" %>

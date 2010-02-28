@@ -43,7 +43,7 @@ Feature: IVR menu entry
     Then the response should have 1 elements that match "//div[@class='ivr_step_action']"
     And I should not see "say hello peeps"
 
-  Scenario: Adding a file to a play audio file menu entry
+  Scenario: Uploading a new file for a play audio file menu entry
     Given we create a Callplan (and store it's ID as <callplan_id>) with these variables:
       | name                   | value                         |
       | Action_type            | ivr                           |
@@ -57,8 +57,9 @@ Feature: IVR menu entry
       | ivr_menu_entry1_action | hello peeps                   |
     And I am logged in
     When I navigate to the "callplan_path" for <callplan_id>
-    And I click the upload file button for the first ivr menu entry
-    And I fill in "File name" with "/etc/passwd"
-    And I click the upload button
-    And I should see "passwd"
-
+    And I click the change button for the first ivr menu entry
+    Then I should see "Please choose a file"
+    And I set the file field to "freeswitch/sucking_teeth.wav"
+    When I click the upload file button
+    And I should see "Callplan sucessfully saved"
+    And I should see "sucking_teeth.wav"

@@ -88,6 +88,7 @@ def assert_successful_response
     tmp << $browser.html
     tmp.close
     `open -a /Applications/Safari.app #{tmp.path}`
+    puts $browser.html
     raise "Brower returned Response Code #{$browser.page.web_response.status_code}"
   end
 end

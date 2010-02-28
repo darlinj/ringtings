@@ -13,8 +13,11 @@ describe 'Routing' do
   it { should route(:delete, "/ivr_menu_entries/1").to(:controller => 'ivr_menu_entries', :action => 'destroy', :id=>1) }
   it { should route(:post, "/ivr_menu_entries").to(:controller => 'ivr_menu_entries', :action => 'create') }
   it { should route(:get, "/ivr_menu_entry_prototypes").to(:controller => 'ivr_menu_entry_prototypes', :action => 'index') }
+  it { should route(:get, "/play_audio_file_menu_entries/1/edit").to(:controller => 'play_audio_file_menu_entries', :action => 'edit', :id =>1) }
+  it { should route(:put, "/play_audio_file_menu_entries/1").to(:controller => 'play_audio_file_menu_entries', :action => 'update', :id =>1) }
   it { should route(:post, '/freeswitch/callplan').to(:controller => 'freeswitch', :action => 'callplan') }
   it { should route(:post, '/freeswitch/ivr_menus').to(:controller => 'freeswitch', :action => 'ivr_menus') }
   it { should route(:get, 'users/new').to(:controller => 'users', :action => 'new') }
   it { should route(:post, 'users').to(:controller => 'users', :action => 'create') }
+  #it { should route(:post, 'audio_files').to(:controller => 'audio_files', :action => 'create') }
 end

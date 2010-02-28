@@ -30,5 +30,5 @@
 //  $("#someformid").submitWithAjax();
 //})
 
-});
+//});
 

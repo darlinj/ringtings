@@ -3,3 +3,4 @@
 vendor/*
 freeswitch_stuff/gafachi.xml
 config/database.yml
+/public/system/

@@ -10,4 +10,13 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
+  #
+  def redirect_to_callplan ivr_menu_entry
+    callplan_id = ivr_menu_entry.ivr_menu.action.callplan.id
+    if signed_in?
+      redirect_to callplan_path(callplan_id)
+    else
+      redirect_to demo_callplan_path(callplan_id)
+    end
+  end
 end

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100218193516) do
+ActiveRecord::Schema.define(:version => 20100227123014) do
 
   create_table "actions", :force => true do |t|
     t.integer  "callplan_id"
@@ -20,10 +20,10 @@ ActiveRecord::Schema.define(:version => 20100218193516) do
   end
 
   create_table "audio_files", :force => true do |t|
-    t.string   "user_id"
-    t.string   "media_file_name"
-    t.string   "media_content_type"
-    t.integer  "media_file_size"
+    t.integer  "user_id"
+    t.string   "audio_file_name"
+    t.string   "audio_content_type"
+    t.integer  "audio_file_size"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20100218193516) do
     t.datetime "updated_at"
     t.string   "param_1"
     t.integer  "prototype_id"
+    t.integer  "audio_file_id"
   end
 
   create_table "ivr_menu_entry_prototypes", :force => true do |t|

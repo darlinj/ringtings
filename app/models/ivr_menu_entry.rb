@@ -1,5 +1,6 @@
 class IvrMenuEntry < ActiveRecord::Base
   belongs_to :ivr_menu
+  belongs_to :audio_file
   belongs_to :prototype, :class_name => 'IvrMenuEntryPrototype'
   validates_presence_of :prototype
 end
@@ -24,6 +25,3 @@ class SyntheticVoiceMenuEntry < IvrMenuEntry
 
 end
 
-class PlayAudioFileMenuEntry < IvrMenuEntry
-
-end

@@ -1,0 +1,6 @@
+Please choose a file to upload:
+
+<% form_for @play_audio_file_ivr_menu , :html => { :multipart => true } do |f| %>
+  <%= f.file_field :audio, :class=>"audio_file_upload" %>
+  <%= image_submit_tag "/images/upload_audio_file_button.png", :class => "upload_audio_file", :id => "upload_button" %>
+<% end %>

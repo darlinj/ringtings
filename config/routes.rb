@@ -2,7 +2,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources  :demo_callplans, :only => [:index, :create, :update, :show]
   map.resources  :callplans, :only => [:show, :update]
   map.resources  :ivr_menu_entries#, :only => [:create, :destroy]
+  #map.resources  :audio_files, :only => [:create]
   map.resources  :ivr_menu_entry_prototypes, :only => [:index]
+  map.resources  :play_audio_file_menu_entries, :only => [:edit, :update]
 
   map.user 'users/new', :controller => 'users', :action => 'new'
   map.user 'users', :controller => 'users', :action => 'create'
@@ -25,4 +27,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'freeswitch/callplan', :controller => 'freeswitch', :action => 'callplan'
   map.connect 'freeswitch/ivr_menus', :controller => 'freeswitch', :action => 'ivr_menus'
   map.root :controller => 'home'
+
+  if RAILS_ENV == 'test'
+    map.connect 'dummy/:action/:id', :controller => 'dummy'
+  end
 end

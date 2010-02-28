@@ -274,11 +274,11 @@ div.step_box {
   right: 32px;
 }
 
-.upload_media_file {
-  position: absolute;
+.change_media_file {
+  position: relative;
   float: right;
-  top: 10px;
-  right: 52px;
+  top: 3px;
+  right: 35px;
 }
 
 .ivr_close_button {
