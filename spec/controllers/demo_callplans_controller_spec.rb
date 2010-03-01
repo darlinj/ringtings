@@ -66,6 +66,18 @@ describe DemoCallplansController do
 
         @callplan.stub(:employee).and_return @employee
 
+        @file = mock :afile
+        @destination_file_path =  "/some/path/with_a_file.thing"
+        @file.stub(:path).and_return @destination_file_path
+        File.stub(:exists?).and_return false
+        @audio_file = mock_model AudioFile
+        @audio_file.stub(:audio).and_return @file
+
+
+        AudioFile.stub(:create!).and_return @audio_file
+        FileUtils.stub(:mkdir_p)
+        FileUtils.stub(:cp)
+
         @menu_exit_prototype = mock_model IvrMenuEntryPrototype, :type => "MenuExitMenuEntry"
         @call_transfer_prototype = mock_model  IvrMenuEntryPrototype, :type => "TransferCallMenuEntry"
         @voicemail_prototype = mock_model  IvrMenuEntryPrototype, :type => "VoiceMailMenuEntry"
@@ -77,9 +89,9 @@ describe DemoCallplansController do
         @params1 = { :digits => "*", :param_1 => nil, :prototype => @menu_exit_prototype }
         @params2 = { :digits => "1", :param_1 => "#{@employee_phone_number}", :prototype => @call_transfer_prototype}
         @params3 = { :digits => "2", :param_1 => nil, :prototype => @voicemail_prototype}
-        @params4 = { :digits => "3", :param_1 => "ivr/suckingteeth.wav", :prototype => @play_audio_file_prototype}
-        @params5 = { :digits => "4", :param_1 => "ivr/suckingteeth.wav", :prototype => @play_audio_file_prototype}
-        @params6 = { :digits => "5", :param_1 => "ivr/suckingteeth.wav", :prototype => @play_audio_file_prototype}
+        @params4 = { :digits => "3", :param_1 => @destination_file_path, :prototype => @play_audio_file_prototype, :audio_file => @audio_file}
+        @params5 = { :digits => "4", :param_1 => @destination_file_path, :prototype => @play_audio_file_prototype, :audio_file => @audio_file}
+        @params6 = { :digits => "5", :param_1 => @destination_file_path, :prototype => @play_audio_file_prototype, :audio_file => @audio_file}
         @ivr_menu_entry1 = mock_model IvrMenuEntry, @params1
         @ivr_menu_entry2 = mock_model IvrMenuEntry, @params2
         @ivr_menu_entry3 = mock_model IvrMenuEntry, @params3

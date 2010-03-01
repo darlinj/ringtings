@@ -16,7 +16,7 @@ class DemoCallplansController < ApplicationController
 
   def create
     if Callplan.exists?(session[:callplan_id])
-      redirect_to demo_callplan_path(session[:callplan_id]) 
+      redirect_to demo_callplan_path(session[:callplan_id])
       return
     end
     RAILS_DEFAULT_LOGGER.error "params controller #{params.inspect}"
@@ -82,12 +82,19 @@ class DemoCallplansController < ApplicationController
   end
 
   def create_ivr_menu_options target_phone_number, inbound_phone_number, company_name
+    filename = "suckingteeth.wav"
+    filepath = "#{RAILS_ROOT}/freeswitch_stuff/#{filename}"
+    audio_file = AudioFile.create! :audio_file_name => filename, :audio_file_size => File.size(filepath), :audio_content_type => "audio/x-wav"
+    unless File.exists?(filepath)
+      FileUtils.mkdir_p File.dirname(audio_file.audio.path)
+      FileUtils.cp filepath, audio_file.audio.path 
+    end
     ivr_menu_1 = MenuExitMenuEntry.create! :digits => "*", :param_1 => nil, :prototype => IvrMenuEntryPrototype.find_by_name("MenuExitMenuEntry")
     ivr_menu_2 = TransferCallMenuEntry.create! :digits => "1", :param_1 => "#{target_phone_number}", :prototype => IvrMenuEntryPrototype.find_by_name("TransferCallMenuEntry")
     ivr_menu_3 = VoiceMailMenuEntry.create! :digits => "2", :param_1 => nil, :prototype => IvrMenuEntryPrototype.find_by_name("VoiceMailMenuEntry")
-    ivr_menu_4 = PlayAudioFileMenuEntry.create! :digits => "3", :param_1 => "ivr/suckingteeth.wav", :prototype => IvrMenuEntryPrototype.find_by_name("PlayAudioFileMenuEntry")
-    ivr_menu_5 = PlayAudioFileMenuEntry.create! :digits => "4", :param_1 => "ivr/suckingteeth.wav", :prototype => IvrMenuEntryPrototype.find_by_name("PlayAudioFileMenuEntry")
-    ivr_menu_6 = PlayAudioFileMenuEntry.create! :digits => "5", :param_1 => "ivr/suckingteeth.wav", :prototype => IvrMenuEntryPrototype.find_by_name("PlayAudioFileMenuEntry")
+    ivr_menu_4 = PlayAudioFileMenuEntry.create! :digits => "3", :param_1 => audio_file.audio.path, :prototype => IvrMenuEntryPrototype.find_by_name("PlayAudioFileMenuEntry"), :audio_file => audio_file
+    ivr_menu_5 = PlayAudioFileMenuEntry.create! :digits => "4", :param_1 => audio_file.audio.path, :prototype => IvrMenuEntryPrototype.find_by_name("PlayAudioFileMenuEntry"), :audio_file => audio_file
+    ivr_menu_6 = PlayAudioFileMenuEntry.create! :digits => "5", :param_1 => audio_file.audio.path, :prototype => IvrMenuEntryPrototype.find_by_name("PlayAudioFileMenuEntry"), :audio_file => audio_file
     ivr_menus = [ ivr_menu_1, ivr_menu_2, ivr_menu_3, ivr_menu_4, ivr_menu_5, ivr_menu_6 ]
     long_greeting = "say:Welcome to #{company_name}. please press one to be connected to one of our agents. press two to be connected to leave a message. press three to hear sucking of teeth. four is for an auto quote and 5 is if you want to pay your bill by credit card"
     IvrMenu.create! :name => "ivr_menu_#{inbound_phone_number}", :long_greeting => long_greeting, :ivr_menu_entries => ivr_menus

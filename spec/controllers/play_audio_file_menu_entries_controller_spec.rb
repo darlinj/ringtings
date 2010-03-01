@@ -7,7 +7,7 @@ describe PlayAudioFileMenuEntriesController do
       PlayAudioFileMenuEntry.stub(:find).and_return(@play_audio_file_ivr_menu)
     end
 
-    def do_get 
+    def do_get
       get :edit, :id =>@play_audio_file_ivr_menu.id
     end
 
@@ -30,9 +30,6 @@ describe PlayAudioFileMenuEntriesController do
 
   describe "the update action" do
     before do
-      @callplan = mock_model Callplan
-      @action = mock_model Action, :callplan => @callplan
-      @ivr_menu = mock_model IvrMenu, :action => @action
       @filename = "suckingteeth.wav"
       @filepath = "./freeswitch_stuff/#{@filename}"
       @file = ActionController::TestUploadedFile.new(@filepath)
@@ -41,7 +38,7 @@ describe PlayAudioFileMenuEntriesController do
       controller.stub(:redirect_to_callplan)
     end
 
-    def do_put 
+    def do_put
       put :update, :id=>@play_audio_file_ivr_menu.id, :play_audio_file_menu_entry => @ivr_menu_form_params
     end
 
@@ -53,6 +50,11 @@ describe PlayAudioFileMenuEntriesController do
     it "attached the audio file to the menu entry" do
       do_put
       PlayAudioFileMenuEntry.find(@play_audio_file_ivr_menu).audio_file.audio_file_name.should == @filename
+    end
+
+    it "set the param_1 value to point to the uploaded file" do
+      do_put
+      PlayAudioFileMenuEntry.find(@play_audio_file_ivr_menu).param_1.should =~ /.*#{@filename}/
     end
 
     it "redirects to the callplan" do
