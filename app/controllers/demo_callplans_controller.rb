@@ -85,7 +85,7 @@ class DemoCallplansController < ApplicationController
     filename = "suckingteeth.wav"
     filepath = "#{RAILS_ROOT}/freeswitch_stuff/#{filename}"
     audio_file = AudioFile.create! :audio_file_name => filename, :audio_file_size => File.size(filepath), :audio_content_type => "audio/x-wav"
-    unless File.exists?(filepath)
+    unless File.exists?(audio_file.audio.path)
       FileUtils.mkdir_p File.dirname(audio_file.audio.path)
       FileUtils.cp filepath, audio_file.audio.path 
     end

@@ -49,7 +49,7 @@ IvrMenuEntryPrototype.create! :name => "SyntheticVoiceMenuEntry",
 
 IvrMenuEntryPrototype.create! :name => "PlayAudioFileMenuEntry",
   :description => "Play audio file",
-  :freeswitch_command_template => "play <param_1>",
+  :freeswitch_command_template => "playback <param_1>",
   :image => "ivr_step_action_play_audio_file.png",
   :partial_name => "action_play_audio_file",
   :prompt => "Play audio file:",

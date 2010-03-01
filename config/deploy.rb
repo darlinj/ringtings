@@ -5,7 +5,7 @@ set :copy_strategy, :export
 
 #EMI that includes rails and postgres is 	emi-4F901695
 #You need to go into /etc/yum.repos.d/Centos-Base and change the achitecture variable to "i386"
-set :host, "74.50.49.157"
+set :host, "ringtings.com"
 set :application, "ringtings"
 set :application_user, "ringtings"
 set :deploy_to, "/home/#{application_user}/ringtings_home"
@@ -40,7 +40,7 @@ end
 task :after_update_code do
   run "ln -nfs #{shared_path}/config/production.rb #{release_path}/config/environments/production.rb"
   run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-  run "cd #{release_path} && gem bundle"
+  run "cd #{release_path} && bundle install"
 end
 
 desc 'Install ringtings'
