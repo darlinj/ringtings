@@ -69,40 +69,6 @@ describe DemoCallplansController do
         Employee.stub(:create!).and_return @employee
 
         @callplan.stub(:employee).and_return @employee
-
-        #@destination_file_path =  "/some/path/with_a_file.thing"
-        #@audio = mock :audio, :path => @destination_file_path
-        #@audio_file = mock_model AudioFile, :audio => @audio
-
-        #AudioFile.stub(:create_demo).and_return @audio_file
-
-
-        #@menu_exit_prototype = mock_model IvrMenuEntryPrototype, :type => "MenuExitMenuEntry"
-        #@call_transfer_prototype = mock_model  IvrMenuEntryPrototype, :type => "TransferCallMenuEntry"
-        #@voicemail_prototype = mock_model  IvrMenuEntryPrototype, :type => "VoiceMailMenuEntry"
-        #@play_audio_file_prototype = mock_model  IvrMenuEntryPrototype, :type => "PlayAudioFileMenuEntry"
-        #IvrMenuEntryPrototype.stub(:find_by_name).with("MenuExitMenuEntry").and_return @menu_exit_prototype
-        #IvrMenuEntryPrototype.stub(:find_by_name).with("TransferCallMenuEntry").and_return @call_transfer_prototype
-        #IvrMenuEntryPrototype.stub(:find_by_name).with("VoiceMailMenuEntry").and_return @voicemail_prototype
-        #IvrMenuEntryPrototype.stub(:find_by_name).with("PlayAudioFileMenuEntry").and_return @play_audio_file_prototype
-        #@params1 = { :digits => "*", :param_1 => nil, :prototype => @menu_exit_prototype }
-        #@params2 = { :digits => "1", :param_1 => "#{@employee_phone_number}", :prototype => @call_transfer_prototype}
-        #@params3 = { :digits => "2", :param_1 => nil, :prototype => @voicemail_prototype}
-        #@params4 = { :digits => "3", :param_1 => @destination_file_path, :prototype => @play_audio_file_prototype, :audio_file => @audio_file}
-        #@params5 = { :digits => "4", :param_1 => @destination_file_path, :prototype => @play_audio_file_prototype, :audio_file => @audio_file}
-        #@params6 = { :digits => "5", :param_1 => @destination_file_path, :prototype => @play_audio_file_prototype, :audio_file => @audio_file}
-        #@ivr_menu_entry1 = mock_model IvrMenuEntry, @params1
-        #@ivr_menu_entry2 = mock_model IvrMenuEntry, @params2
-        #@ivr_menu_entry3 = mock_model IvrMenuEntry, @params3
-        #@ivr_menu_entry4 = mock_model IvrMenuEntry, @params4
-        #@ivr_menu_entry5 = mock_model IvrMenuEntry, @params5
-        #@ivr_menu_entry6 = mock_model IvrMenuEntry, @params6
-        #MenuExitMenuEntry.stub(:create!).and_return @ivr_menu_entry1
-        #TransferCallMenuEntry.stub(:create!).and_return @ivr_menu_entry2
-        #VoiceMailMenuEntry.stub(:create!).and_return @ivr_menu_entry3
-        #PlayAudioFileMenuEntry.stub(:create!).and_return @ivr_menu_entry4, @ivr_menu_entry5, @ivr_menu_entry6
-        #@ivr_menu_entries = [@ivr_menu_entry1, @ivr_menu_entry2, @ivr_menu_entry3, @ivr_menu_entry4, @ivr_menu_entry5, @ivr_menu_entry6]
-
       end
 
       def do_post
@@ -176,25 +142,6 @@ describe DemoCallplansController do
             do_post
           end
         end
-
-        #describe "creating the ivr menu entries" do
-          #it "has an exit option in the first entry" do
-            #MenuExitMenuEntry.should_receive(:create!).with(@params1)
-            #TransferCallMenuEntry.should_receive(:create!).with(@params2)
-            #VoiceMailMenuEntry.should_receive(:create!).with(@params3)
-            #PlayAudioFileMenuEntry.should_receive(:create!).with(@params4)
-            #PlayAudioFileMenuEntry.should_receive(:create!).with(@params5)
-            #PlayAudioFileMenuEntry.should_receive(:create!).with(@params6)
-            #do_post
-          #end
-        #end
-
-        #it "creates a ivr menu item with the right parameters" do
-          #long_greeting = "say:Welcome to #{@company_name}. please press one to be connected to one of our agents. press two to be connected to leave a message. press three to hear sucking of teeth. four is for an auto quote and 5 is if you want to pay your bill by credit card"
-          #params = {:name => "ivr_menu_#{@phone_number}", :long_greeting => long_greeting, :ivr_menu_entries => @ivr_menu_entries }
-          #IvrMenu.should_receive(:create!).with params
-          #do_post
-        #end
 
         it "should assign the ivr_menu to the inbound number" do
           do_post
