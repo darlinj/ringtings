@@ -66,17 +66,20 @@ describe DemoCallplansController do
 
         @callplan.stub(:employee).and_return @employee
 
-        @file = mock :afile
+        #audio file stuff
+        #@file = mock :afile
         @destination_file_path =  "/some/path/with_a_file.thing"
-        @file.stub(:path).and_return @destination_file_path
-        File.stub(:exists?).and_return false
-        @audio_file = mock_model AudioFile
-        @audio_file.stub(:audio).and_return @file
+        #@file.stub(:path).and_return @destination_file_path
+        #File.stub(:exists?).and_return false
+        @audio = mock :audio, :path => @destination_file_path
+        @audio_file = mock_model AudioFile, :audio => @audio
+        #@audio_file.stub(:audio).and_return @file
+        #AudioFile.stub(:create!).and_return @audio_file
+        #FileUtils.stub(:mkdir_p)
+        #FileUtils.stub(:cp)
 
+        AudioFile.stub(:create_demo).and_return @audio_file
 
-        AudioFile.stub(:create!).and_return @audio_file
-        FileUtils.stub(:mkdir_p)
-        FileUtils.stub(:cp)
 
         @menu_exit_prototype = mock_model IvrMenuEntryPrototype, :type => "MenuExitMenuEntry"
         @call_transfer_prototype = mock_model  IvrMenuEntryPrototype, :type => "TransferCallMenuEntry"

@@ -82,13 +82,7 @@ class DemoCallplansController < ApplicationController
   end
 
   def create_ivr_menu_options target_phone_number, inbound_phone_number, company_name
-    filename = "suckingteeth.wav"
-    filepath = "#{RAILS_ROOT}/freeswitch_stuff/#{filename}"
-    audio_file = AudioFile.create! :audio_file_name => filename, :audio_file_size => File.size(filepath), :audio_content_type => "audio/x-wav"
-    unless File.exists?(audio_file.audio.path)
-      FileUtils.mkdir_p File.dirname(audio_file.audio.path)
-      FileUtils.cp filepath, audio_file.audio.path 
-    end
+    audio_file = AudioFile.create_demo
     ivr_menu_1 = MenuExitMenuEntry.create! :digits => "*", :param_1 => nil, :prototype => IvrMenuEntryPrototype.find_by_name("MenuExitMenuEntry")
     ivr_menu_2 = TransferCallMenuEntry.create! :digits => "1", :param_1 => "#{target_phone_number}", :prototype => IvrMenuEntryPrototype.find_by_name("TransferCallMenuEntry")
     ivr_menu_3 = VoiceMailMenuEntry.create! :digits => "2", :param_1 => nil, :prototype => IvrMenuEntryPrototype.find_by_name("VoiceMailMenuEntry")
@@ -99,4 +93,5 @@ class DemoCallplansController < ApplicationController
     long_greeting = "say:Welcome to #{company_name}. please press one to be connected to one of our agents. press two to be connected to leave a message. press three to hear sucking of teeth. four is for an auto quote and 5 is if you want to pay your bill by credit card"
     IvrMenu.create! :name => "ivr_menu_#{inbound_phone_number}", :long_greeting => long_greeting, :ivr_menu_entries => ivr_menus
   end
+
 end
