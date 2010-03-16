@@ -21,6 +21,9 @@ describe InboundNumberManager do
       do_allocate_free_number_to_callplan
       InboundNumberManager.find_by_phone_number(@expected_number).callplan_id.should == @callplan.id
     end
+    it "returns the number allocated" do
+      do_allocate_free_number_to_callplan.should == @expected_inbound_number
+    end
     describe "if there are no free numbers available" do
       it "will raise an exception of type OutOfCapacityError" do
         InboundNumberManager.destroy_all

@@ -7,5 +7,6 @@ class InboundNumberManager < ActiveRecord::Base
     raise Exceptions::OutOfCapacityError unless number
     number.callplan_id = callplan.id
     number.save!
+    number
   end
 end

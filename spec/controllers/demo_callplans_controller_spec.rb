@@ -45,29 +45,22 @@ describe DemoCallplansController do
         @action = mock_model Action, :ivr_menu => nil
         @callplan = mock_model Callplan, :company_name => @company_name
         @inbound_number = mock_model InboundNumberManager, :phone_number => @phone_number
-        Callplan.stub(:create!).and_return @callplan
+        Callplan.stub(:create_demo).and_return @callplan
         Callplan.stub(:exists?).and_return false
-        Action.stub(:create!).and_return @action
         @callplan.stub(:action).and_return @action
-
-        #IVRMenu stubs
-        @ivr_menu = mock_model IvrMenu
-        IvrMenu.stub(:create_demo).and_return @ivr_menu
 
         @callplan.stub(:inbound_number).and_return @inbound_number
         @callplan.stub(:action=)
         @callplan.stub(:save!)
         InboundNumberManager.stub(:allocate_free_number_to_callplan)
         @inbound_number.stub(:ivr_menu=)
-        @ivr_menu = mock_model IvrMenu
-        @inbound_number.stub(:ivr_menu).and_return @ivr_menu
-        IvrMenu.stub(:create!).and_return @ivr_menu
-        @action.stub(:ivr_menu=)
-        @action.stub(:ivr_menu).and_return @ivr_menu
-
+        #@ivr_menu = mock_model IvrMenu
+        #@inbound_number.stub(:ivr_menu).and_return @ivr_menu
+        #IvrMenu.stub(:create!).and_return @ivr_menu
+        #@action.stub(:ivr_menu=)
+        #@action.stub(:ivr_menu).and_return @ivr_menu
         @employee = mock_model Employee, :phone_number => @employee_phone_number,:email_address => @email_address
         Employee.stub(:create!).and_return @employee
-
         @callplan.stub(:employee).and_return @employee
       end
 
@@ -113,11 +106,6 @@ describe DemoCallplansController do
           assigns[:callplan].company_name.should == @company_name
         end
 
-        it "has a callplan with the correct inbound_number" do
-          InboundNumberManager.should_receive(:allocate_free_number_to_callplan).with(@callplan)
-          do_post
-        end
-
         describe "creating the employee" do
           it "creates the employee" do
             @attributes = {:phone_number=> @employee_phone_number, :callplan => @callplan}
@@ -131,28 +119,9 @@ describe DemoCallplansController do
           assigns[:callplan].employee.phone_number.should == @employee_phone_number
         end
 
-        describe "creating the action attached to the callplan" do
-          it "will be an action attached to the callplan" do
-            @callplan.should_receive(:action=).with @action
-            do_post
-          end
-          it "will create the action with the right params" do
-            Action.should_receive(:create!).with(:application_name => "ivr",
-                                                 :application_data => "ivr_menu_#{@phone_number}")
-            do_post
-          end
-        end
-
         it "should assign the ivr_menu to the inbound number" do
           do_post
           assigns[:callplan].action.ivr_menu.should == @ivr_menu
-        end
-
-        describe "connecting the inbound number with the ivr menu" do
-          it "should assign the ivr_menu to the inbound number" do
-            do_post
-            assigns[:callplan].inbound_number.ivr_menu.should == @ivr_menu
-          end
         end
 
         it "should set the session next stage to 4" do
@@ -169,7 +138,7 @@ describe DemoCallplansController do
       describe "what happens if there is a problem with inbound number creation" do
         describe "when there are no more numbers available for allocation" do
           before do
-            InboundNumberManager.stub(:allocate_free_number_to_callplan).and_raise(Exceptions::OutOfCapacityError)
+            Callplan.stub(:create_demo).and_raise(Exceptions::OutOfCapacityError)
           end
           it "catches all errors" do
             lambda {do_post}.should_not raise_error

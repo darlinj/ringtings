@@ -21,22 +21,16 @@ class DemoCallplansController < ApplicationController
     end
     RAILS_DEFAULT_LOGGER.error "params controller #{params.inspect}"
     unless params[:demo_callplan] && params[:demo_callplan]['company_name'] && params[:demo_callplan]['phone_number']
-      RAILS_DEFAULT_LOGGER.debug "Bad params. Redirecting back to form"
       flash[:error]="We are sorry but there is a problem with the infomation you provided.  Please try again"
       redirect_to (demo_callplans_url)
       return
     end
-    @callplan = Callplan.create! :company_name => params[:demo_callplan]['company_name']
-    InboundNumberManager.allocate_free_number_to_callplan(@callplan)
+    @callplan = Callplan.create_demo params[:demo_callplan]['phone_number'],
+      params[:demo_callplan]['company_name']
 
     Employee.create! :phone_number=> params[:demo_callplan]['phone_number'],
       :callplan => @callplan
-    @callplan.action = Action.create! :application_name => "ivr",
-      :application_data => "ivr_menu_#{@callplan.inbound_number.phone_number}"
-    @callplan.inbound_number.ivr_menu = IvrMenu.create_demo @callplan.company_name,
-      @callplan.inbound_number.phone_number,
-      @callplan.employee.phone_number
-    @callplan.action.ivr_menu = @callplan.inbound_number.ivr_menu
+    @callplan.inbound_number.ivr_menu = @callplan.action.ivr_menu
     @callplan.save!
     session[:next_stage] = "4"
     session[:callplan_id] = @callplan.id
