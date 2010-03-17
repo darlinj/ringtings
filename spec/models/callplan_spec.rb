@@ -52,5 +52,13 @@ describe Callplan do
       cp = do_create_demo
       cp.inbound_number.ivr_menu.should == cp.action.ivr_menu
     end
+
+    it "sets the employee" do
+      do_create_demo.employee.should_not be_nil
+    end
+
+    it "sets the employee phone number correctly" do
+      do_create_demo.employee.phone_number.should == @target_phone_number
+    end
   end
 end

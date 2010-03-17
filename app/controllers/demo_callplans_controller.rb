@@ -19,7 +19,6 @@ class DemoCallplansController < ApplicationController
       redirect_to demo_callplan_path(session[:callplan_id])
       return
     end
-    RAILS_DEFAULT_LOGGER.error "params controller #{params.inspect}"
     unless params[:demo_callplan] && params[:demo_callplan]['company_name'] && params[:demo_callplan]['phone_number']
       flash[:error]="We are sorry but there is a problem with the infomation you provided.  Please try again"
       redirect_to (demo_callplans_url)
@@ -27,10 +26,6 @@ class DemoCallplansController < ApplicationController
     end
     @callplan = Callplan.create_demo params[:demo_callplan]['phone_number'],
       params[:demo_callplan]['company_name']
-
-    Employee.create! :phone_number=> params[:demo_callplan]['phone_number'],
-      :callplan => @callplan
-    @callplan.save!
     session[:next_stage] = "4"
     session[:callplan_id] = @callplan.id
     redirect_to demo_callplan_path(@callplan.id)
