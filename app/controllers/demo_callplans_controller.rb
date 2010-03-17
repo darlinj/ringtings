@@ -11,6 +11,7 @@ class DemoCallplansController < ApplicationController
   end
 
   def show
+    #TODO make this redirect to try it page if the callplan isn't found
     @callplan = Callplan.find params["id"].to_i
   end
 
