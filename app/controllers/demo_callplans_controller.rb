@@ -30,7 +30,6 @@ class DemoCallplansController < ApplicationController
 
     Employee.create! :phone_number=> params[:demo_callplan]['phone_number'],
       :callplan => @callplan
-    @callplan.inbound_number.ivr_menu = @callplan.action.ivr_menu
     @callplan.save!
     session[:next_stage] = "4"
     session[:callplan_id] = @callplan.id

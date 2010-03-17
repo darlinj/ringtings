@@ -42,23 +42,18 @@ describe DemoCallplansController do
         @company_name = "foobar inc"
         @employee_phone_number = "0987654321"
         @phone_number = "0123456789"
-        @action = mock_model Action, :ivr_menu => nil
+        #@action = mock_model Action, :ivr_menu => nil
         @callplan = mock_model Callplan, :company_name => @company_name
-        @inbound_number = mock_model InboundNumberManager, :phone_number => @phone_number
+        #@inbound_number = mock_model InboundNumberManager, :phone_number => @phone_number
         Callplan.stub(:create_demo).and_return @callplan
         Callplan.stub(:exists?).and_return false
         @callplan.stub(:action).and_return @action
 
-        @callplan.stub(:inbound_number).and_return @inbound_number
-        @callplan.stub(:action=)
+        #@callplan.stub(:inbound_number).and_return @inbound_number
+        #@callplan.stub(:action=)
         @callplan.stub(:save!)
-        InboundNumberManager.stub(:allocate_free_number_to_callplan)
-        @inbound_number.stub(:ivr_menu=)
-        #@ivr_menu = mock_model IvrMenu
-        #@inbound_number.stub(:ivr_menu).and_return @ivr_menu
-        #IvrMenu.stub(:create!).and_return @ivr_menu
-        #@action.stub(:ivr_menu=)
-        #@action.stub(:ivr_menu).and_return @ivr_menu
+        #InboundNumberManager.stub(:allocate_free_number_to_callplan)
+        #@inbound_number.stub(:ivr_menu=)
         @employee = mock_model Employee, :phone_number => @employee_phone_number,:email_address => @email_address
         Employee.stub(:create!).and_return @employee
         @callplan.stub(:employee).and_return @employee
@@ -117,11 +112,6 @@ describe DemoCallplansController do
         it "has a callplan with the correct user phone number" do
           do_post
           assigns[:callplan].employee.phone_number.should == @employee_phone_number
-        end
-
-        it "should assign the ivr_menu to the inbound number" do
-          do_post
-          assigns[:callplan].action.ivr_menu.should == @ivr_menu
         end
 
         it "should set the session next stage to 4" do

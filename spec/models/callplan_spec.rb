@@ -11,7 +11,8 @@ describe Callplan do
   describe "creating a demo callplan" do
     before do
       @company_name  = "Mr biggles flying circus"
-      @action = Factory.create :action 
+      @ivr_menu = Factory.create :ivr_menu
+      @action = Factory.create :action, :ivr_menu => @ivr_menu
       Action.stub(:create_demo).and_return @action
       @phone_number = "88888888888"
       @target_phone_number = "99999999999"
@@ -45,6 +46,11 @@ describe Callplan do
 
     it "should be the right phone number" do
       do_create_demo.inbound_number.phone_number.should == @phone_number
+    end
+
+    it "sets the inbound number link" do
+      cp = do_create_demo
+      cp.inbound_number.ivr_menu.should == cp.action.ivr_menu
     end
   end
 end
