@@ -14,6 +14,7 @@ gem 'javan-whenever', '0.3.6'
 gem 'nokogiri', '1.2.3'
 gem 'ahamid-postgres-pr', '0.6.1'
 gem 'paperclip', '2.3.1.1'
+gem 'whenever', '0.4.1'
 
 group :test do
   gem 'celerity', '0.7.5'

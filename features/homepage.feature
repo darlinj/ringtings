@@ -3,7 +3,7 @@ Story: Homepage checks
 
   Scenario: Basic checks
     When I go to the homepage
-    Then I should see "professional telephone systems"
+    Then I should see "telephone system"
     Then I should see "Footer"
 
   Scenario: Create user
