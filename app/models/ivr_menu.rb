@@ -1,7 +1,7 @@
 class IvrMenu < ActiveRecord::Base
   has_one :inbound_number_manager
   has_many :ivr_menu_entries, :autosave => true
-  accepts_nested_attributes_for :ivr_menu_entries
+  accepts_nested_attributes_for :ivr_menu_entries, :allow_destroy => true
   belongs_to :action
 
   def self.create_demo company_name, inbound_phone_number, target_phone_number

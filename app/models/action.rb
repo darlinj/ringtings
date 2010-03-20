@@ -1,7 +1,7 @@
 class Action < ActiveRecord::Base
   belongs_to :callplan
   has_one :ivr_menu, :autosave => true
-  accepts_nested_attributes_for :ivr_menu
+  accepts_nested_attributes_for :ivr_menu, :allow_destroy => true
   def self.create_demo inbound_number, target_number, company_name
     ivr_menu = IvrMenu.create_demo company_name,
       inbound_number,

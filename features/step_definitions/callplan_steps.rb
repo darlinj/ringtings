@@ -38,7 +38,28 @@ Given /^we have an IVR Menu with:$/ do |table|
   end
 end
 
-Given /^we store the Callplan ID as <callplan_id>$/ do
-  pending
+Given /^we set the modified date for callplan to 2 hours ago$/ do
+  callplan = Callplan.find(feature_vars['callplan_id'])
+  Callplan.record_timestamps = false
+  callplan.updated_at = 2.hours.ago
+  callplan.save
+  Callplan.record_timestamps = true
 end
+
+When /^we run the expire callplans function$/ do
+  Callplan.expire_abandoned_callplans
+end
+
+Then /^the callplan should be gone$/ do
+  lambda {Callplan.find(feature_vars['callplan_id'])}.should raise_error
+end
+
+Given /^we store the inbound number$/ do
+  feature_vars['inbound_number'] = Callplan.find(feature_vars['callplan_id']).inbound_number
+end
+
+Then /^the inbound number is freed up$/ do
+  InboundNumberManager.find(feature_vars['inbound_number'].id).callplan_id.should be_nil
+end
+
 
