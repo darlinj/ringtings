@@ -247,4 +247,11 @@ production:
     # 127.0.0.1 ringtings.com [boxname] localhost
     # remove all other references to localhost et
   end
+
+  after "deploy:update_crontab"
+
+  desc "Update the crontab file"
+  task :update_crontab, :roles => :db do
+    run "cd #{release_path} && ./script/runner ./gems/bin/whenever --update-crontab #{application}"
+  end
 end
