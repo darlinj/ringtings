@@ -12,6 +12,7 @@
 #   runner "MyModel.some_method"
 #   rake "some:great:rake:task"
 # end
+set :environment, "production"
 every 1.hours do
    runner "Callplan.expire_abandoned_callplans"
 end

@@ -37,10 +37,13 @@ def try_sudo_with_proxy_if_set command
   end
 end
 
-task :after_update_code do
+task :bundle_install do
+  run "cd #{release_path} && bundle install"
+end
+
+task :redo_symlinks do
   run "ln -nfs #{shared_path}/config/production.rb #{release_path}/config/environments/production.rb"
   run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-  run "cd #{release_path} && bundle install"
 end
 
 desc 'Install ringtings'
@@ -58,6 +61,7 @@ task :install do
   deploy.create_gemrc
   deploy.update_rubygems
   deploy.install_bundler
+  deploy.bundle_install
   deploy.update
   deploy.correct_ownership
   deploy.database_config
@@ -73,8 +77,11 @@ desc 'Update ringtings'
 task :update do
   set :user, 'root'
   deploy.update
+  deploy.redo_symlinks
+  deploy.bundle_install
   deploy.correct_ownership
   deploy.migrate_database
+  deploy.update_crontab
   deploy.restart_apache
 end
 
@@ -248,10 +255,10 @@ production:
     # remove all other references to localhost et
   end
 
-  after "deploy:update_crontab"
+  after "deploy:redo_symlinks", "deploy:update_crontab"
 
   desc "Update the crontab file"
   task :update_crontab, :roles => :db do
-    run "cd #{release_path} && ./script/runner ./gems/bin/whenever --update-crontab #{application}"
+    run "cd #{release_path} && export RAILS_ENV=production && ./script/runner ./gems/bin/whenever --update-crontab #{application}"
   end
 end
