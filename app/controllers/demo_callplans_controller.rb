@@ -14,6 +14,7 @@ class DemoCallplansController < ApplicationController
     @callplan = Callplan.find params["id"].to_i
   rescue ActiveRecord::RecordNotFound
     session[:callplan_id] = nil
+    session[:next_stage] = 1
     redirect_to demo_callplans_path
   end
 
