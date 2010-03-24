@@ -11,8 +11,10 @@ class DemoCallplansController < ApplicationController
   end
 
   def show
-    #TODO make this redirect to try it page if the callplan isn't found
     @callplan = Callplan.find params["id"].to_i
+  rescue ActiveRecord::RecordNotFound
+    session[:callplan_id] = nil
+    redirect_to demo_callplans_path
   end
 
   def create

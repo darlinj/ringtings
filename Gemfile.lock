@@ -8,82 +8,82 @@ dependencies:
     group: 
     - :default
     version: = 0.5.4.0
-  shoulda: 
-    group: 
-    - :test
-    version: = 2.10.2
-  roodi: 
-    group: 
-    - :test
-    version: = 2.0.0
-  celerity: 
-    group: 
-    - :test
-    version: = 0.7.5
   ahamid-postgres-pr: 
     group: 
     - :default
     version: = 0.6.1
-  whenever: 
+  celerity: 
     group: 
-    - :default
-    version: = 0.4.1
+    - :test
+    version: = 0.7.5
+  roodi: 
+    group: 
+    - :test
+    version: = 2.0.0
+  shoulda: 
+    group: 
+    - :test
+    version: = 2.10.2
   rspec: 
     group: 
     - :test
     version: = 1.2.9
-  rspec-rails: 
-    group: 
-    - :test
-    version: = 1.2.7.1
-  javan-whenever: 
+  whenever: 
     group: 
     - :default
-    version: = 0.3.6
+    version: = 0.4.1
   relevance-rcov: 
     group: 
     - :test
     version: = 0.9.2.1
-  paperclip: 
+  javan-whenever: 
     group: 
     - :default
-    version: = 2.3.1.1
-  capistrano-ext: 
+    version: = 0.3.6
+  rspec-rails: 
     group: 
-    - :default
-    version: = 1.2.1
+    - :test
+    version: = 1.2.7.1
+  webrat: 
+    group: 
+    - :test
+    version: = 0.7.0
   factory_girl: 
     group: 
     - :test
     version: = 1.2.3
-  webrat: 
-    group: 
-    - :test
-    version: = 0.5.3
-  bundler: 
+  capistrano-ext: 
     group: 
     - :default
-    version: = 0.6.0
+    version: = 1.2.1
+  paperclip: 
+    group: 
+    - :default
+    version: = 2.3.1.1
   culerity: 
     group: 
     - :test
     version: = 0.2.3
-  cucumber: 
+  bundler: 
     group: 
-    - :test
-    version: = 0.4.3
+    - :default
+    version: = 0.6.0
   clearance: 
     group: 
     - :default
     version: = 0.8.3
-  nokogiri: 
+  cucumber: 
     group: 
-    - :default
-    version: = 1.2.3
+    - :test
+    version: = 0.4.3
   capistrano: 
     group: 
     - :default
     version: = 2.5.8
+  nokogiri: 
+    group: 
+    - :default
+    version: = 1.2.3
 specs: 
 - builder: 
     version: 2.1.2
@@ -91,56 +91,50 @@ specs:
     version: 2.3.4
 - json_pure: 
     version: 1.2.3
-- actionmailer: 
-    version: 2.3.4
-- chronic: 
-    version: 0.2.3
 - clearance: 
     version: 0.8.3
+- chronic: 
+    version: 0.2.3
+- actionmailer: 
+    version: 2.3.4
 - bundler: 
     version: 0.6.0
 - ruby_parser: 
     version: 2.0.4
-- net-ssh: 
-    version: 2.0.20
-- net-scp: 
-    version: 1.0.2
-- net-ssh-gateway: 
-    version: 1.0.1
 - capistrano-ext: 
     version: 1.2.1
 - factory_girl: 
     version: 1.2.3
+- net-ssh: 
+    version: 2.0.21
+- net-scp: 
+    version: 1.0.2
+- net-ssh-gateway: 
+    version: 1.0.1
 - relevance-rcov: 
     version: 0.9.2.1
 - javan-whenever: 
     version: 0.3.6
 - rack: 
     version: 1.0.1
+- rack-test: 
+    version: 0.5.3
 - actionpack: 
     version: 2.3.4
 - webrat: 
-    version: 0.5.3
+    version: 0.7.0
 - rubyforge: 
     version: 2.0.4
 - whenever: 
     version: 0.4.1
-- shoulda: 
-    version: 2.10.2
+- roodi: 
+    version: 2.0.0
 - ahamid-postgres-pr: 
     version: 0.6.1
 - celerity: 
     version: 0.7.5
-- roodi: 
-    version: 2.0.0
-- polyglot: 
-    version: 0.2.9
-- treetop: 
-    version: 1.4.2
-- curb: 
-    version: 0.5.4.0
-- highline: 
-    version: 1.5.2
+- shoulda: 
+    version: 2.10.2
 - diff-lcs: 
     version: 1.1.2
 - rspec: 
@@ -149,6 +143,10 @@ specs:
     version: 0.2.3
 - rspec-rails: 
     version: 1.2.7.1
+- curb: 
+    version: 0.5.4.0
+- highline: 
+    version: 1.5.2
 - rake: 
     version: 0.8.7
 - gemcutter: 
@@ -159,14 +157,14 @@ specs:
     version: 1.2.3
 - sexp_processor: 
     version: 3.0.3
+- polyglot: 
+    version: 0.2.9
+- treetop: 
+    version: 1.4.2
 - activerecord: 
     version: 2.3.4
 - paperclip: 
     version: 2.3.1.1
-- net-sftp: 
-    version: 2.0.4
-- capistrano: 
-    version: 2.5.8
 - term-ansicolor: 
     version: 1.0.4
 - cucumber: 
@@ -175,7 +173,11 @@ specs:
     version: 2.3.4
 - rails: 
     version: 2.3.4
-hash: 7faadcac56b8667bc2e47c0b993148cf7138c3a4
+- net-sftp: 
+    version: 2.0.4
+- capistrano: 
+    version: 2.5.8
+hash: 8df89fa65b84768683f43a89b84ac84b9fb80845
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org

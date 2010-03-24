@@ -17,8 +17,10 @@ class Callplan < ActiveRecord::Base
 
   def self.expire_abandoned_callplans
     Callplan.expired_callplans.each do |cp|
-      cp.inbound_number.callplan_id = nil
-      cp.inbound_number.save!
+      if cp.inbound_number
+        cp.inbound_number.callplan_id = nil
+        cp.inbound_number.save!
+      end
       cp.destroy
     end
   end

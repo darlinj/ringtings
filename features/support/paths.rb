@@ -19,6 +19,10 @@ module NavigationHelpers
       new_session_path
     when /the freeswitch interface/i
       freeswitch_index_path
+    when /the try it now page/i
+      demo_callplans_path
+    when /the demo callplans page/i
+      demo_callplan_path(1)
     when /the callplan page/i
       callplan_path(1)
     when /the password reset request page/i

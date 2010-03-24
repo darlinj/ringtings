@@ -244,6 +244,14 @@ describe DemoCallplansController do
         do_get
         assigns[:callplan].should == @callplan
       end
+
+      describe "when the callplan doesn't exist" do
+        it "should redirect to the try it now page" do
+          Callplan.stub(:find).and_raise ActiveRecord::RecordNotFound
+          do_get
+          response.should redirect_to demo_callplans_path
+        end
+      end
     end
 
     describe "saving the callplan" do

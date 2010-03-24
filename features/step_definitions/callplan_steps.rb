@@ -62,4 +62,7 @@ Then /^the inbound number is freed up$/ do
   InboundNumberManager.find(feature_vars['inbound_number'].id).callplan_id.should be_nil
 end
 
+Then /^I visit the callplans page$/ do
+  visit demo_callplan_path(feature_vars['callplan_id'])
+end
 

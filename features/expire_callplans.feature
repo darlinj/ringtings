@@ -19,4 +19,7 @@ Feature: Expire callplans
     And we set the modified date for callplan to 2 hours ago
     When we run the expire callplans function
     Then the callplan should be gone
+    And I visit the callplans page
+    Then I should be on the try it now page
     And the inbound number is freed up
+

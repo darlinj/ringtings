@@ -26,7 +26,6 @@ group :test do
   gem 'rspec-rails', '1.2.7.1'
   gem 'factory_girl', '1.2.3'
   gem 'shoulda', '2.10.2'
-  gem 'webrat', '0.5.3'
-  gem 'webrat', '0.5.3'
+  gem 'webrat', '0.7.0'
 end
 #disable_system_gems
