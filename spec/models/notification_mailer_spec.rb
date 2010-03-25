@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe ClearanceMailer do
+describe NotificationMailer do
   before do
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
@@ -8,8 +8,7 @@ describe ClearanceMailer do
   end
 
   def deliver_mail
-    @user = Factory.create :user
-    ClearanceMailer.deliver_confirmation(@user)
+    NotificationMailer.deliver_trying_it
   end
 
   it "should deliver 1 email" do
@@ -17,8 +16,8 @@ describe ClearanceMailer do
     ActionMailer::Base.deliveries.size.should == 1
   end
 
-  it "should bcc to the admin" do
+  it "should mail to the admin" do
     mail = deliver_mail
-    mail.bcc.should == ["joe.darling@bt.com"]
+    mail.to.should == [ADMIN_EMAIL]
   end
 end

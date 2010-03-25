@@ -3,14 +3,14 @@ $LOAD_PATH.unshift(RAILS_ROOT + '/vendor/plugins/cucumber/lib') if File.director
 begin
   require 'cucumber/rake/task'
 
-  task :features => [:'features:acceptance']
+  task :run_features => [:'features:webrat']
 
   namespace :features do
     Cucumber::Rake::Task.new(:e2e) do |t|
       t.fork = true
       t.cucumber_opts = ['--profile e2e RAILS_ENV=cucumber']
     end
-    Cucumber::Rake::Task.new(:acceptance) do |t|
+    Cucumber::Rake::Task.new(:webrat) do |t|
       t.fork = true
       t.cucumber_opts = ['--profile default ']
     end

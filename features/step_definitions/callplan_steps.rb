@@ -66,3 +66,10 @@ Then /^I visit the callplans page$/ do
   visit demo_callplan_path(feature_vars['callplan_id'])
 end
 
+Given /^we create a demo callplan$/ do
+  When %{I go to the try it now page}
+  And %{I fill in "Company name" with "Fooey"}
+  And %{I fill in "Phone number" with "012345678"}
+  And %{I submit the form}
+end
+

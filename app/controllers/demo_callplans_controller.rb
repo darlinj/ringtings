@@ -25,25 +25,26 @@ class DemoCallplansController < ApplicationController
     end
     unless params[:demo_callplan] && params[:demo_callplan]['company_name'] && params[:demo_callplan]['phone_number']
       flash[:error]="We are sorry but there is a problem with the infomation you provided.  Please try again"
-      redirect_to (demo_callplans_url)
+      redirect_to demo_callplans_url
       return
     end
     @callplan = Callplan.create_demo params[:demo_callplan]['phone_number'],
       params[:demo_callplan]['company_name']
     session[:next_stage] = "4"
     session[:callplan_id] = @callplan.id
+    NotificationMailer.deliver_trying_it
     redirect_to demo_callplan_path(@callplan.id)
   rescue Exceptions::OutOfCapacityError
     RAILS_DEFAULT_LOGGER.debug "OUT OF INBOUND NUMBERS!!!"
     flash[:error]="We are sorry but we have temporerily run out of free telephone numbers. We are taking steps to get more so please try again soon."
-    redirect_to (demo_callplans_url)
+    redirect_to demo_callplans_url
   end
 
   def update
     @callplan = Callplan.find(params[:id].to_i)
     unless @callplan
       flash[:error]="We are very sorry but we can't complete this operation.  This should not happen if you are using the website as we expect.  We will look into this problem.  Please try again"
-      redirect_to (demo_callplans_url)
+      redirect_to demo_callplans_url 
       return
     end
     if @callplan.update_attributes(params[:callplan])

@@ -93,6 +93,11 @@ describe DemoCallplansController do
           do_post
           session[:callplan_id].should == @callplan.id
         end
+
+        it "should send an email to the admin" do
+          NotificationMailer.should_receive(:deliver_trying_it)
+          do_post
+        end
       end
 
       describe "what happens if there is a problem with inbound number creation" do
@@ -122,92 +127,91 @@ describe DemoCallplansController do
           response.should redirect_to(demo_callplans_url)
         end
       end
+    end
+    describe "the update of a demo call plan" do
+      before do
+        @company_name = "foobar inc"
+        @phone_number = "0123456789"
+        @email_address = "bob.basted@used.cars.net"
+        @action = mock_model Action, :application_name=>"SomeRandomApplication" , :application_data=>"Dummy Data"
+        @inbound_number = mock_model InboundNumberManager, :phone_number=>@phone_number
+        @employee = mock_model Employee, :phone_number => @employee_phone_number,:email_address => @email_address
+        Employee.stub(:create!).and_return @employee
+        @callplan = mock_model Callplan, :company_name => @company_name, :action=>@action, :inbound_number => @inbound_number, :employee => @employee
+        Callplan.stub(:find).and_return @callplan
+        @callplan.stub(:save)
+        @callplan.stub(:save!)
+        @callplan.stub(:user_id=)
+      end
 
-      describe "the update of a demo call plan" do
+      describe "when the email,password and password confirmation are set" do
         before do
-          @company_name = "foobar inc"
-          @phone_number = "0123456789"
-          @email_address = "bob.basted@used.cars.net"
-          @action = mock_model Action, :application_name=>"SomeRandomApplication" , :application_data=>"Dummy Data"
-          @inbound_number = mock_model InboundNumberManager, :phone_number=>@phone_number
-          @employee = mock_model Employee, :phone_number => @employee_phone_number,:email_address => @email_address
-          Employee.stub(:create!).and_return @employee
-          @callplan = mock_model Callplan, :company_name => @company_name, :action=>@action, :inbound_number => @inbound_number, :employee => @employee
+          @callplan = mock_model Callplan
           Callplan.stub(:find).and_return @callplan
-          @callplan.stub(:save)
-          @callplan.stub(:save!)
+          @email_address = "freddy@rock.com"
+          @password = "secret"
+          @user = mock_model User
+          User.stub(:new).and_return @user
+          @user.stub(:save!)
+          ClearanceMailer.stub(:deliver_confirmation)
           @callplan.stub(:user_id=)
+          @callplan.stub(:save!)
         end
 
-        describe "when the email,password and password confirmation are set" do
-          before do
-            @callplan = mock_model Callplan
-            Callplan.stub(:find).and_return @callplan
-            @email_address = "freddy@rock.com"
-            @password = "secret"
-            @user = mock_model User
-            User.stub(:new).and_return @user
-            @user.stub(:save!)
-            ClearanceMailer.stub(:deliver_confirmation)
-            @callplan.stub(:user_id=)
-            @callplan.stub(:save!)
-          end
+        def do_post
+          put :create_user, :id => @callplan.id,
+            :demo_callplan => {'email' => @email_address,
+              'password' => @password,
+              'password_confirmed' => @password}
+        end
 
-          def do_post
-            put :create_user, :id => @callplan.id,
-              :demo_callplan => {'email' => @email_address,
-                'password' => @password,
-                'password_confirmed' => @password}
-          end
+        it "creates a user" do
+          @expected_params = {'email' => @email_address, 'password' =>@password, 'password_confirmed' =>@password}
+          User.should_receive(:new).with(@expected_params)
+          do_post
+        end
 
-          it "creates a user" do
-            @expected_params = {'email' => @email_address, 'password' =>@password, 'password_confirmed' =>@password}
-            User.should_receive(:new).with(@expected_params)
+        it "saves the user" do
+          @user.should_receive(:save!)
+          do_post
+        end
+
+        it "looks up the callplan" do
+          Callplan.should_receive(:find).with(@callplan.id)
+          do_post
+        end
+
+        describe "when there is a callplan" do
+          it "assigns the user id to the callplan" do
+            @callplan.should_receive(:user_id=).with(@user.id)
             do_post
           end
 
-          it "saves the user" do
-            @user.should_receive(:save!)
+          it "saves the callplan" do
+            @callplan.should_receive(:save!)
             do_post
           end
-
-          it "looks up the callplan" do
-            Callplan.should_receive(:find).with(@callplan.id)
-            do_post
-          end
-
-          describe "when there is a callplan" do
-            it "assigns the user id to the callplan" do
-              @callplan.should_receive(:user_id=).with(@user.id)
-              do_post
-            end
-
-            it "saves the callplan" do
-              @callplan.should_receive(:save!)
-              do_post
-            end
-          end
+        end
 
 
-          it "send a confirmation email" do
-            ClearanceMailer.should_receive(:deliver_confirmation).with @user
-            do_post
-          end
+        it "send a confirmation email" do
+          ClearanceMailer.should_receive(:deliver_confirmation).with @user
+          do_post
+        end
 
-          it "creates a flash message" do
-            do_post
-            flash[:notice].should == "You will receive an email within the next few minutes. It contains instructions for confirming your account."
-          end
+        it "creates a flash message" do
+          do_post
+          flash[:notice].should == "You will receive an email within the next few minutes. It contains instructions for confirming your account."
+        end
 
-          it "should set the session next stage to 5" do
-            do_post
-            session[:next_stage].should == "5"
-          end
+        it "should set the session next stage to 5" do
+          do_post
+          session[:next_stage].should == "5"
+        end
 
-          it "redirects to the show page" do
-            do_post
-            response.should redirect_to(demo_callplan_url(@callplan.id))
-          end
+        it "redirects to the show page" do
+          do_post
+          response.should redirect_to(demo_callplan_url(@callplan.id))
         end
       end
     end

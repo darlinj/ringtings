@@ -1,4 +1,4 @@
-Before do |scenario|
+Before do 
   @feature_vars = {}
   User.destroy_all
   load "Rakefile"

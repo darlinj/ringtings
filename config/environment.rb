@@ -62,4 +62,5 @@ Rails::Initializer.run do |config|
   #
 
   DO_NOT_REPLY = "customer_service@ringtings.com"
+  ADMIN_EMAIL = "joe.darling@bt.com"
 end

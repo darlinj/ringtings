@@ -6,7 +6,7 @@
 # (e.g. rescue_action_in_public / rescue_responses / rescue_from)
 #Cucumber::Rails.bypass_rescue
 
-Cucumber::Rails::World.use_transactional_fixtures = true
+Cucumber::Rails::World.use_transactional_fixtures 
 require 'webrat'
 
 Webrat.configure do |config|

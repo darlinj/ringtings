@@ -13,7 +13,7 @@ module ClearanceMailerExtension
   module InstanceMethods
     def confirmation_with_bcc user
       from       DO_NOT_REPLY
-      bcc "joe.darling@bt.com"
+      bcc        ADMIN_EMAIL
       recipients user.email
       subject    I18n.t(:confirmation,
                         :scope   => [:clearance, :models, :clearance_mailer],
