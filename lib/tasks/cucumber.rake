@@ -8,7 +8,7 @@ begin
   namespace :features do
     Cucumber::Rake::Task.new(:e2e) do |t|
       t.fork = true
-      t.cucumber_opts = ['--profile e2e ']
+      t.cucumber_opts = ['--profile e2e RAILS_ENV=cucumber']
     end
     Cucumber::Rake::Task.new(:acceptance) do |t|
       t.fork = true

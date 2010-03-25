@@ -20,5 +20,6 @@ production:
 
 
 cucumber:
-  <<: *TEST
+  database: ringtings_cucumber
+  <<: *defaults
 

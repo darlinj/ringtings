@@ -1,6 +1,6 @@
 Rake.application.instance_variable_get('@tasks').delete('default')
 ENV['RAILS_ENV'] = 'test'
-task :default => [ "db:migrate", :spec, "restart", "features", "features:e2e", :ok ]
+task :default => [ "db:migrate", "db:seed", :spec, "restart", "features", "features:e2e", :ok ]
 
 task :ok do
   red    = "\e[31m"
