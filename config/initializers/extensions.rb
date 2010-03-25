@@ -1,0 +1,1 @@
+ClearanceMailerExtension.enable

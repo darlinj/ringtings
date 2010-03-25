@@ -19,6 +19,7 @@ Feature: Sign up
       And I press "Sign Up"
       Then I should see "instructions for confirming"
       And a confirmation message should be sent to "email@person.com"
+      Then a confirmation message should be bcc'd to "joe.darling@bt.com"
 
     Scenario: User confirms his account
       Given I signed up with "email@person.com/password"
