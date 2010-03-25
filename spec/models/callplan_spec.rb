@@ -10,6 +10,7 @@ describe Callplan do
 
   describe "creating a demo callplan" do
     before do
+      InboundNumberManager.destroy_all
       @company_name  = "Mr biggles flying circus"
       @ivr_menu = Factory.create :ivr_menu
       @action = Factory.create :action, :ivr_menu => @ivr_menu
