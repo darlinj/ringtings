@@ -4,7 +4,7 @@ require 'rexml/document'
 describe "/service_instances/ivr_menus.xml.builder" do
   before do
     @name = "some_name"
-    @long_greeting = "say: some text which for some reason I feel should long"
+    @long_greeting = "some text which for some reason I feel should long"
     @action1 = "some action"
     @action2 = "some other action"
     @digits1 = "1"
@@ -62,12 +62,12 @@ describe "/service_instances/ivr_menus.xml.builder" do
 
   it 'has a menu element with a greet-long attribute starting with the company name' do
     xml = do_render
-    xml.elements['//menus/menu/@greet-long'].value.should == @long_greeting
+    xml.elements['//menus/menu/@greet-long'].value.should == "say:#{@long_greeting}"
   end
 
   it 'has a menu element with a greet-short attribute starting with "say"' do
     xml = do_render
-    xml.elements['//menus/menu/@greet-short'].value.should == @long_greeting
+    xml.elements['//menus/menu/@greet-short'].value.should == "say:#{@long_greeting}"
   end
 
   it 'has a menu element with a invalid-sound attribute starting with "say"' do

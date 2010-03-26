@@ -13,7 +13,7 @@ class IvrMenu < ActiveRecord::Base
     ivr_menu_5 = PlayAudioFileMenuEntry.create_demo "4", audio_file
     ivr_menu_6 = PlayAudioFileMenuEntry.create_demo "5", audio_file
     ivr_menus = [ ivr_menu_1 , ivr_menu_2, ivr_menu_3, ivr_menu_4, ivr_menu_5, ivr_menu_6 ]
-    long_greeting = "say:Welcome to #{company_name}. please press one to be connected to one of our agents. press two to be connected to leave a message. press three to hear sucking of teeth. four is for an auto quote and 5 is if you want to pay your bill by credit card"
+    long_greeting = "Welcome to #{company_name}. please press one to be connected to one of our agents. press two to be connected to leave a message. press three to hear sucking of teeth. four is for an auto quote and 5 is if you want to pay your bill by credit card"
     IvrMenu.create! :name => "ivr_menu_#{inbound_phone_number}", 
       :long_greeting => long_greeting, 
       :ivr_menu_entries => ivr_menus

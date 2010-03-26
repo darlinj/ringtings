@@ -19,7 +19,7 @@ describe IvrMenu do
     end
 
     it "should set the greeting" do
-      do_demo_create.long_greeting.should =~ /say:Welcome to #{@company_name}/
+      do_demo_create.long_greeting.should =~ /Welcome to #{@company_name}/
     end
 
     it "sets the name of the menu" do
