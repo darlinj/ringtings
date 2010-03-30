@@ -8,8 +8,8 @@ describe IvrMenu do
   describe "creating a demo ivr menu" do
     before do
       @company_name = "foobars"
-      @inbound_number = "01234567"
-      @target_phone_number = "987654321"
+      @inbound_number = "01234567890"
+      @target_phone_number = "09876543210"
     end
     def do_demo_create
       IvrMenu.create_demo @company_name, @inbound_number, @target_phone_number

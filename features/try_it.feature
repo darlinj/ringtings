@@ -9,7 +9,7 @@ Story: Try it out page
     Then I should see "Enter the name of your business"
     When I fill in "Company name" with "Mr Plumb the plumber"
     Then I should see "Please fill in the phone number of a handy phone"
-    And I fill in "Phone number" with "0987654321"
+    And I fill in "Phone number" with "09876543210"
     When I click the form input with id "next_submit_image"
     And I should see "Here is your first callplan"
     Then I should see "Please ring 0123456789"
@@ -28,4 +28,4 @@ Story: Try it out page
     Then Freeswitch should find "Welcome to Mr Plumb the plumber" in the XML
     Then Freeswitch should find "press one to be connected to one of our agents" in the XML
     Then Freeswitch should find "press two to be connected to leave a message" in the XML
-    Then Freeswitch should find "transfer 0987654321" in the XML
+    Then Freeswitch should find "transfer 44987654321" in the XML

@@ -47,8 +47,8 @@ Feature: IVR menu entry
     Given we create a Callplan (and store it's ID as <callplan_id>) with these variables:
       | name                   | value                         |
       | Action_type            | ivr                           |
-      | Action_params          | ivr_menu_0192837465           |
-      | inbound_phone_number   | 0192837465                    |
+      | Action_params          | ivr_menu_01928374650          |
+      | inbound_phone_number   | 01928374650                   |
     And we have an IVR Menu with:
       | name                   | value                         |
       | long_greeting          | some long greeting            |

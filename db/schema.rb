@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100319173130) do
+ActiveRecord::Schema.define(:version => 20100329141232) do
 
   create_table "actions", :force => true do |t|
     t.integer  "callplan_id"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20100319173130) do
     t.string   "param_1"
     t.integer  "prototype_id"
     t.integer  "audio_file_id"
+    t.string   "type"
   end
 
   create_table "ivr_menu_entry_prototypes", :force => true do |t|
@@ -66,7 +67,6 @@ ActiveRecord::Schema.define(:version => 20100319173130) do
     t.string "freeswitch_command_template"
     t.string "image"
     t.string "prompt"
-    t.string "type"
     t.string "action"
     t.string "param_1_default"
     t.string "partial_name"

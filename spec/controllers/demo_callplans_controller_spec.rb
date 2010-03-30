@@ -40,7 +40,7 @@ describe DemoCallplansController do
     describe "the creation of a call plan" do
       before do
         @company_name = "foobar inc"
-        @employee_phone_number = "0987654321"
+        @employee_phone_number = "09876543210"
         @phone_number = "0123456789"
         @callplan = mock_model Callplan, :company_name => @company_name
         Callplan.stub(:create_demo).and_return @callplan
@@ -123,6 +123,15 @@ describe DemoCallplansController do
         end
         it "doesn't have a company name in the demo_callplans hash" do
           post :create, :demo_callplan => {'foo'=>"bar"}
+          flash[:error].should == "We are sorry but there is a problem with the infomation you provided.  Please try again"
+          response.should redirect_to(demo_callplans_url)
+        end
+      end
+
+      describe "the telephone not being the correct length" do
+        it "sets the flash correctly and redirects back to the form" do
+          @employee_phone_number = "rubbish"
+          post :create
           flash[:error].should == "We are sorry but there is a problem with the infomation you provided.  Please try again"
           response.should redirect_to(demo_callplans_url)
         end

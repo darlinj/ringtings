@@ -23,7 +23,8 @@ class DemoCallplansController < ApplicationController
       redirect_to demo_callplan_path(session[:callplan_id])
       return
     end
-    unless params[:demo_callplan] && params[:demo_callplan]['company_name'] && params[:demo_callplan]['phone_number']
+    unless params[:demo_callplan] && params[:demo_callplan]['company_name'] && params[:demo_callplan]['phone_number'] &&
+      params[:demo_callplan]['phone_number'].length.between?(11,12)
       flash[:error]="We are sorry but there is a problem with the infomation you provided.  Please try again"
       redirect_to demo_callplans_url
       return
@@ -44,7 +45,7 @@ class DemoCallplansController < ApplicationController
     @callplan = Callplan.find(params[:id].to_i)
     unless @callplan
       flash[:error]="We are very sorry but we can't complete this operation.  This should not happen if you are using the website as we expect.  We will look into this problem.  Please try again"
-      redirect_to demo_callplans_url 
+      redirect_to demo_callplans_url
       return
     end
     if @callplan.update_attributes(params[:callplan])

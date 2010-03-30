@@ -27,6 +27,7 @@ Given /^we have an IVR Menu with:$/ do |table|
   Factory :ivr_menu_entry,
     :digits => args['ivr_menu_entry1_digit'],
     :param_1 => args['ivr_menu_entry1_action'],
+    :type => args['ivr_menu_entry1_type'],
     :ivr_menu_id => ivr_menu.id,
     :prototype => IvrMenuEntryPrototype.find_by_name(args['ivr_menu_entry1_type'])
   if args['ivr_menu_entry2_action']
@@ -69,7 +70,7 @@ end
 Given /^we create a demo callplan$/ do
   When %{I go to the try it now page}
   And %{I fill in "Company name" with "Fooey"}
-  And %{I fill in "Phone number" with "012345678"}
+  And %{I fill in "Phone number" with "01234567890"}
   And %{I submit the form}
 end
 
