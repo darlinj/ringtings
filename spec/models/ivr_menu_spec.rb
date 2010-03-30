@@ -27,25 +27,21 @@ describe IvrMenu do
     end
 
     it "has 6 ivr menu entries" do
-      do_demo_create.ivr_menu_entries.count.should == 6
-    end
-
-    it "has one exit menu" do
-      do_demo_create.ivr_menu_entries[0].should be_a_kind_of MenuExitMenuEntry
+      do_demo_create.ivr_menu_entries.count.should == 5
     end
 
     it "has one call tranfer menu" do
-      do_demo_create.ivr_menu_entries[1].should be_a_kind_of TransferCallMenuEntry
+      do_demo_create.ivr_menu_entries[0].should be_a_kind_of TransferCallMenuEntry
     end
 
     it "has one voicemail" do
-      do_demo_create.ivr_menu_entries[2].should be_a_kind_of VoiceMailMenuEntry
+      do_demo_create.ivr_menu_entries[1].should be_a_kind_of VoiceMailMenuEntry
     end
 
     it "has three play audio file menus" do
+      do_demo_create.ivr_menu_entries[2].should be_a_kind_of PlayAudioFileMenuEntry
       do_demo_create.ivr_menu_entries[3].should be_a_kind_of PlayAudioFileMenuEntry
       do_demo_create.ivr_menu_entries[4].should be_a_kind_of PlayAudioFileMenuEntry
-      do_demo_create.ivr_menu_entries[5].should be_a_kind_of PlayAudioFileMenuEntry
     end
   end
 end
