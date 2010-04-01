@@ -22,6 +22,25 @@ Feature: IVR menu entry
     Then the response should have 3 elements that match "//div[@class='ivr_step_action']"
     And I should see "your announcement here"
 
+  Scenario: Adding an IVR menu entry after an existing entry
+    Given we create a Callplan (and store it's ID as <callplan_id>) with these variables:
+      | name                   | value                         |
+      | Action_type            | ivr                           |
+      | Action_params          | ivr_menu_0192837465           |
+      | inbound_phone_number   | 0192837465                    |
+    And we have an IVR Menu with:
+      | name                   | value                         |
+      | long_greeting          | some long greeting            |
+      | ivr_menu_entry1_digit  | 1                             |
+      | ivr_menu_entry1_type   | SyntheticVoiceMenuEntry       |
+      | ivr_menu_entry1_action | hello peeps                   |
+    And I am logged in
+    When I navigate to the "callplan_path" for <callplan_id>
+    And I click the plus button for the first ivr menu entry
+    And I click the form input with id "SyntheticVoiceMenuEntry"
+    Then the response should have 2 elements that match "//div[@class='ivr_step_action']"
+    And I should see "your announcement here"
+
   Scenario: Deleting a IVR menu entry
     Given we create a Callplan (and store it's ID as <callplan_id>) with these variables:
       | name                   | value                         |
