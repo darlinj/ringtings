@@ -5,3 +5,6 @@ freeswitch_stuff/gafachi.xml
 config/database.yml
 /public/system/
 gems/
+Gemfile.lock
+.bundle/*
+db/schema.rb
