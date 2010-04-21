@@ -17,7 +17,6 @@ gem 'paperclip', '2.3.1.1'
 gem 'whenever', '0.4.1'
 
 group :test do
-  gem 'celerity', '0.7.5'
   gem 'culerity', '0.2.3'
   gem 'cucumber', '0.4.3'
   gem 'relevance-rcov', '0.9.2.1'
