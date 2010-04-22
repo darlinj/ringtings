@@ -28,7 +28,7 @@ IvrMenuEntryPrototype.create! :name => "TransferCallMenuEntry",
   :image => "ivr_step_action_transfer_call.png",
   :partial_name => "action_call_transfer",
   :prompt => "Transfer call to:",
-  :param_1_default => "441234-SOME-NUM",
+  :param_1_default => "44123SOMENUM",
   :action => "menu-exec-app"
 
 IvrMenuEntryPrototype.create! :name => "SyntheticVoiceMenuEntry",
