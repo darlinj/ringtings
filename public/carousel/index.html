@@ -1,0 +1,57 @@
+<html>
+<head>
+
+<!-- You can load the jQuery library from the Google Content Network.
+Probably better than from your own server. -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+<!-- Load the CloudCarousel JavaScript file -->
+<script type="text/JavaScript" src="cloud-carousel.1.0.0.js"></script>
+
+<script>
+$(document).ready(function(){
+
+	// This initialises carousels on the container elements specified, in this case, carousel1.
+	$("#carousel1").CloudCarousel(
+		{
+			xPos: 330,
+      yPos: 50,
+      reflOpacity: 0.7,
+      yRadius: 30,
+			buttonLeft: $("#left-but"),
+			buttonRight: $("#right-but"),
+			altBox: $("#alt-text"),
+			titleBox: $("#title-text")
+		}
+	);
+});
+
+</script>
+
+</head>
+    <body>
+    	<!-- This is the container for the carousel. -->
+        <div id = "carousel1" style="width:656px; height:528px;background:#202020;overflow:scroll;">
+            <!-- All images with class of "cloudcarousel" will be turned into carousel items -->
+            <!-- You can place links around these images -->
+            <!--<img class = "cloudcarousel" src="flag1.png" alt="Flag 1 Description" title="Flag 1 Title" />-->
+            <!--<img class = "cloudcarousel" src="flag2.png" alt="Flag 2 Description" title="Flag 2 Title" />-->
+            <!--<img class = "cloudcarousel" src="flag3.png" alt="Flag 3 Description" title="Flag 3 Title" />-->
+            <!--<img class = "cloudcarousel" src="what_is_ringtings.png" alt="Flag 4 Description" title="Flag 4 Title" />-->
+            <!--<img class = "cloudcarousel" src="hat.jpeg" alt="Hat Description" title="Hat Title" />-->
+            <img class = "cloudcarousel" src="test.png" alt="Test Description" title="Test Title" />
+            <img class = "cloudcarousel" src="test2.png" alt="Test Description" title="Test Title" />
+            <img class = "cloudcarousel" src="test.png" alt="Test Description" title="Test Title" />
+            <img class = "cloudcarousel" src="test2.png" alt="Test Description" title="Test Title" />
+            <img class = "cloudcarousel" src="test.png" alt="Test Description" title="Test Title" />
+        </div>
+
+        <!-- Define left and right buttons. -->
+        <input id="left-but"  type="button" value="Left" />
+        <input id="right-but" type="button" value="Right" />
+
+        <!-- Define elements to accept the alt and title text from the images. -->
+        <p id="title-text"></p>
+        <p id="alt-text"></p>
+    </body>
+</html>
