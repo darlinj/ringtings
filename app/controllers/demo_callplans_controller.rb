@@ -53,7 +53,10 @@ class DemoCallplansController < ApplicationController
     else
       flash[:notice] = "Callplan failed to save"
     end
-    redirect_to demo_callplan_path(params[:id])
+    respond_to do |format|
+      format.html { redirect_to demo_callplan_path(params[:id]) }
+      format.js {render :layout =>false}
+    end
   end
 
   def create_user
@@ -74,5 +77,4 @@ class DemoCallplansController < ApplicationController
   def set_tab
     @tab="tryit"
   end
-
 end

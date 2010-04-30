@@ -1,20 +1,18 @@
 <div id="phone_configurator">
   <div id="dialplan_details" class="span-7">
-    <div id="dialplan_details">
-      <div id="try_it_thread">
-        <% if session[:next_stage] == "4" %>
-          <%= render :partial => 'step_4_instructions' %>
-        <% end %>
-        <% if session[:next_stage] == "5" %>
-          <%= render :partial => 'step_5_instructions' %>
-        <% end %>
-      </div>
+    <div id="try_it_thread">
+      <% if session[:next_stage] == "4" %>
+        <%= render :partial => 'step_4_instructions' %>
+      <% end %>
+      <% if session[:next_stage] == "5" %>
+        <%= render :partial => 'step_5_instructions' %>
+      <% end %>
     </div>
   </div>
   <div id="callplan" class="span-10">
     <h3>Callplan</h3>
     <% if @callplan.action.application_name == "ivr" %>
-      <% form_for :callplan, @callplan, :put, :url=>demo_callplan_path, :html => { :method => :put } do |callplan_form| %>
+      <% form_for :callplan, @callplan, :url=>demo_callplan_path, :html => { :method => :put , :id => "callplan_form"} do |callplan_form| %>
         <div class="callplan_details" class="span-10">
           <%= render :partial => '/shared/inbound_number', :locals => { :inbound_number => @callplan.inbound_number.phone_number } %>
           <%= render :partial => '/shared/ivr_menu', :locals => { :ivr_menu=>@callplan.action.ivr_menu, :callplan_form => callplan_form } %>
@@ -22,6 +20,7 @@
             <%= image_submit_tag "/images/save_button.png", :id => "save_button" %>
           </div>
         </div>
+        <div id="callplan_save_notification"></div>
       <% end %>
     <% else %>
       <%= render :partial => '/shared/inbound_number', :locals => { :inbound_number => @callplan.inbound_number.phone_number } %>
