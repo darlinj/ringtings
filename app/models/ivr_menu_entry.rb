@@ -24,9 +24,9 @@ class VoiceMailMenuEntry < IvrMenuEntry
 end
 
 class TransferCallMenuEntry < IvrMenuEntry
-  validates_length_of :param_1, :within => 11..12
+  validates_length_of :param_1, :within => 11..12, :message => "The phone number is not the right length"
 
-  def before_create 
+  def before_create
     if self.param_1.start_with? "0"
       self.param_1.gsub!(/^0/,"44")
     end

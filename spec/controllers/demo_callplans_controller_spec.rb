@@ -137,7 +137,8 @@ describe DemoCallplansController do
         end
       end
     end
-    describe "the update of a demo call plan" do
+
+    describe "adding a user to the callplan" do
       before do
         @company_name = "foobar inc"
         @phone_number = "0123456789"
@@ -167,7 +168,7 @@ describe DemoCallplansController do
           @callplan.stub(:save!)
         end
 
-        def do_post
+        def do_put
           put :create_user, :id => @callplan.id,
             :demo_callplan => {'email' => @email_address,
               'password' => @password,
@@ -177,53 +178,54 @@ describe DemoCallplansController do
         it "creates a user" do
           @expected_params = {'email' => @email_address, 'password' =>@password, 'password_confirmed' =>@password}
           User.should_receive(:new).with(@expected_params)
-          do_post
+          do_put
         end
 
         it "saves the user" do
           @user.should_receive(:save!)
-          do_post
+          do_put
         end
 
         it "looks up the callplan" do
           Callplan.should_receive(:find).with(@callplan.id)
-          do_post
+          do_put
         end
 
         describe "when there is a callplan" do
           it "assigns the user id to the callplan" do
             @callplan.should_receive(:user_id=).with(@user.id)
-            do_post
+            do_put
           end
 
           it "saves the callplan" do
             @callplan.should_receive(:save!)
-            do_post
+            do_put
           end
         end
 
 
         it "send a confirmation email" do
           ClearanceMailer.should_receive(:deliver_confirmation).with @user
-          do_post
+          do_put
         end
 
         it "creates a flash message" do
-          do_post
+          do_put
           flash[:notice].should == "You will receive an email within the next few minutes. It contains instructions for confirming your account."
         end
 
         it "should set the session next stage to 5" do
-          do_post
+          do_put
           session[:next_stage].should == "5"
         end
 
         it "redirects to the show page" do
-          do_post
-          response.should redirect_to(demo_callplan_url(@callplan.id))
+          do_put
+          response.should render_template("demo_callplans/show")
         end
       end
     end
+
     describe "the show of a demo call plan" do
       before do
         @callplan = mock_model Callplan
@@ -301,7 +303,7 @@ describe DemoCallplansController do
       end
       it "should redirect to the callpln show page" do
         do_put
-        response.should redirect_to(demo_callplan_url(@callplan.id))
+        response.should render_template("demo_callplans/show")
       end
     end
 

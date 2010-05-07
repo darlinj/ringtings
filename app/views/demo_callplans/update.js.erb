@@ -1,2 +1,6 @@
 $("#callplan_save_notification").html('<div class="notice span-10"><%= escape_javascript(flash.delete(:notice)) %></div>');
+<% @callplan.action.ivr_menu.ivr_menu_entries.each do | entry | %>
+  $("#form_errors_<%= entry.id %>").html('<%= entry.errors[:param_1] %>');
+<% end %>
+
 

@@ -207,8 +207,11 @@ div.step_box {
 }
 
 #ivr_menu_entry_textbox{
-  height:30px;
+  height:15px;
   width:225px;
+  border-bottom-width:0;
+  margin-bottom:0;
+  padding-bottom:3px;
 }
 
 .ivr_step {
@@ -235,6 +238,11 @@ div.step_box {
 
 .ivr_row {
   display: inline;
+}
+
+.form_errors {
+  font-size: 60%;
+  color: #e70000;
 }
 
 .ivr_step_action {

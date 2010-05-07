@@ -42,19 +42,20 @@ class DemoCallplansController < ApplicationController
   end
 
   def update
-    @callplan = Callplan.find(params[:id].to_i)
-    unless @callplan
+    callplan = Callplan.find(params[:id].to_i)
+    unless callplan
       flash[:error]="We are very sorry but we can't complete this operation.  This should not happen if you are using the website as we expect.  We will look into this problem.  Please try again"
       redirect_to demo_callplans_url
       return
     end
-    if @callplan.update_attributes(params[:callplan])
+    if callplan.update_attributes(params[:callplan])
       flash[:notice] = "Callplan sucessfully saved"
     else
       flash[:notice] = "Callplan failed to save"
     end
+    @callplan = callplan
     respond_to do |format|
-      format.html { redirect_to demo_callplan_path(params[:id]) }
+      format.html { render :template =>"demo_callplans/show" }
       format.js {render :layout =>false}
     end
   end
@@ -70,7 +71,7 @@ class DemoCallplansController < ApplicationController
     ClearanceMailer.deliver_confirmation @user
     flash[:notice] = "You will receive an email within the next few minutes. It contains instructions for confirming your account."
     session[:next_stage] = "5"
-    redirect_to demo_callplan_path(params[:id])
+    render :template =>"demo_callplans/show"
   end
 
   private
