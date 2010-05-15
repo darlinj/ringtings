@@ -1,10 +1,3 @@
-<div>
-  <% @ivr_menu_entry_prototypes.each do |ivr_menu_entry_prototype| %>
-    <% form_for :ivr_menu_entry, ivr_menu_entry_prototype, :url=>ivr_menu_entries_path do |ivr_menu_entry_form| %>
-      <%= hidden_field_tag :ivr_menu_id, @ivr_menu_id %>
-      <%= hidden_field_tag :type, ivr_menu_entry_prototype.name %>
-      <h2><%= ivr_menu_entry_prototype.description %><br /></h2>
-      <%= image_submit_tag "/images/#{ivr_menu_entry_prototype.image}", :id=>ivr_menu_entry_prototype.name %>
-    <% end %>
-  <% end %>
-</div>
+<h2> Please choose the type of action by clicking on one of the entries below </h2>
+
+<%= render :partial => '/shared/add_new_ivr_menu_entry' %>

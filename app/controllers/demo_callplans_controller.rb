@@ -12,6 +12,8 @@ class DemoCallplansController < ApplicationController
 
   def show
     @callplan = Callplan.find params["id"].to_i
+    @ivr_menu_entry_prototypes = IvrMenuEntryPrototype.all
+    @ivr_menu_id = @callplan.action.ivr_menu.id
   rescue ActiveRecord::RecordNotFound
     session[:callplan_id] = nil
     session[:next_stage] = 1
@@ -54,6 +56,8 @@ class DemoCallplansController < ApplicationController
       flash[:notice] = "Callplan failed to save"
     end
     @callplan = callplan
+    @ivr_menu_entry_prototypes = IvrMenuEntryPrototype.all
+    @ivr_menu_id = @callplan.action.ivr_menu.id
     respond_to do |format|
       format.html { render :template =>"demo_callplans/show" }
       format.js {render :layout =>false}

@@ -33,9 +33,9 @@ jQuery.fn.submitWithAjax = function() {
 };
 
 	$(function() {
-    $("#dialog").dialog("destroy");
+    $("#ivr_menu_entry_prototypes").dialog("destroy");
 
-    $("#dialog").dialog({
+    $("#ivr_menu_entry_prototypes").dialog({
 			autoOpen: false,
 			height: 300,
 			width: 350,
@@ -77,7 +77,7 @@ jQuery.fn.submitWithAjax = function() {
 $(document).ready(function() {
     $("#callplan_form").submitWithAjax();
     $("#add_menu_option_submit_image").click(function() {
-      $("#dialog").dialog('open');
+      $("#ivr_menu_entry_prototypes").dialog('open');
       return false;
       });
 });
