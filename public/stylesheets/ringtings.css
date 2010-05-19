@@ -301,6 +301,9 @@ div.step_box {
   top: -30px;
 }
 
+#hideme {
+  display: none;
+}
 #inbound_calls_text {
   padding-top: 7px;
   margin: auto;
