@@ -70,9 +70,16 @@ describe TransferCallMenuEntry do
       end
     end
 
-  end
+    it "creates an error when the phone number is too short" do
+      @destination_number = "1234567"
+      lambda {do_create_demo}.should raise_error
+    end
 
-  it { should ensure_length_of(:param_1).is_at_least(11).is_at_most(12) }
+    it "creates an error when the phone number is too long" do
+      @destination_number = "12345678901234"
+      lambda {do_create_demo}.should raise_error
+    end
+  end
 end
 
 describe VoiceMailMenuEntry do
