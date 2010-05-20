@@ -301,11 +301,18 @@ describe DemoCallplansController do
           flash[:notice].should == "Callplan failed to save"
         end
       end
-      it "should redirect to the callpln show page" do
-        do_put
-        response.should render_template("demo_callplans/show")
+      describe "when the client requests html" do
+        it "should redirect to the callplan show page" do
+          do_put
+          response.should render_template("demo_callplans/show")
+        end
+      end
+      describe "when the client requests javascript" do
+        it "will render the javascript view" do
+          put :update, :id => @callplan.id, :callplan => @callplan, :format => "js"
+          response.should render_template("demo_callplans/update.js")
+        end
       end
     end
-
   end
 end

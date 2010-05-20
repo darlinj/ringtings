@@ -1,28 +1,10 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
-//    $(this).slideUp(); 
-//$(document).ready(function() {
-//    $("#expand_try_it_form").live("click",function(e) {
-//      $("#call_plan_form_extended").show("slow");
-//      e.preventDefault();
-//    });
 
-    //$("#step_1").live("click",function() {
-      //$("#instructions").replaceWith("Then do something else");
-    //});
-    //
 
 jQuery.ajaxSetup({ 
   'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
 })
-
-//Declare a function that will submit as AJAX
-//jQuery.fn.submitWithAjax = function() {
- //this.submit(function () {
-     //$.post($(this).attr("action"), $(this).serialize(), null, "script");
-     //return false;
- //})
-//};
 
 jQuery.fn.submitWithAjax = function() {
   this.submit(function() {
@@ -32,9 +14,8 @@ jQuery.fn.submitWithAjax = function() {
   return this;
 };
 
-	$(function() {
+$(function() {
     $("#ivr_menu_entry_prototypes").dialog("destroy");
-
     $("#ivr_menu_entry_prototypes").dialog({
 			autoOpen: false,
 			height: 300,
@@ -76,10 +57,15 @@ jQuery.fn.submitWithAjax = function() {
 
 $(document).ready(function() {
     $("#callplan_form").submitWithAjax();
-    $("#add_menu_option_submit_image").click(function() {
+    $(".add_IVR_menu_entry").click( function() { 
+      $("#ivr_menu_entry_prototypes").load(this.href);
       $("#ivr_menu_entry_prototypes").dialog('open');
       return false;
       });
+    //$("#add_menu_option_submit_image").click(function() {
+      //$("#ivr_menu_entry_prototypes").dialog('open');
+      //return false;
+     //});
 });
 
 

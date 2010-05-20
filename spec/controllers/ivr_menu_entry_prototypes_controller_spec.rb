@@ -31,5 +31,19 @@ describe IvrMenuEntryPrototypesController do
       do_get
       response.should be_success
     end
+
+    describe "requesting html" do
+      it "should render the right template" do
+        do_get
+        response.should render_template("index")
+      end
+    end
+
+    describe "requesting javascript" do
+      it "should render the right template" do
+        get :index, :ivr_menu_id=>@ivr_menu.id, :format => "js"
+        response.should render_template("index.js")
+      end
+    end
   end
 end
