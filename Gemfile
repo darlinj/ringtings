@@ -22,6 +22,7 @@ group :test do
   gem 'roodi', '2.0.0'
   gem 'rspec', '1.2.9'
   gem 'rspec-rails', '1.2.7.1'
+  gem 'ruby-debug',       '0.10.3'
   gem 'factory_girl', '1.2.3'
   gem 'shoulda', '2.10.2'
   gem 'webrat', '0.7.0'
