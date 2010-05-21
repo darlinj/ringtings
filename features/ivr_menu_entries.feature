@@ -18,6 +18,7 @@ Feature: IVR menu entry
     And I am logged in
     When I navigate to the "callplan_path" for <callplan_id>
     And I click the "Add a menu option" image button
+    And I wait for the AJAX call to finish
     And I click the form input with id "SyntheticVoiceMenuEntry"
     Then the response should have 3 elements that match "//div[@class='ivr_step_action']"
     And I should see "your announcement here"
