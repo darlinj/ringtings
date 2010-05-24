@@ -55,17 +55,28 @@ $(function() {
 
 	});
 
+function validate_phone_number(){
+  if(this.value.length < 11)
+  {
+    $(this).parent().parent().children(".form_errors").text("This phone number is too short.");
+    return;
+  }
+  if(this.value.length > 12)
+  {
+    $(this).parent().parent().children(".form_errors").text("This phone number is too long.");
+    return;
+  }
+  $(this).parent().parent().children(".form_errors").text("");
+}
+
 $(document).ready(function() {
     $("#callplan_form").submitWithAjax();
+    $(".phone_number").change(validate_phone_number);
     $(".add_IVR_menu_entry").click( function() { 
       $("#ivr_menu_entry_prototypes").load(this.href);
       $("#ivr_menu_entry_prototypes").dialog('open');
       return false;
       });
-    //$("#add_menu_option_submit_image").click(function() {
-      //$("#ivr_menu_entry_prototypes").dialog('open');
-      //return false;
-     //});
 });
 
 

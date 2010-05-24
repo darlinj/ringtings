@@ -1,6 +1,6 @@
 <div class="ivr_action_text">
   <%= ivr_menu_entry.prototype.prompt %>
-  <%= ivr_menu_entries_fields.text_area(:param_1, :id => "ivr_menu_entry_textbox") %>
+  <%= ivr_menu_entries_fields.text_area(:param_1, :id => "ivr_menu_entry_textbox", :class => "phone_number") %>
   <div class="form_errors" id="form_errors_<%= ivr_menu_entry.id %>">
     <%= ivr_menu_entry.errors[:param_1] %>
   </div>

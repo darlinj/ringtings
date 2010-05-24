@@ -1,4 +1,5 @@
 *.swp
+*.swo
 *.log
 vendor/*
 freeswitch_stuff/gafachi.xml
