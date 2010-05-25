@@ -17,13 +17,26 @@
     <%#[if lt IE 8]><link rel="stylesheet" href="stylesheets/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]%>
   </head>
   <body id="<%= @tab %>">
-    <div class="container">
-      <div class="span-24 last">
-        <div class="top_section">
-          <%= render :partial => '/shared/breadcrumbs' %>
-          <div class="page_header">
-            <a href="/"><img src="/images/ringtings.png" /></a><br />
-            <h3>Get a <b>tailored, professional telephone system</b> for your business, instantly</h3>
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-16614765-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+       })();
+
+     </script>
+     <div class="container">
+       <div class="span-24 last">
+         <div class="top_section">
+           <%= render :partial => '/shared/breadcrumbs' %>
+           <div class="page_header">
+             <a href="/"><img src="/images/ringtings.png" /></a><br />
+             <h3>Get a <b>tailored, professional telephone system</b> for your business, instantly</h3>
           </div>
           <ul id="tabnav">
             <li class="home"><a href="/">home</a></li>
