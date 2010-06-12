@@ -77,7 +77,7 @@ $(document).ready(function() {
       $("#ivr_menu_entry_prototypes").dialog('open');
       return false;
       });
-    $('#slider3').tinycarousel({ pager: true, interval: true  });
+    $('#slider').tinycarousel({ pager: true, interval: true  });
 });
 
 

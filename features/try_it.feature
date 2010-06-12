@@ -5,10 +5,7 @@ Story: Try it out page
     And we clear the "InboundNumberManager" model
     And and "012345678901" is stored in the "inbound_number_manager" table in the database
     When I go to the homepage
-    And I follow "try it free"
-    Then I should see "Enter the name of your business"
-    When I fill in "Company name" with "Mr Plumb the plumber"
-    Then I should see "Please fill in the phone number of a handy phone"
+    And I fill in "Company name" with "Mr Plumb the plumber"
     And I fill in "Phone number" with "09876543210"
     When I click the form input with id "next_submit_image"
     And I should see "Here is your first callplan"

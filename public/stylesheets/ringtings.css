@@ -1,10 +1,11 @@
-#slider3 { 
+#slider { 
   height: 1%; 
   overflow:hidden; 
   padding: 0 0 10px 0; 
+  float: left;
 }
 
-#slider3 .viewport { 
+#slider .viewport { 
   width: 500px; 
   height: 375px; 
   float: left; 
@@ -12,33 +13,33 @@
   position: relative; 
 }
 
-#slider3 .buttons { 
+#slider .buttons { 
   display: block; 
   margin: 30px 10px 0 0; 
   background-position: 0 -38px; 
   text-indent: -999em; 
   float: left; 
-  width: 39px; 
+  width: 33px; 
   height: 37px; 
   overflow: hidden; 
   position: relative; 
 }
 
-#slider3 .prev { 
+#slider .prev { 
   background-position: 0 0; 
-  margin: 30px 0 0 10px; 
-  background: url("../images/prev_button.png") no-repeat scroll 0 0 transparent
+  margin: 30px 0 0 0px; 
+  background: url("../images/prev_button.png") no-repeat scroll 0 0 transparent;
 }
 
-#slider3 .next { 
+#slider .next { 
   background-position: 0 0; 
-  margin: 30px 0 0 10px; 
-  background: url("../images/next_button.png") no-repeat scroll 0 0 transparent
+  margin: 30px 0 0 0px; 
+  background: url("../images/next_button.png") no-repeat scroll 0 0 transparent;
 }
 
-#slider3 .disable { visibility: hidden; }
+#slider .disable { visibility: hidden; }
 
-#slider3 .pagenum { 
+#slider .pagenum { 
   background-color: #fff; 
   text-decoration: none; 
   text-align: center; 
@@ -49,9 +50,9 @@
   display: block; 
 }
 
-#slider3 .active { color: #fff; background-color:  #555555; }
+#slider .active { color: #fff; background-color:  #555555; }
 
-#slider3 .overview { 
+#slider .overview { 
   list-style: none; 
   position: absolute; 
   width: 500px; 
@@ -59,7 +60,7 @@
   top: 0; 
 }
 
-#slider3 .overview li{ 
+#slider .overview li{ 
   float: left; 
   margin: 0 20px 0 0; 
   padding: 1px; 
@@ -68,6 +69,9 @@
   width: 500px;
 }
 
+#demo_callplan_form {
+  float: right;
+}
 
 div.container {
   background-color: #e2f3ef;
@@ -97,7 +101,7 @@ div.top_section {
 }
 
 div.page_header {
-  padding: 10px 5px 0 5px;
+  padding: 10px 5px 5px 5px;
 }
 
 div.main_content {
@@ -197,7 +201,6 @@ div.step_box {
 #try_it_thread {
   text-align: right;
   margin:auto;
-  width:90%;
 }
 
 #incoming_call_box {

@@ -37,19 +37,16 @@
            <div class="page_header">
              <a href="/"><img src="/images/ringtings.png" /></a><br />
              <h3>Get a <b>tailored, professional telephone system</b> for your business, instantly</h3>
-          </div>
-          <ul id="tabnav">
-            <li class="home"><a href="/">home</a></li>
-            <% unless signed_in? %>
-              <li class="tryit"><a href="/demo_callplans">try it free</a></li>
-              <li class="signup"><a href="/users/new">sign up</a></li>
-            <% else %>
-              <% callplan_id = current_user.callplan ? current_user.callplan.id : nil %>
-              <li class="callplan"><a href="/callplans/<%= callplan_id if callplan_id %>">callplan</a></li>
-              <li class="voicemail"><a href="/voicemail">voicemail</a></li>
-              <li class="account"><a href="/account">my account</a></li>
-            <% end %>
-          </ul>
+           </div>
+           <% if signed_in? %>
+             <ul id="tabnav">
+               <li class="home"><a href="/">home</a></li>
+               <% callplan_id = current_user.callplan ? current_user.callplan.id : nil %>
+               <li class="callplan"><a href="/callplans/<%= callplan_id if callplan_id %>">callplan</a></li>
+               <li class="voicemail"><a href="/voicemail">voicemail</a></li>
+               <li class="account"><a href="/account">my account</a></li>
+             </ul>
+          <% end %>
         </div>
       </div>
       <div class="span-24 last">
