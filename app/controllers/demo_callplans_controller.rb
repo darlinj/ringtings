@@ -38,7 +38,7 @@ class DemoCallplansController < ApplicationController
   rescue Exceptions::OutOfCapacityError
     RAILS_DEFAULT_LOGGER.debug "OUT OF INBOUND NUMBERS!!!"
     flash[:error]="We are sorry but we have temporerily run out of free telephone numbers. We are taking steps to get more so please try again soon."
-    redirect_to demo_callplans_url
+    redirect_to root_url
   end
 
   def update

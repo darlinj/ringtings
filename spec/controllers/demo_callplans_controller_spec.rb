@@ -105,12 +105,19 @@ describe DemoCallplansController do
           before do
             Callplan.stub(:create_demo).and_raise(Exceptions::OutOfCapacityError)
           end
+
           it "catches all errors" do
             lambda {do_post}.should_not raise_error
           end
+
           it "creates a flash message" do
             do_post
             flash[:error].should == "We are sorry but we have temporerily run out of free telephone numbers. We are taking steps to get more so please try again soon."
+          end
+
+          it "redirects to the homepage" do
+            do_post
+            response.should redirect_to(root_url)
           end
         end
       end
@@ -121,6 +128,7 @@ describe DemoCallplansController do
           flash[:error].should == "We are sorry but there is a problem with the infomation you provided.  Please try again"
           response.should redirect_to(demo_callplans_url)
         end
+
         it "doesn't have a company name in the demo_callplans hash" do
           post :create, :demo_callplan => {'foo'=>"bar"}
           flash[:error].should == "We are sorry but there is a problem with the infomation you provided.  Please try again"
