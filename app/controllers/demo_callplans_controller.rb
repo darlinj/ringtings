@@ -26,7 +26,7 @@ class DemoCallplansController < ApplicationController
     unless params[:demo_callplan] && params[:demo_callplan]['company_name'] && params[:demo_callplan]['phone_number'] &&
       params[:demo_callplan]['phone_number'].length.between?(11,12)
       flash[:error]="We are sorry but there is a problem with the infomation you provided.  Please try again"
-      redirect_to demo_callplans_url
+      redirect_to root_url
       return
     end
     @callplan = Callplan.create_demo params[:demo_callplan]['phone_number'],
