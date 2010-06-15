@@ -4,8 +4,7 @@
   Ring <%= @callplan.inbound_number.phone_number %> to hear how it sounds.
 </div>
 <div class="step_box">
-  To keep this callplan, please create a free account.<br />
-  Please fill in: <br/>
+  To keep this callplan, please create a free account:<br />
   <% form_for(:demo_callplan, :url=>"/demo_callplans/create_user/#{@callplan.id}", :html => { :method => :put }) do |form| %>
     <%= form.error_messages %>
     <div class="text_field">
@@ -13,7 +12,7 @@
       <%= form.text_field :email, :size=>25 %>
     </div>
     <div class="password_field">
-      <%= form.label :password %>
+      <%= form.label :password %><br>
       <%= form.password_field :password, :size =>20 %>
     </div>
     <div class="password_field">
