@@ -3,9 +3,9 @@ class HomeController < ApplicationController
 
   def index
     @tab = 'home'
-    if signed_in? && session['callplan_id']
+    if signed_in? && session[:callplan_id]
       @tab = 'callplan'
-      redirect_to callplan_url(session['callplan_id'])
+      redirect_to callplan_url(session[:callplan_id])
     end
   end
 end

@@ -137,12 +137,12 @@ ul#tabnav li { /* do not change */
   display: inline;
 }
 
-body#home li.home, body#more li.more, body#tryit li.tryit, body#signup li.signup {
+body#home li.home, body#callplan li.callplan, body#voicemail li.voicemail, body#audiofiles li.audiofiles {
   border-bottom: 1px solid #ffffff;
   background-color: #ffffff;
 }
 
-body#home li.home a, body#more li.more a, body#tryit li.tryit a, body#signup li.signup a {
+body#home li.home a, body#callplan li.callplan a, body#voicemail li.voicemail a, body#audiofiles li.audiofiles a {
   background-color: #e2f3ef;
   color: #e7ba1c;
   position: relative;
