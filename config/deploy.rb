@@ -259,6 +259,6 @@ production:
 
   desc "Update the crontab file"
   task :update_crontab, :roles => :db do
-    run "cd #{release_path} && export RAILS_ENV=production && ./script/runner ./gems/bin/whenever --update-crontab #{application}"
+    run "cd #{current_path} && export RAILS_ENV=production && ./script/runner ./gems/bin/whenever --update-crontab #{application}"
   end
 end
