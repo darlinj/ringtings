@@ -26,6 +26,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'secret_stuff', :controller => 'secret', :action => 'index'
   map.connect 'freeswitch/callplan', :controller => 'freeswitch', :action => 'callplan'
   map.connect 'freeswitch/ivr_menus', :controller => 'freeswitch', :action => 'ivr_menus'
+  map.connect 'freeswitch/directory', :controller => 'freeswitch', :action => 'directory'
   map.root :controller => 'home'
 
   if RAILS_ENV == 'test'

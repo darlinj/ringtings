@@ -23,4 +23,14 @@ class FreeswitchController < ApplicationController
       render :action => 'not_found.xml.builder', :layout => false
     end
   end
+
+  def directory
+    @inbound_number = params['Caller-Destination-Number']
+    inbound_number = InboundNumberManager.find_by_phone_number(@inbound_number)
+    if inbound_number 
+      render :action => 'directory.xml.builder', :layout => false
+    else
+      render :action => 'not_found.xml.builder', :layout => false
+    end
+  end
 end

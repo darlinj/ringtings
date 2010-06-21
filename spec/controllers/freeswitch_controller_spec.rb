@@ -62,12 +62,9 @@ describe FreeswitchController do
   describe "getting a post to ivr_menus request" do
     before do
       @inbound_number = "0123456789"
-      #@company_name = "Bob Basted used cars"
-      #@callplan = Factory :callplan, :company_name => @company_name
       @ivr_menu = mock_model IvrMenu
       @inbound_number_manager = mock_model InboundNumberManager, :phone_number => @inbound_number, :ivr_menu => @ivr_menu
       InboundNumberManager.stub(:find_by_phone_number).and_return(@inbound_number_manager)
-
     end
 
     def do_ivr_post 
@@ -98,6 +95,53 @@ describe FreeswitchController do
       end
       it 'renders the not found response' do
         do_ivr_post.should render_template('not_found.xml.builder')
+      end
+    end
+  end
+  
+  describe "looking up users" do
+    describe "when there is a user with a matching phone number" do
+      before do
+        InboundNumberManager.destroy_all
+        @inbound_number = "0123456789"
+        @company_name = "fettle and watkins"
+        @callplan = Factory :callplan, :company_name => @company_name
+        @inbound_number_manager = Factory :inbound_number_manager, :phone_number => @inbound_number, :callplan_id => @callplan.id
+      end
+
+      def do_post 
+        post :directory, 'Caller-Destination-Number'=>@inbound_number
+      end
+
+      it "should respond to post requests" do
+        do_post.should be_success
+      end
+
+      it "should render the directory template" do
+        do_post.should render_template('directory.xml.builder')
+      end
+
+      it "will look up the call plan associated with the inbound number supplied" do
+        InboundNumberManager.should_receive(:find_by_phone_number).with(@inbound_number).and_return(@inbound_number_manager)
+        do_post
+      end
+
+      it "will assign the inbound number for the view" do
+        do_post
+        assigns[:inbound_number].should == @inbound_number
+      end
+    end
+
+    describe "When there is no matching phone number in the database" do
+      before do
+        @inbound_number = "0123456789"
+        InboundNumberManager.destroy_all
+      end
+      def do_post 
+        post :directory, 'Caller-Destination-Number'=>@inbound_number
+      end
+      it 'should return an empty body' do
+        do_post.should render_template('not_found.xml.builder')
       end
     end
   end
