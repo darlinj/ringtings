@@ -81,6 +81,7 @@ task :update do
   deploy.bundle_install
   deploy.correct_ownership
   deploy.migrate_database
+  deploy.configure_freeswitch
   deploy.update_crontab
   deploy.restart_apache
 end
