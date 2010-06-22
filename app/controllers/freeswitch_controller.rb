@@ -25,7 +25,7 @@ class FreeswitchController < ApplicationController
   end
 
   def directory
-    @inbound_number = params['Caller-Destination-Number']
+    @inbound_number = params['user']
     inbound_number = InboundNumberManager.find_by_phone_number(@inbound_number)
     if inbound_number 
       render :action => 'directory.xml.builder', :layout => false

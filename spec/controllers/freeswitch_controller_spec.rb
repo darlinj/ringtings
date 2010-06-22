@@ -110,7 +110,7 @@ describe FreeswitchController do
       end
 
       def do_post 
-        post :directory, 'Caller-Destination-Number'=>@inbound_number
+        post :directory, 'user'=>@inbound_number
       end
 
       it "should respond to post requests" do
@@ -138,7 +138,7 @@ describe FreeswitchController do
         InboundNumberManager.destroy_all
       end
       def do_post 
-        post :directory, 'Caller-Destination-Number'=>@inbound_number
+        post :directory, 'user'=>@inbound_number
       end
       it 'should return an empty body' do
         do_post.should render_template('not_found.xml.builder')
