@@ -19,3 +19,4 @@ config.action_mailer.raise_delivery_errors = false
 # Clearance stuff
 HOST="localhost"
 
+VOICEMAIL_ROOT="#{RAILS_ROOT}/voicemail_testfiles/"

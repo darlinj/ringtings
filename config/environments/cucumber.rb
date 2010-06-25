@@ -18,3 +18,4 @@ config.action_mailer.delivery_method = :test
 
 HOST="localhost"
 
+VOICEMAIL_ROOT="#{RAILS_ROOT}/voicemail_testfiles/"

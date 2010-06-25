@@ -1,0 +1,4 @@
+<h2>Voicemail inbox</h2>
+<% @voicemail.each do |entry| %>
+  <div class="voicemail"><%= entry[:datatime] %></div>
+<% end %>

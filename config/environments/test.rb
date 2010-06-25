@@ -29,3 +29,5 @@ config.action_mailer.delivery_method = :test
 
 # Clearance stuff
 HOST="localhost"
+
+VOICEMAIL_ROOT="#{RAILS_ROOT}/voicemail_testfiles/"

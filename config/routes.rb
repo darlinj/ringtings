@@ -2,6 +2,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources  :demo_callplans, :only => [:index, :create, :update, :show]
   map.resources  :callplans, :only => [:show, :update]
   map.resources  :ivr_menu_entries#, :only => [:create, :destroy]
+  map.resources  :voicemail, :only => [:index]
   #map.resources  :audio_files, :only => [:create]
   map.resources  :ivr_menu_entry_prototypes, :only => [:index]
   map.resources  :play_audio_file_menu_entries, :only => [:edit, :update]
