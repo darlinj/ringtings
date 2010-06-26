@@ -29,4 +29,4 @@ HOST="localhost"
 
 ActionMailer::Base.delivery_method = :test
 
-VOICEMAIL_ROOT="/usr/local/freeswitch"
+VOICEMAIL_ROOT="#{RAILS_ROOT}/voicemail_testfiles/"
