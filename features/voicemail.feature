@@ -1,4 +1,3 @@
-@e2e
 Feature: Voicemail file management
   Scenario: Listing your voicemail
     Given I am logged in
@@ -7,6 +6,6 @@ Feature: Voicemail file management
       | Action_type            | ivr                           |
       | Action_params          | ivr_menu_0192837465           |
       | inbound_phone_number   | 0192837465                    |
-    And I have 3 voicemail files in my voicemail directory
+    And I mock the response from freeswitch voicemail interface
     When I follow "voicemail"
     Then the response should have 3 elements that match "//div[@class='voicemail']"

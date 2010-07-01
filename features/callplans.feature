@@ -1,5 +1,5 @@
 @e2e
-Story: Callplan management
+Feature: Callplan management
 
   Scenario: Displaying an existing ivr menu callplan
     Given we create a Callplan (and store it's ID as <callplan_id>) with these variables:
