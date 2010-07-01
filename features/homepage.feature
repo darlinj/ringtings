@@ -1,5 +1,5 @@
 @e2e
-Story: Homepage checks
+Feature: Homepage checks
 
   Scenario: Basic checks
     When I go to the homepage

@@ -1,5 +1,5 @@
 @e2e
-Story: Try it out page
+Feature: Try it out page
   Scenario: trying the service
     Given I am logged out
     And we clear the "InboundNumberManager" model
