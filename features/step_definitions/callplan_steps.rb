@@ -1,4 +1,4 @@
-Given %r/^we create a Callplan \(and store it's ID as <([^\)]*)>\) with these variables:$/ do |callplan_id, table|
+Given %r/^we create a Callplan with these variables:$/ do |table|
   args = {}
   table.hashes.each do |hash|
     args[hash['name']] = hash['value']
@@ -72,5 +72,9 @@ Given %r/^we create a demo callplan$/ do
   And %{I fill in "Company name" with "Fooey"}
   And %{I fill in "Phone number" with "01234567890"}
   And %{I submit the form}
+end
+
+When %r/^I click the delete button for the first ivr menu entry$/ do
+  click_link("delete_IVR_menu_entry_#{@callplan.action.ivr_menu.ivr_menu_entries.first.id.to_s}")
 end
 

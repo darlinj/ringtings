@@ -1,8 +1,7 @@
-@e2e
-Story: Callplan management
+Feature: Callplan management
 
   Scenario: Displaying an existing ivr menu callplan
-    Given we create a Callplan (and store it's ID as <callplan_id>) with these variables:
+    Given we create a Callplan with these variables:
       | name                   | value                         |
       | Action_type            | ivr                           |
       | Action_params          | ivr_menu_0192837465           |
@@ -17,7 +16,7 @@ Story: Callplan management
       | ivr_menu_entry2_type   | TransferCallMenuEntry         |
       | ivr_menu_entry2_action | 1234567890                    |
     And I am logged in
-    When I navigate to the "callplan_path" for <callplan_id>
+    When I go to the current callplan page
     And I should see "Incoming calls to: 0192837465"
     And I should see "some long greeting"
     And I should see "1"
@@ -29,7 +28,7 @@ Story: Callplan management
 
 
   Scenario: Saving a feature
-    Given we create a Callplan (and store it's ID as <callplan_id>) with these variables:
+    Given we create a Callplan with these variables:
       | name                   | value                         |
       | Action_type            | ivr                           |
       | Action_params          | ivr_menu_0192837465           |
@@ -44,7 +43,7 @@ Story: Callplan management
       | ivr_menu_entry2_type   | TransferCallMenuEntry         |
       | ivr_menu_entry2_action | 012345678                     |
     And I am logged in
-    When I navigate to the "callplan_path" for <callplan_id>
+    When I go to the current callplan page
     And I type "some new greeting" in the form field with an HTML id of "callplan_action_attributes_ivr_menu_attributes_long_greeting"
     And I click the form input with id "save_button"
     Then I should see "Callplan sucessfully saved"
@@ -52,7 +51,7 @@ Story: Callplan management
     And I should not see "some long greeting"
 
   Scenario: Deleting a IVR menu entry
-    Given we create a Callplan (and store it's ID as <callplan_id>) with these variables:
+    Given we create a Callplan with these variables:
       | name                   | value                         |
       | Action_type            | ivr                           |
       | Action_params          | ivr_menu_0192837465           |
@@ -67,7 +66,7 @@ Story: Callplan management
       | ivr_menu_entry2_type   | TransferCallMenuEntry         |
       | ivr_menu_entry2_action | 012345678                     |
     And I am logged in
-    When I navigate to the "callplan_path" for <callplan_id>
+    When I go to the current callplan page
     And I click the delete button for the first ivr menu entry
     Then the response should have 1 elements that match "//div[@class='ivr_step_action']"
     And I should not see "say hello peeps"

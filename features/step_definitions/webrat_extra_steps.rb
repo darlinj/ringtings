@@ -12,3 +12,11 @@ Given %r/^I am logged in$/ do
   }
 end
 
+When %r/^I type "([^\"]*)" in the form field with an HTML id of "([^\"]*)"$/ do |text , id|
+  fill_in(field_with_id(id), :with => text)
+end
+
+When /^I click the form input with id "([^\"]*)"$/ do |id|
+  click_button(id)
+end
+

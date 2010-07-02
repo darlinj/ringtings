@@ -16,8 +16,6 @@ gem 'paperclip', '2.3.1.1'
 gem 'whenever', '0.4.1'
 
 group :test do
-  gem 'celerity',         '0.7.9'
-  gem 'culerity',         '0.2.3'
   gem 'cucumber',         '0.7.0'
   gem 'cucumber-rails',   '0.2.4'
   gem 'database_cleaner', '0.4.3'

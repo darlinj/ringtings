@@ -12,6 +12,6 @@
             :locals => { :ivr_menu_entries_fields => ivr_menu_entries_fields,
             :ivr_menu_entry => ivr_menu_entry } %>
       <%= link_to image_tag("/images/close_button.png", :class => "action_close_button", :border =>0),
-        "/ivr_menu_entries/#{ivr_menu_entry.id}", :class => "delete_IVR_menu_entry", :method => :delete %>
+        "/ivr_menu_entries/#{ivr_menu_entry.id}", :class => "delete_IVR_menu_entry", :id=> "delete_IVR_menu_entry_#{ivr_menu_entry.id}", :method => :delete %>
       </div>
   </div>

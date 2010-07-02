@@ -23,6 +23,8 @@ module NavigationHelpers
       demo_callplans_path
     when /the demo callplans page/i
       demo_callplan_path(1)
+    when /the current callplan page/i
+      callplan_path(@callplan.id)
     when /the callplan page/i
       callplan_path(1)
     when /the password reset request page/i
