@@ -6,6 +6,6 @@
     <% else %>
       > No file attached
     <% end %>
-    <%= link_to image_tag ("/images/change_audio_file_button.png", :border =>0), edit_play_audio_file_menu_entry_url(ivr_menu_entry.id), :class => "change_audio_file" %>
+    <%= link_to image_tag ("/images/change_audio_file_button.png", :border =>0), edit_play_audio_file_menu_entry_url(ivr_menu_entry.id), :class => "change_audio_file", :id => "change_audio_file_#{ivr_menu_entry.id}"  %>
   </div>
 </div>

@@ -78,3 +78,11 @@ When %r/^I click the delete button for the first ivr menu entry$/ do
   click_link("delete_IVR_menu_entry_#{@callplan.action.ivr_menu.ivr_menu_entries.first.id.to_s}")
 end
 
+When %r/^I click the change button for the first ivr menu entry$/ do
+  click_link("change_audio_file_#{@callplan.action.ivr_menu.ivr_menu_entries.first.id.to_s}")
+end
+
+When %r/^I click the upload file button$/ do
+  click_button("upload_button")
+end
+
