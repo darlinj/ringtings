@@ -4,7 +4,7 @@ Feature: Expire callplans
   Should delete callplans that haven't been updated in over 1 hour
 
   Scenario: Expiring the callplan
-    Given we create a Callplan (and store it's ID as <callplan_id>) with these variables:
+    Given we create a Callplan with these variables:
       | name                   | value                         |
       | Action_type            | ivr                           |
       | Action_params          | ivr_menu_0192837465           |

@@ -27,4 +27,4 @@ Feature: Try it out page
     Then the xml node "//menu/@name" should be "ivr_menu_012345678901"
     Then the xml node "//menu/@greet-long" should contain "Welcome to Mr Plumb the plumber"
     Then the xml node "//menu/@greet-long" should contain "press one to be connected to one of our agents"
-    Then the xml node "//entry/@param[5]" should contain "transfer 449876543210"
+    Then there should not be an xml node "//entry/@param" containing "transfer 449876543210"

@@ -68,6 +68,11 @@ Then %r/^I visit the callplans page$/ do
 end
 
 Given %r/^we create a demo callplan$/ do
+  InboundNumberManager.all.each do |inbound_number|
+    inbound_number.callplan_id = nil
+    inbound_number.ivr_menu_id = nil
+    inbound_number.save!
+  end
   When %{I go to the try it now page}
   And %{I fill in "Company name" with "Fooey"}
   And %{I fill in "Phone number" with "01234567890"}
