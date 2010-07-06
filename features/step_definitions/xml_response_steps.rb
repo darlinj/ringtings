@@ -1,3 +1,7 @@
+Then %r{^the xml node "([^\"]*)" should contain "(.*)"$} do |node, value|
+  xml_node_value(response.body, node).should =~ /#{value}/
+end
+
 Then %r{^the xml node "([^\"]*)" should be "(.*)"$} do |node, value|
   xml_node_value(response.body, node).should == value
 end
