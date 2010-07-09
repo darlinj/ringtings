@@ -1,7 +1,6 @@
-source 'http://gemcutter.org'
-source 'http://gems.github.com'
-#bundle_path 'vendor/bundled_gems'
-#bin_path 'vendor/bundled_gems/bin'
+#source 'http://gemcutter.org'
+#source 'http://gems.github.com'
+source 'http://rubygems.org'
 
 gem 'rails', '2.3.4'
 
@@ -21,6 +20,7 @@ group :test do
   gem 'database_cleaner', '0.4.3'
   gem 'gherkin',          '1.0.30'
   gem 'relevance-rcov',   '0.9.2.1'
+  gem 'rcov',             '0.9.7.1'
   gem 'roodi',            '2.0.0'
   gem 'rspec',            '1.2.9'
   gem 'rspec-rails',      '1.2.7.1'

@@ -1,8 +1,8 @@
-@e2e
+@wip
 Feature: Voicemail file management
   Scenario: Listing your voicemail
     Given I am logged in
-    And we create a Callplan (and store it's ID as <callplan_id>) with these variables:
+    And we create a Callplan with these variables:
       | name                   | value                         |
       | Action_type            | ivr                           |
       | Action_params          | ivr_menu_0192837465           |

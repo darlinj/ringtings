@@ -1,2 +1,2 @@
---exclude "spec/*,gems/*"
+--exclude "lib/*,spec/*,gems/*,factories/*,.bundle/*"
 --rails
