@@ -9,3 +9,5 @@ gems/
 Gemfile.lock
 .bundle/*
 db/schema.rb
+coverage/*
+voicemail_testfiles/*

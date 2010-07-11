@@ -1,7 +1,3 @@
-<%
-rerun = File.file?('rerun.txt') ? IO.read('rerun.txt') : ""
-rerun_opts = rerun.to_s.strip.empty? ? "--format progress features" : "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} #{rerun}"
-std_opts = "#{rerun_opts} --format rerun --out rerun.txt --strict --tags ~@wip"
-%>
-default: <%= std_opts %>
-wip: --tags @wip:3 --wip features
+default: --require features/support --require features/step_definitions
+ok: features --profile default --strict --tags ~@wip --format progress --format html --out log/features_ok.html
+wip: features --profile default --tags @wip --wip --format progress --format html --out log/features_wip.html

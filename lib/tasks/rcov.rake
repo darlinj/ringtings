@@ -4,7 +4,7 @@ begin
   namespace :spec do
     desc "Check that we have 100% coverage"
     RCov::VerifyTask.new(:verify_rcov) do |t|
-      t.threshold = 97.6
+      t.threshold = 97.57
       t.index_html = 'coverage/index.html'
     end
   end
