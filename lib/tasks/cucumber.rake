@@ -11,7 +11,6 @@ vendored_cucumber_bin = Dir["#{RAILS_ROOT}/vendor/{gems,plugins}/cucumber*/bin/c
 $LOAD_PATH.unshift(File.dirname(vendored_cucumber_bin) + '/../lib') unless vendored_cucumber_bin.nil?
 
 
-RAILS_ENV = ENV['RAILS_ENV'] = 'cucumber'
 
 begin
   require 'cucumber/rake/task'
