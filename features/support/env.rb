@@ -3,9 +3,15 @@
 # newer version of cucumber-rails. Consider adding your own code to a new file 
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
-
+#
 ENV["RAILS_ENV"] ||= "cucumber"
 require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
+require 'factory_girl'
+Factory.find_definitions
+require 'curb'
+require 'rexml/document'
+require 'rake'
+
 
 require 'cucumber/formatter/unicode' # Remove this line if you don't want Cucumber Unicode support
 require 'cucumber/rails/rspec'
@@ -22,11 +28,6 @@ Webrat.configure do |config|
 end
 
 
-require 'factory_girl'
-Factory.find_definitions
-require 'curb'
-require 'rexml/document'
-require 'rake'
 # If you set this to false, any error raised from within your app will bubble 
 # up to your step definition and out to cucumber unless you catch it somewhere
 # on the way. You can make Rails rescue errors and render error pages on a

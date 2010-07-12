@@ -11,3 +11,4 @@ Gemfile.lock
 db/schema.rb
 coverage/*
 voicemail_testfiles/*
+rerun.txt

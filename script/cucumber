@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-require File.expand_path('../../.bundle/environment', __FILE__)
 vendored_cucumber_bin = Dir["#{File.dirname(__FILE__)}/../vendor/{gems,plugins}/cucumber*/bin/cucumber"].first
 if vendored_cucumber_bin
   load File.expand_path(vendored_cucumber_bin)
@@ -9,7 +8,3 @@ else
   require 'cucumber'
   load Cucumber::BINARY
 end
-
-
-#-  load File.expand_path(File.dirname(__FILE__) + "/../gems/bin/cucumber")
-
