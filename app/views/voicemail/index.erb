@@ -1,4 +1,8 @@
 <h2>Voicemail inbox</h2>
-<% @voicemail.each do |entry| %>
-  <div class="voicemail"><%= entry[:datetime].strftime("%A %d %B %Y at %I:%M:%S %p") %></div>
+<% unless @voicemail.empty? %>
+  <% @voicemail.each do |entry| %>
+    <div class="voicemail"><%= entry[:datetime].strftime("%A %d %B %Y at %I:%M:%S %p") %></div>
+  <% end %>
+<% else %>
+  You currently have no voicemail
 <% end %>
