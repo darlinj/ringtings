@@ -15,6 +15,11 @@ Given %r/^we create a Callplan with these variables:$/ do |table|
   feature_vars['action_id'] = action.id
 end
 
+Given %r/^the callplan is owned by "([^\"]*)"$/ do |email|
+  @callplan.user = User.find_by_email(email)
+  @callplan.save
+end
+
 Given %r/^we have an IVR Menu with:$/ do |table|
   args = {}
   table.hashes.each do |hash|
