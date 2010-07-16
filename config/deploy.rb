@@ -172,7 +172,7 @@ production:
     run "bash -c 'cd #{current_path} && rake db:create db:migrate RAILS_ENV=production'"
   end
 
-  task :migrate_database do
+  task :migrate_database, :roles => :app do
     try_sudo "bash -c 'cd #{current_path} && rake db:migrate RAILS_ENV=production'"
   end
 
