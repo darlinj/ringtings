@@ -76,6 +76,7 @@ end
 desc 'Update ringtings'
 task :update do
   set :user, 'root'
+  set :use_sudo, false
   deploy.update
   deploy.redo_symlinks
   deploy.bundle_install
