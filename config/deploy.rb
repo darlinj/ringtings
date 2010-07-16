@@ -169,11 +169,11 @@ production:
   task :create_and_migrate_database do
     run "chown -R #{application_user}:#{application_user} #{shared_path}/log"
     # wrapping the following command with a 'bash -c' because it contains a 'cd' which doesn't work under sudo otherwise.
-    run "bash -c 'cd #{current_path} && rake db:create db:migrate RAILS_ENV=production'"
+    run "su - #{application_user} -c 'cd #{current_path} && rake db:create db:migrate RAILS_ENV=production'"
   end
 
   task :migrate_database, :roles => :app do
-    try_sudo "bash -c 'cd #{current_path} && rake db:migrate RAILS_ENV=production'"
+    run "su - #{application_user} -c 'cd #{current_path} && rake db:migrate RAILS_ENV=production'"
   end
 
   task :update_rubygems do
