@@ -38,7 +38,7 @@ def try_sudo_with_proxy_if_set command
 end
 
 task :bundle_install do
-  run "cd #{release_path} && bundle install"
+  run "cd #{current_path} && bundle install"
 end
 
 task :redo_symlinks do
