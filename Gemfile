@@ -14,9 +14,8 @@ gem 'paperclip', '2.3.1.1'
 gem 'whenever', '0.5.0'
 
 group :test do
-  gem 'cucumber',         '0.7.0'
-  gem 'cucumber-rails',   '0.2.4'
-  gem 'gherkin',          '1.0.30'
+  gem 'cucumber',         '0.8.5'
+  gem 'cucumber-rails',   '0.3.2'
   gem 'database_cleaner', '0.4.3'
   gem 'relevance-rcov',   '0.9.2.1'
   gem 'rcov',             '0.9.7.1'

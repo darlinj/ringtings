@@ -38,4 +38,9 @@ describe VoicemailController, "successfully" do
     get :index 
     assigns[:voicemail].should == [vm1,vm2]
   end
+
+  it "should set the tab" do
+    get :index
+    assigns[:tab].should == "voicemail"
+  end
 end
