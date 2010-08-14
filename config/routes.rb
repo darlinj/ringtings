@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+  Clearance::Routes.draw(map)
   map.resources  :demo_callplans, :only => [:index, :create, :update, :show]
   map.resources  :callplans, :only => [:show, :update]
   map.resources  :ivr_menu_entries#, :only => [:create, :destroy]
