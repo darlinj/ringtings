@@ -2,20 +2,19 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe VoicemailController, "successfully" do
   before do
-    @directory = VOICEMAIL_ROOT
-    @phone_number = "0495093485"
+    @inbound_phone_number = "54783754"
+    @voicemail_password = "secret"
     @mtime1 = "1/2/2010 8:34PM"
     @mtime2 = "3/2/2010 3:34PM"
-    dir = "#{@directory}#{@phone_number}"
-    inbound_number = mock(InboundNumberManager, :phone_number => @phone_number)
-    callplan = mock(Callplan, :inbound_number => inbound_number)
-    user = mock(User, :callplan => callplan)
+    vm1 = mock("Voicemail")
+    vm2 = mock("Voicemail")
+    @voicemails = [vm1,vm2]
+    @callplan = mock(Callplan, :inbound_phone_number => @inbound_phone_number,
+                     :voicemail_password => @voicemail_password)
+    user = mock(User, :callplan => @callplan)
     controller.stub(:current_user).and_return(user)
-    @filelist = ["file1","file2"]
-    Dir.stub(:glob).and_return(@filelist)
-    mockfile1 = mock "file", :mtime=> @mtime1
-    mockfile2 = mock "file", :mtime=> @mtime2
-    File.stub(:new).and_return(mockfile1,mockfile2)
+    @voicemail = mock(Voicemail, :get => @voicemails)
+    Voicemail.stub(:new).and_return(@voicemail)
   end
 
   it "should respond to index" do
@@ -27,15 +26,18 @@ describe VoicemailController, "successfully" do
     response.should render_template('voicemail/index')
   end
 
-  it "should look in the directory" do
-    Dir.should_receive(:glob).with("#{@directory}#{@phone_number}/*")
+  it "will create the voicemail object with the credentials" do
+    Voicemail.should_receive(:new).with(@inbound_phone_number, @voicemail_password)
     get :index
   end
 
-  it "will assign the list of directories" do 
-    vm1 = { :datetime => @mtime1 }
-    vm2 = { :datetime => @mtime2 }
+  it "will get the list of voicemail from the model" do
+    @voicemail.should_receive(:get)
+    get :index
+  end
+
+  it "will assign the list of voicemails" do 
     get :index 
-    assigns[:voicemail].should == [vm1,vm2]
+    assigns[:voicemail].should == @voicemails
   end
 end

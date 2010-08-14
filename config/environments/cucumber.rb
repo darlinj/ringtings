@@ -28,5 +28,5 @@ config.action_mailer.delivery_method = :test
 #config.gem 'rspec-rails',      :lib => false, :version => '>=1.3.2' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
 
 HOST="localhost"
-VOICEMAIL_ROOT="#{RAILS_ROOT}/voicemail_testfiles/"
 
+VOICEMAIL_URI = "http://192.168.0.4:8080/api/voicemail/web"

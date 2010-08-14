@@ -109,4 +109,20 @@ describe Callplan do
     end
 
   end
+
+  describe "inbound phone number" do
+    it "should return the phone number" do
+      inbound_number = Factory.create(:inbound_number_manager, :phone_number => "247192347928")
+      callplan = Factory.create(:callplan, :inbound_number => inbound_number)
+      callplan.inbound_phone_number.should == inbound_number.phone_number
+    end
+  end
+
+  describe "voicemail password" do
+    it "should return the voicemail password" do
+      inbound_number = Factory.create(:inbound_number_manager, :voicemail_password => "secret")
+      callplan = Factory.create(:callplan, :inbound_number => inbound_number)
+      callplan.voicemail_password.should == inbound_number.voicemail_password
+    end
+  end
 end

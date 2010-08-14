@@ -2,9 +2,7 @@ class VoicemailController < ApplicationController
   before_filter :authenticate
 
   def index
-    directory = "#{VOICEMAIL_ROOT}#{current_user.callplan.inbound_number.phone_number}/*"
-    @voicemail = Dir.glob(directory).map do |file|
-      {:datetime => File.new(file).mtime}
-    end
+    callplan = current_user.callplan
+    @voicemail = Voicemail.new(callplan.inbound_phone_number, callplan.voicemail_password).get
   end
 end

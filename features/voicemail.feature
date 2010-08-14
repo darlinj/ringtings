@@ -1,11 +1,9 @@
 Feature: Voicemail file management
+@wip
   Scenario: Listing your voicemail
-    Given I am logged in
-    And we create a Callplan (and store it's ID as <callplan_id>) with these variables:
-      | name                   | value                         |
-      | Action_type            | ivr                           |
-      | Action_params          | ivr_menu_0192837465           |
-      | inbound_phone_number   | 0192837465                    |
-    And I mock the response from freeswitch voicemail interface
+   Given I have signed in with "joe@foo.com/secret"
+    And we create a standard Callplan
+    And the callplan is owned by "joe@foo.com"
+    And I mock 3 voicemail messages in my voicemail
     When I follow "voicemail"
     Then the response should have 3 elements that match "//div[@class='voicemail']"

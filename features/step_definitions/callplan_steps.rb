@@ -6,6 +6,7 @@ Given %r/^we create a Callplan \(and store it's ID as <([^\)]*)>\) with these va
   @callplan = Factory :callplan, :company_name => "Di Bread the baker", :user => User.find_by_email(@current_user)
   Factory :inbound_number_manager,
     :phone_number => args['inbound_phone_number'],
+    :voicemail_password => args['voicemail_password'],
     :callplan_id => @callplan.id
   action = Factory :action,
     :application_name => args['Action_type'],
@@ -13,6 +14,21 @@ Given %r/^we create a Callplan \(and store it's ID as <([^\)]*)>\) with these va
     :callplan_id => @callplan.id
   feature_vars['callplan_id'] = @callplan.id
   feature_vars['action_id'] = action.id
+end
+
+Given %r/^we create a standard Callplan$/ do 
+    steps %q{ And we create a Callplan with these variables:
+      | name                   | value                         |
+      | Action_type            | ivr                           |
+      | Action_params          | ivr_menu_0192837465           |
+      | inbound_phone_number   | 0192837465                    |
+      | voicemail_password     | secret                        |
+    }
+end
+
+Given %r/^the callplan is owned by "([^\"]*)"$/ do |email|
+  @callplan.user = User.find_by_email(email)
+  @callplan.save
 end
 
 Given %r/^we have an IVR Menu with:$/ do |table|

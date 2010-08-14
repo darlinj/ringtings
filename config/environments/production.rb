@@ -29,4 +29,4 @@ HOST="localhost"
 
 ActionMailer::Base.delivery_method = :test
 
-VOICEMAIL_ROOT="#{RAILS_ROOT}/voicemail_testfiles/"
+VOICEMAIL_URI = "http://192.168.0.4:8080/api/voicemail/web"

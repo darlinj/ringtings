@@ -1,9 +1,9 @@
-Given %r/^I have 3 voicemail files in my voicemail directory$/ do
-  phone_number = @callplan.inbound_number.phone_number
-  directory = "#{VOICEMAIL_ROOT}#{phone_number}/"
-  FileUtils.mkdir_p directory
-  FileUtils.rm Dir.glob("#{directory}*")
-  3.times do
-    File.new("#{directory}Voicemail#{rand(9999999)}",'w').close
-  end
+Given %r/^I mock (\d+) voicemail messages in my voicemail$/ do | number_of_voicemail |
+  phone_number = @callplan.inbound_phone_number
+  voicemail_password = @callplan.voicemail_password
+  #stub_request(:get, VOICEMAIL_URI.sub('http://', "http://#{phone_number}:#{voicemail_password}@")).to_return(:body => VOICEMAIL_RESPONSE, :status => 200,  :headers => { 'Content-Length' => 3 } )
+  url =  VOICEMAIL_URI.sub('http://', "http://#{phone_number}:#{voicemail_password}@")
+
+  FSVoicemailMock.stub_voicemail_index(url)
 end
+

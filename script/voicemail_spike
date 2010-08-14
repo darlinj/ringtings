@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'httparty'
+
+
+BASE_URI = "http://192.168.0.4:8080/api/voicemail/web"
+
+class Voicemail
+  include HTTParty
+
+  def initialize(u, p)
+    @auth = {:username => u, :password => p}
+  end
+
+  def get
+    options = { :basic_auth => @auth }
+    self.class.get("#{BASE_URI}/api/voicemail/web", options)
+  end
+end
+
+
+response =  Voicemail.new("1001","1234").get
+puts response.inspect
+
+
+

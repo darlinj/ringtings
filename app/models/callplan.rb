@@ -24,4 +24,12 @@ class Callplan < ActiveRecord::Base
       cp.destroy
     end
   end
+
+  def inbound_phone_number
+    inbound_number.phone_number
+  end
+
+  def voicemail_password
+    inbound_number.voicemail_password
+  end
 end

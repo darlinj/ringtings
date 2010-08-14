@@ -5,6 +5,7 @@ require File.dirname(__FILE__) + "/../config/environment" unless defined?(RAILS_
 require 'spec/autorun'
 require 'spec/rails'
 require 'shoulda'
+require 'clearance/../../shoulda_macros/clearance'
 require 'shoulda/autoload_macros'
 require "factory_girl"
 Factory.find_definitions
