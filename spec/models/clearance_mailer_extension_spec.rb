@@ -14,7 +14,7 @@ describe ClearanceMailer do
 
   it "should deliver 1 email" do
     deliver_mail
-    ActionMailer::Base.deliveries.size.should == 1
+    ActionMailer::Base.deliveries.size.should == 2
   end
 
   it "should bcc to the admin" do

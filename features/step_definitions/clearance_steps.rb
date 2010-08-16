@@ -35,7 +35,7 @@ Then /^I should be signed out$/ do
 end
 
 When /^session is cleared$/ do
-  request.reset_session
+  controller.request.reset_session
   controller.instance_variable_set(:@_current_user, nil)
 end
 

@@ -19,7 +19,7 @@ describe 'Routing' do
   it { should route(:post, '/freeswitch/callplan').to(:controller => 'freeswitch', :action => 'callplan') }
   it { should route(:post, '/freeswitch/ivr_menus').to(:controller => 'freeswitch', :action => 'ivr_menus') }
   it { should route(:post, '/freeswitch/directory').to(:controller => 'freeswitch', :action => 'directory') }
-  it { should route(:get, 'users/new').to(:controller => 'users', :action => 'new') }
-  it { should route(:post, 'users').to(:controller => 'users', :action => 'create') }
+  it { should route(:get, 'users/new').to(:controller => 'clearance/users', :action => 'new') }
+  it { should route(:post, 'users').to(:controller => 'clearance/users', :action => 'create') }
   #it { should route(:post, 'audio_files').to(:controller => 'audio_files', :action => 'create') }
 end

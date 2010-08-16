@@ -4,14 +4,15 @@ source 'http://gems.github.com'
 
 gem 'rails', '2.3.4'
 
-gem 'capistrano', '2.5.8'
-gem 'capistrano-ext', '1.2.1'
-gem 'clearance', '0.8.3'
-gem 'curb', '0.5.4.0'
-gem 'nokogiri', '1.2.3'
+gem 'capistrano',         '2.5.8'
+gem 'capistrano-ext',     '1.2.1'
+gem 'clearance',          '0.8.8'
+gem 'curb',               '0.5.4.0'
+gem 'httparty',           '0.6.1'
+gem 'nokogiri',           '1.2.3'
 gem 'ahamid-postgres-pr', '0.6.1'
-gem 'paperclip', '2.3.1.1'
-gem 'whenever', '0.5.0'
+gem 'paperclip',          '2.3.1.1'
+gem 'whenever',           '0.5.0'
 
 group :test do
   gem 'cucumber',         '0.8.5'
@@ -25,6 +26,6 @@ group :test do
   gem 'ruby-debug',       '0.10.3'
   gem 'factory_girl',     '1.2.3'
   gem 'shoulda',          '2.10.2'
+  gem 'webmock',          '1.3.3'
   gem 'webrat',           '0.7.0'
 end
-#disable_system_gems

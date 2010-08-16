@@ -30,4 +30,4 @@ config.action_mailer.delivery_method = :test
 # Clearance stuff
 HOST="localhost"
 
-VOICEMAIL_ROOT="#{RAILS_ROOT}/voicemail_testfiles/"
+VOICEMAIL_URI = "http://192.168.0.4:8080/api/voicemail/web"
