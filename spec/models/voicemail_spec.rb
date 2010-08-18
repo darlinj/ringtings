@@ -14,6 +14,14 @@ describe Voicemail do
            :filename => "gibberish.wav"
           }
 
+    vm2 = {:from => "0987654321",
+           :date_created => 2.hour.ago.to_s,
+           :priority => "low",
+           :last_heard => "never",
+           :duration => 100.seconds.to_s,
+           :filename => "wibbleish.wav"
+          }
+
     @voicemail_response = %Q{
 <title>FreeSWITCH Voicemail</title>
 <body bgcolor=eeeeee>
@@ -34,6 +42,17 @@ type="application/x-shockwave-flash"
 data="http://192.168.0.4:8080/pub/slim.swf?song_url=http://192.168.0.4:8080/api/voicemail/get/#{vm1[:filename]}&player_title=Extension%201000%20%3C1000%3E%2007/24/10%2008%3A40%3A10">
 <param name=movie value="http://192.168.0.4:8080/pub/slim.swf?song_url=http://192.168.0.4:8080/api/voicemail/get/#{vm1[:filename]}&player_title=Extension%201000%20%3C1000%3E%2007/24/10%2008%3A40%3A10"></object><br><br>
 [<a href=http://192.168.0.4:8080/api/voicemail/del/#{vm1[:filename]}>delete</a>] [<a href=http://192.168.0.4:8080/api/voicemail/get/#{vm1[:filename]}>download</a>] [<a href=tel:1000>call</a>] <br><br><br></font>
+
+<font face=tahoma><div class=title><b>Message from Extension #{vm2[:from]} 1000</b></div><hr noshade size=1>
+Priority: #{vm2[:priority]}<br>
+Created: #{vm2[:date_created]}<br>
+Last Heard: #{vm2[:last_heard]}<br>
+Duration: #{vm2[:duration]}<br>
+<br><object width=550 height=15
+type="application/x-shockwave-flash"
+data="http://192.168.0.4:8080/pub/slim.swf?song_url=http://192.168.0.4:8080/api/voicemail/get/#{vm2[:filename]}&player_title=Extension%201000%20%3C1000%3E%2007/24/10%2008%3A40%3A10">
+<param name=movie value="http://192.168.0.4:8080/pub/slim.swf?song_url=http://192.168.0.4:8080/api/voicemail/get/#{vm2[:filename]}&player_title=Extension%201000%20%3C1000%3E%2007/24/10%2008%3A40%3A10"></object><br><br>
+[<a href=http://192.168.0.4:8080/api/voicemail/del/#{vm2[:filename]}>delete</a>] [<a href=http://192.168.0.4:8080/api/voicemail/get/#{vm2[:filename]}>download</a>] [<a href=tel:1000>call</a>] <br><br><br></font>
 1 message<br>
 </td></tr>
 </table>
@@ -41,7 +60,7 @@ data="http://192.168.0.4:8080/pub/slim.swf?song_url=http://192.168.0.4:8080/api/
 
     Voicemail.stub(:get).with(VOICEMAIL_URI, @options).and_return(@voicemail_response)
 
-    @voicemails = [vm1]
+    @voicemails = [vm1,vm2]
   end
 
   def do_action
