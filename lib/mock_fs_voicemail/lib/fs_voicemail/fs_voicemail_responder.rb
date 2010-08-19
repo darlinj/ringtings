@@ -3,6 +3,21 @@ module MockFSVoicemail
   class FSVoicemailResponder
     class << self
 
+VOICEMAIL_RESPONSE_EMPTY_LIST = %q{
+<title>FreeSWITCH Voicemail</title>
+<body bgcolor=eeeeee>
+
+<table bgcolor=ffffff width=75% align=center style="border-style:inset;border-width:2px">
+<tr><td bgcolor=1010ff align=center valign=center style="border-style:inset;border-width:2px">
+<font face=arial size=+2 color=ffffff>Voicemail Messages</font>
+</td></tr>
+<tr><td>
+
+0 messages<br>
+</td></tr>
+</table>
+}
+
 VOICEMAIL_RESPONSE = %q{
 <title>FreeSWITCH Voicemail</title>
 <body bgcolor=eeeeee>
@@ -51,6 +66,10 @@ data="http://192.168.0.4:8080/pub/slim.swf?song_url=http://192.168.0.4:8080/api/
 </td></tr>
 </table>
 }
+
+        def voicemail_index_empty_list
+          [ 200, {'Content-Type' => 'text/html'}, VOICEMAIL_RESPONSE_EMPTY_LIST]
+        end
 
         def voicemail_index
           [ 200, {'Content-Type' => 'text/html'}, VOICEMAIL_RESPONSE]
