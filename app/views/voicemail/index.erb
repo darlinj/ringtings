@@ -1,19 +1,19 @@
 <h2>Voicemail inbox</h2>
 <% unless @voicemail.empty? %>
-  <% @voicemail.each do |entry| %>
-    <div class="voicemail">
-      <table>
-        <thead>
-          <tr>
-            <th>From</th>
-            <th>Date Created</th>
-            <th>Priority</th>
-            <th>Last heard</th>
-            <th>Duration</th>
-            <th>Filename</th>
-          </tr>
-        </thead>
-        <tbody>
+  <div class="voicemail">
+    <table>
+      <thead>
+        <tr>
+          <th>From</th>
+          <th>Date Created</th>
+          <th>Priority</th>
+          <th>Last heard</th>
+          <th>Duration</th>
+          <th>Filename</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @voicemail.each do |entry| %>
           <tr>
             <td><%= entry[:from ] %></td>
             <td><%= entry[:date_created] %></td>
@@ -22,10 +22,10 @@
             <td><%= entry[:duration ] %></td>
             <td><%= entry[:filename ] %></td>
           </tr>
-        </tbody>
-      </div>
+        <% end %>
+      </tbody>
     </table>
-  <% end %>
+  </div>
 <% else %>
   You currently have no voicemail
 <% end %>
