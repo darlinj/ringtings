@@ -1,8 +1,8 @@
 InboundNumberManager.destroy_all
 
-InboundNumberManager.create! :phone_number=>"447031917560"
-InboundNumberManager.create! :phone_number=>"448444843729"
-InboundNumberManager.create! :phone_number=>"448715041970"
+InboundNumberManager.create! :phone_number=>"447031917560", :voicemail_password => "1234"
+InboundNumberManager.create! :phone_number=>"448444843729", :voicemail_password => "1234"
+InboundNumberManager.create! :phone_number=>"448715041970", :voicemail_password => "1234"
 
 IvrMenuEntryPrototype.destroy_all
 
