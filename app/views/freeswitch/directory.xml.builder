@@ -7,8 +7,8 @@ xml.document :type => 'freeswitch/xml' do
           xml.users do
             xml.user :id=>@inbound_number do
               xml.params do
-                xml.param 'vm-password' => @inbound_number_manager.voicemail_password
-                xml.param 'http-allowed-api' => "voicemail"
+                xml.param :name => 'vm-password', :value => @inbound_number_manager.voicemail_password
+                xml.param :name => 'http-allowed-api', :value => "voicemail"
               end
             end
           end
