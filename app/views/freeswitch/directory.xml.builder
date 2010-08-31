@@ -5,7 +5,12 @@ xml.document :type => 'freeswitch/xml' do
       xml.groups do
         xml.group :name => 'default' do
           xml.users do
-            xml.user :id=>@inbound_number
+            xml.user :id=>@inbound_number do
+              xml.params do
+                xml.param 'vm-password' => @inbound_number_manager.voicemail_password
+                xml.param 'http-allowed-api' => "voicemail"
+              end
+            end
           end
         end
       end
