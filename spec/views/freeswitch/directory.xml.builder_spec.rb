@@ -39,16 +39,22 @@ describe "/service_instances/directory.xml.builder" do
     xml.elements['/document/section/domain/groups/group/users/user/@id'].value.should == @number_matcher
   end
 
-  it 'should render a param with name http-allowed-api with the value of voicemail' do
+  it 'should render a param with name password and the correct value' do
     xml = do_render
-    xml.elements['/document/section/domain/groups/group/users/user/params/param[2]/@name'].value.should == "http-allowed-api"
-    xml.elements['/document/section/domain/groups/group/users/user/params/param[2]/@value'].value.should == "voicemail"
+    xml.elements['/document/section/domain/groups/group/users/user/params/param[1]/@name'].value.should == "password"
+    xml.elements['/document/section/domain/groups/group/users/user/params/param[1]/@value'].value.should == @inbound_number_manager.voicemail_password
   end
 
   it 'should render a param with name voicemail password and the correct value' do
     xml = do_render
-    xml.elements['/document/section/domain/groups/group/users/user/params/param[1]/@name'].value.should == "vm-password"
-    xml.elements['/document/section/domain/groups/group/users/user/params/param[1]/@value'].value.should == @inbound_number_manager.voicemail_password
+    xml.elements['/document/section/domain/groups/group/users/user/params/param[2]/@name'].value.should == "vm-password"
+    xml.elements['/document/section/domain/groups/group/users/user/params/param[2]/@value'].value.should == @inbound_number_manager.voicemail_password
+  end
+
+  it 'should render a param with name http-allowed-api with the value of voicemail' do
+    xml = do_render
+    xml.elements['/document/section/domain/groups/group/users/user/params/param[3]/@name'].value.should == "http-allowed-api"
+    xml.elements['/document/section/domain/groups/group/users/user/params/param[3]/@value'].value.should == "voicemail"
   end
 end
 
