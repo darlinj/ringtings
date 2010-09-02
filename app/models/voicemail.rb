@@ -7,7 +7,7 @@ class Voicemail
     @auth = {:username => username, :password => password}
   end
 
-  def get
+  def index
     options = { :basic_auth => @auth }
     response = self.class.get("#{VOICEMAIL_URI}", options)
     Nokogiri::HTML(response).xpath("//tr[2]//font").map do | vm |

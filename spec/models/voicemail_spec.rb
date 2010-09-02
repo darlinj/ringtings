@@ -64,11 +64,11 @@ data="http://192.168.0.4:8080/pub/slim.swf?song_url=http://192.168.0.4:8080/api/
   end
 
   def do_action
-    Voicemail.new(@username,@password).get
+    Voicemail.new(@username,@password).index
   end
 
 
-  describe "#find_all" do
+  describe "#index" do
     it "should set the authentication credentials" do
       Voicemail.should_receive(:get).with(VOICEMAIL_URI, @options)
       do_action

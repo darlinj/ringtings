@@ -13,7 +13,7 @@ describe VoicemailController, "successfully" do
                      :voicemail_password => @voicemail_password)
     user = mock(User, :callplan => @callplan)
     controller.stub(:current_user).and_return(user)
-    @voicemail = mock(Voicemail, :get => @voicemails)
+    @voicemail = mock(Voicemail, :index => @voicemails)
     Voicemail.stub(:new).and_return(@voicemail)
   end
 
@@ -32,7 +32,7 @@ describe VoicemailController, "successfully" do
   end
 
   it "will get the list of voicemail from the model" do
-    @voicemail.should_receive(:get)
+    @voicemail.should_receive(:index)
     get :index
   end
 
