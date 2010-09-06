@@ -15,6 +15,7 @@ Feature: Voicemail file management
     When I follow "voicemail"
     Then I should see "You currently have no voicemail"
 
+@wip
   Scenario: Downloading a voicemail message
     Given I have signed in with "joe@foo.com/secret"
       And we create a standard Callplan
@@ -22,7 +23,7 @@ Feature: Voicemail file management
       And I mock 3 voicemail messages in my voicemail
       And I mock a voicemail file response
     When I follow "voicemail"
-      And I click on the first "Download" link
+      And I click on the first Download link
     Then I should receive a file in the response
 
 

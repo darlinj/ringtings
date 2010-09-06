@@ -15,12 +15,16 @@ module MockFSVoicemail
         #configure_stub_with_body(:post, /\/customers\.xml$/, body, FSVoicemailResponder.customer_create)
       #end
 
-      def stub_voicemail_index_empty_list(url)
+      def stub_voicemail_file_get(url)
+        configure_stub(:get, url, FSVoicemailResponder.voicemail_file)
+      end
+
+      def stub_voicemail_index_empty_list url
         configure_stub(:get, url, FSVoicemailResponder.voicemail_index_empty_list)
       end
 
-      def stub_voicemail_index url
-        configure_stub(:get, url, FSVoicemailResponder.voicemail_index)
+      def stub_voicemail_index url, voicemails
+        configure_stub(:get, url, FSVoicemailResponder.voicemail_index(voicemails))
       end
     end
   end

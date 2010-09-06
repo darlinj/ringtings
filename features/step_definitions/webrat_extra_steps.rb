@@ -16,7 +16,7 @@ When %r/^I type "([^\"]*)" in the form field with an HTML id of "([^\"]*)"$/ do 
   fill_in(field_with_id(id), :with => text)
 end
 
-When /^I click the form input with id "([^\"]*)"$/ do |id|
+When %r/^I click the form input with id "([^\"]*)"$/ do |id|
   click_button(id)
 end
 
