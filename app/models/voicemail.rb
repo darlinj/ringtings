@@ -9,7 +9,7 @@ class Voicemail
 
   def index
     options = { :basic_auth => @auth }
-    response = self.class.get("#{VOICEMAIL_URI}", options)
+    response = self.class.get("#{VOICEMAIL_INDEX_URI}", options)
     Nokogiri::HTML(response).xpath("//tr[2]//font").map do | vm |
       parse_voicemail_details_from_response(vm)
     end

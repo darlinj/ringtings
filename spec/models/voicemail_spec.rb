@@ -58,7 +58,7 @@ data="http://192.168.0.4:8080/pub/slim.swf?song_url=http://192.168.0.4:8080/api/
 </table>
 }
 
-    Voicemail.stub(:get).with(VOICEMAIL_URI, @options).and_return(@voicemail_response)
+    Voicemail.stub(:get).with(VOICEMAIL_INDEX_URI, @options).and_return(@voicemail_response)
 
     @voicemails = [vm1,vm2]
   end
@@ -70,7 +70,7 @@ data="http://192.168.0.4:8080/pub/slim.swf?song_url=http://192.168.0.4:8080/api/
 
   describe "#index" do
     it "should set the authentication credentials" do
-      Voicemail.should_receive(:get).with(VOICEMAIL_URI, @options)
+      Voicemail.should_receive(:get).with(VOICEMAIL_INDEX_URI, @options)
       do_action
     end
 

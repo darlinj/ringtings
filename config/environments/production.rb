@@ -29,4 +29,6 @@ HOST="localhost"
 
 ActionMailer::Base.delivery_method = :test
 
-VOICEMAIL_URI = "http://192.168.0.4:8080/api/voicemail/web"
+VOICEMAIL_HOST = "http://192.168.0.4:8080/"
+VOICEMAIL_URI = "#{VOICEMAIL_HOST}/api/voicemail/web"
+VOICEMAIL_GET_URI = "#{VOICEMAIL_HOST}/someurl/"
