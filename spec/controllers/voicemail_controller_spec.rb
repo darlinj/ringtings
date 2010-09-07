@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe VoicemailController, "successfully" do
+describe VoicemailController, "index" do
   before do
     @inbound_phone_number = "54783754"
     @voicemail_password = "secret"

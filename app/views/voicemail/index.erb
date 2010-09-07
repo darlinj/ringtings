@@ -10,6 +10,7 @@
           <th>Last heard</th>
           <th>Duration</th>
           <th>Filename</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -21,6 +22,7 @@
             <td><%= entry[:last_heard ] %></td>
             <td><%= entry[:duration ] %></td>
             <td><%= entry[:filename ] %></td>
+            <td><%= link_to(:download, voicemail_url(entry[:filename].sub(/.wav$/,"")), :id => "download_#{entry[:filename]}") %></td>
           </tr>
         <% end %>
       </tbody>
