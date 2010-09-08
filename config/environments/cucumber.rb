@@ -23,6 +23,6 @@ config.action_mailer.delivery_method = :test
 
 HOST="localhost"
 
-VOICEMAIL_HOST = "http://192.168.0.4:8080/"
+VOICEMAIL_HOST = "http://192.168.0.4:8080"
 VOICEMAIL_INDEX_URI = "#{VOICEMAIL_HOST}/api/voicemail/web"
 VOICEMAIL_GET_URI = "#{VOICEMAIL_HOST}/someurl/"

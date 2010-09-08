@@ -70,13 +70,12 @@ data="http://192.168.0.4:8080/pub/slim.swf?song_url=http://192.168.0.4:8080/api/
 
   describe "#index" do
     it "should set the authentication credentials" do
-      Voicemail.should_receive(:get).with(VOICEMAIL_INDEX_URI, @options)
+      Voicemail.should_receive(:get).with(VOICEMAIL_INDEX_URI, @options).and_return(@voicemail_response)
       do_action
     end
 
     it "should return the list of voicemails" do
       do_action.should == @voicemails
     end
-
   end
 end
