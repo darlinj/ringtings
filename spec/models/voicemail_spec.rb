@@ -67,7 +67,6 @@ data="http://192.168.0.4:8080/pub/slim.swf?song_url=http://192.168.0.4:8080/api/
     Voicemail.new(@username,@password).index
   end
 
-
   describe "#index" do
     it "should set the authentication credentials" do
       Voicemail.should_receive(:get).with(VOICEMAIL_INDEX_URI, @options).and_return(@voicemail_response)
@@ -77,5 +76,17 @@ data="http://192.168.0.4:8080/pub/slim.swf?song_url=http://192.168.0.4:8080/api/
     it "should return the list of voicemails" do
       do_action.should == @voicemails
     end
+  end
+end
+
+describe Voicemail, "#get_wav_file" do
+  def do_action
+    Voicemail.new(@username,@password).get_wav_file("a_wav_file")
+  end
+
+  it "should get the file" do
+    uri = "#{VOICEMAIL_GET_URI}/a_wav_file.wav"
+    Voicemail.should_receive(:get).with(uri, @options)
+    do_action
   end
 end
