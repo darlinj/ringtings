@@ -46,3 +46,26 @@ describe VoicemailController, "index" do
     assigns[:tab].should == "voicemail"
   end
 end
+
+describe VoicemailController, ".show" do
+  before do
+    @wav_file_contents = "a wav file full of data"
+    Voicemail.stub(:get_wav_file).and_return(@wav_file_contents)
+    user = mock(User, :callplan => @callplan)
+    controller.stub(:current_user).and_return(user)
+  end
+
+  def do_action
+    get :show, :id =>"foo"
+  end
+
+  it "should get the wav file" do
+    Voicemail.should_receive(:get_wav_file).with("foo")
+    do_action
+  end
+
+  it "should render the wav file" do
+    controller.should_receive(:send_data).with(@wav_file_contents,:type =>  'audio/wav')
+    do_action
+  end
+end
