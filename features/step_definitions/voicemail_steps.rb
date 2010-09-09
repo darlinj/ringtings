@@ -17,10 +17,15 @@ Given %r/^I mock a voicemail file response$/ do
   phone_number = @callplan.inbound_phone_number
   voicemail_password = @callplan.voicemail_password
   url =  VOICEMAIL_GET_URI.sub('http://', "http://#{phone_number}:#{voicemail_password}@")
-  FSVoicemailMock.stub_voicemail_file_get(url)
+  url << "/#{@voicemails[0][:file_name]}"
+  FSVoicemailMock.stub_voicemail_file_get(url, "I am pretending to be a wav file" )
 end
 
 When %r/^I click on the first Download link$/ do 
   click_link("download_#{@voicemails[0][:file_name]}")
+end
+
+Then %r/^I should receive a file in the response$/ do
+  response.body.should == "I am pretending to be a wav file"
 end
 

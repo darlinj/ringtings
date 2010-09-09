@@ -20,5 +20,5 @@ config.action_mailer.raise_delivery_errors = false
 HOST="localhost"
 
 VOICEMAIL_HOST = "http://192.168.0.4:8080"
-VOICEMAIL_URI = "#{VOICEMAIL_HOST}/api/voicemail/web"
-VOICEMAIL_GET_URI = "#{VOICEMAIL_HOST}/someurl/"
+VOICEMAIL_INDEX_URI = "#{VOICEMAIL_HOST}/api/voicemail/web"
+VOICEMAIL_GET_URI = "#{VOICEMAIL_HOST}/api/voicemail/get"

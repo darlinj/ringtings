@@ -8,7 +8,8 @@ class VoicemailController < ApplicationController
   end
 
   def show
-    file_contents = Voicemail.get_wav_file(params[:id])
+    callplan = current_user.callplan
+    file_contents = Voicemail.new(callplan.inbound_phone_number, callplan.voicemail_password).get_wav_file(params[:id])
     send_data(file_contents, :type =>'audio/wav')
   end
 

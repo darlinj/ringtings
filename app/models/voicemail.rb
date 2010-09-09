@@ -4,15 +4,19 @@ class Voicemail
   include HTTParty
 
   def initialize username, password
-    @auth = {:username => username, :password => password}
+    @auth = {:basic_auth => {:username => username, :password => password}}
   end
 
   def index
-    options = { :basic_auth => @auth }
-    response = self.class.get("#{VOICEMAIL_INDEX_URI}", options)
+    response = self.class.get("#{VOICEMAIL_INDEX_URI}", @auth)
     Nokogiri::HTML(response).xpath("//tr[2]//font").map do | vm |
       parse_voicemail_details_from_response(vm)
     end
+  end
+
+  def get_wav_file filename
+    url = "#{VOICEMAIL_GET_URI}/#{filename}.wav"
+    self.class.get(url, @auth)
   end
 
   private

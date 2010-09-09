@@ -80,6 +80,12 @@ data="http://192.168.0.4:8080/pub/slim.swf?song_url=http://192.168.0.4:8080/api/
 end
 
 describe Voicemail, "#get_wav_file" do
+  before do
+    @username = "Bob"
+    @password = "secret"
+    @options = {:basic_auth => {:username => @username, :password => @password}}
+  end
+
   def do_action
     Voicemail.new(@username,@password).get_wav_file("a_wav_file")
   end

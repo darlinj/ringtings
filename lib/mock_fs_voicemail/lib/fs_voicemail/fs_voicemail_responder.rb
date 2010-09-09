@@ -51,8 +51,8 @@ VOICEMAIL_FOOTER = %q{
 </table>
 }
 
-        def voicemail_file
-          [ 200, {'Content-Type' => 'audio/wav'}, "I am pretending to be a wav file"]
+        def voicemail_file response_content
+          [ 200, {'Content-Type' => 'audio/wav'}, response_content]
         end
 
         def voicemail_index_empty_list

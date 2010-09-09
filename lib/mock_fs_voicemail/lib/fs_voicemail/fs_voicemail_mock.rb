@@ -15,8 +15,8 @@ module MockFSVoicemail
         #configure_stub_with_body(:post, /\/customers\.xml$/, body, FSVoicemailResponder.customer_create)
       #end
 
-      def stub_voicemail_file_get(url)
-        configure_stub(:get, url, FSVoicemailResponder.voicemail_file)
+      def stub_voicemail_file_get(url, content)
+        configure_stub(:get, url, FSVoicemailResponder.voicemail_file(content))
       end
 
       def stub_voicemail_index_empty_list url

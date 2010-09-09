@@ -50,7 +50,11 @@ end
 describe VoicemailController, ".show" do
   before do
     @wav_file_contents = "a wav file full of data"
-    Voicemail.stub(:get_wav_file).and_return(@wav_file_contents)
+    @voicemail = mock(Voicemail)
+    Voicemail.stub(:new).and_return @voicemail
+    @voicemail.stub(:get_wav_file).and_return(@wav_file_contents)
+    @callplan = mock(Callplan, :inbound_phone_number => @inbound_phone_number,
+                     :voicemail_password => @voicemail_password)
     user = mock(User, :callplan => @callplan)
     controller.stub(:current_user).and_return(user)
   end
@@ -60,7 +64,7 @@ describe VoicemailController, ".show" do
   end
 
   it "should get the wav file" do
-    Voicemail.should_receive(:get_wav_file).with("foo")
+    @voicemail.should_receive(:get_wav_file).with("foo")
     do_action
   end
 
