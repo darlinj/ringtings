@@ -38,7 +38,7 @@ def try_sudo_with_proxy_if_set command
 end
 
 task :bundle_install do
-  run "cd #{current_path} && bundle install"
+  run "su - #{application_user} -c 'cd #{release_path} && bundle install'"
 end
 
 task :redo_symlinks do
@@ -78,9 +78,9 @@ task :update do
   set :user, 'root'
   set :use_sudo, false
   deploy.update
+  deploy.correct_ownership
   deploy.redo_symlinks
   deploy.bundle_install
-  deploy.correct_ownership
   deploy.migrate_database
   deploy.configure_freeswitch
   deploy.update_crontab
