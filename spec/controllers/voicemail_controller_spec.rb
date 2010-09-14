@@ -73,3 +73,29 @@ describe VoicemailController, ".show" do
     do_action
   end
 end
+
+describe VoicemailController, ".delete" do
+  before do
+    @voicemail = mock(Voicemail)
+    Voicemail.stub(:new).and_return @voicemail
+    @voicemail.stub(:delete_wav_file)
+    @callplan = mock(Callplan, :inbound_phone_number => @inbound_phone_number,
+                     :voicemail_password => @voicemail_password)
+    user = mock(User, :callplan => @callplan)
+    controller.stub(:current_user).and_return(user)
+  end
+
+  def do_action
+    delete :destroy, :id =>"foo"
+  end
+
+  it "should get the wav file" do
+    @voicemail.should_receive(:delete_wav_file).with("foo")
+    do_action
+  end
+
+  it "should redirect to index" do
+    do_action
+    response.should redirect_to(:action => 'index')
+  end
+end

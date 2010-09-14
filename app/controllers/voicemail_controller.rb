@@ -13,6 +13,12 @@ class VoicemailController < ApplicationController
     send_data(file_contents, :type =>'audio/wav')
   end
 
+  def destroy
+    callplan = current_user.callplan
+    Voicemail.new(callplan.inbound_phone_number, callplan.voicemail_password).delete_wav_file(params[:id])
+    redirect_to :action => 'index'
+  end
+
   private
   def set_tab
     @tab="voicemail"
