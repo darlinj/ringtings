@@ -96,3 +96,21 @@ describe Voicemail, "#get_wav_file" do
     do_action
   end
 end
+
+describe Voicemail, "#delete_wav_file" do
+  before do
+    @username = "Bob"
+    @password = "secret"
+    @options = {:basic_auth => {:username => @username, :password => @password}}
+  end
+
+  def do_action
+    Voicemail.new(@username,@password).delete_wav_file("a_wav_file")
+  end
+
+  it "should delete the file" do
+    uri = "#{VOICEMAIL_DELETE_URI}/a_wav_file.wav"
+    Voicemail.should_receive(:get).with(uri, @options)
+    do_action
+  end
+end

@@ -19,6 +19,11 @@ class Voicemail
     self.class.get(url, @auth)
   end
 
+  def delete_wav_file filename
+    url = "#{VOICEMAIL_DELETE_URI}/#{filename}.wav"
+    self.class.get(url, @auth)
+  end
+
   private
 
   def parse_voicemail_details_from_response raw_voicemail_response
