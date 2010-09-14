@@ -22,7 +22,7 @@
             <td><%= entry[:last_heard ] %></td>
             <td><%= entry[:duration ] %></td>
             <td><%= link_to(:download, voicemail_url(entry[:filename].sub(/.wav$/,"")), :id => "download_#{entry[:filename]}") %></td>
-            <td><%= link_to(:delete, voicemail_url(entry[:filename].sub(/.wav$/,"")), :id => "delete_#{entry[:filename]}") %></td>
+            <td><%= link_to(:delete, voicemail_url(entry[:filename].sub(/.wav$/,"")), :method => :delete, :id => "delete_#{entry[:filename]}") %></td>
           </tr>
         <% end %>
       </tbody>

@@ -10,6 +10,7 @@ describe 'Routing' do
   it { should route(:get,   "/demo_callplans/1"                            ).to(:controller => 'demo_callplans', :action => 'show', :id=>1) }
   it { should route(:get,   "/voicemail"                                   ).to(:controller => 'voicemail', :action => 'index') }
   it { should route(:get,   "/voicemail/foo"                               ).to(:controller => 'voicemail', :action => 'show', :id => 'foo') }
+  it { should route(:delete,"/voicemail/foo"                               ).to(:controller => 'voicemail', :action => 'destroy', :id => 'foo') }
   it { should route(:get,   "/callplans/1"                                 ).to(:controller => 'callplans', :action => 'show', :id=> '1') }
   it { should route(:put,   "/callplans/1"                                 ).to(:controller => 'callplans', :action => 'update', :id=> '1') }
   it { should route(:delete,"/ivr_menu_entries/1"                          ).to(:controller => 'ivr_menu_entries', :action => 'destroy', :id=>1) }
