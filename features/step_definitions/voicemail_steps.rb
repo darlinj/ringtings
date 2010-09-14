@@ -21,11 +21,22 @@ Given %r/^I mock a voicemail file response$/ do
   FSVoicemailMock.stub_voicemail_file_get(url, "I am pretending to be a wav file" )
 end
 
-When %r/^I click on the first Download link$/ do 
+When %r/^I click on the first Download link$/ do
   click_link("download_#{@voicemails[0][:file_name]}")
+end
+
+When %r/^I click on the first Delete link$/ do
+  click_link("delete_#{@voicemails[0][:file_name]}")
 end
 
 Then %r/^I should receive a file in the response$/ do
   response.body.should == "I am pretending to be a wav file"
 end
 
+Given %r/^I mock a voicemail delete file response$/ do
+  phone_number = @callplan.inbound_phone_number
+  voicemail_password = @callplan.voicemail_password
+  url =  VOICEMAIL_DELETE_URI.sub('http://', "http://#{phone_number}:#{voicemail_password}@")
+  url << "/#{@voicemails[0][:file_name]}"
+  FSVoicemailMock.stub_voicemail_delete_file(url)
+end

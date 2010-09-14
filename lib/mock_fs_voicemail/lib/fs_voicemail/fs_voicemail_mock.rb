@@ -19,6 +19,10 @@ module MockFSVoicemail
         configure_stub(:get, url, FSVoicemailResponder.voicemail_file(content))
       end
 
+      def stub_voicemail_delete_file(url)
+        configure_stub(:get, url, FSVoicemailResponder.success)
+      end
+
       def stub_voicemail_index_empty_list url
         configure_stub(:get, url, FSVoicemailResponder.voicemail_index_empty_list)
       end

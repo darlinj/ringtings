@@ -55,6 +55,10 @@ VOICEMAIL_FOOTER = %q{
           [ 200, {'Content-Type' => 'audio/wav'}, response_content]
         end
 
+        def success
+          [ 200, {'Content-Type' => 'audio/wav'}, ""]
+        end
+
         def voicemail_index_empty_list
           [ 200, {'Content-Type' => 'text/html'}, VOICEMAIL_RESPONSE_EMPTY_LIST]
         end
