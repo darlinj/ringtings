@@ -1,3 +1,4 @@
+require 'webmock/rspec'
 Given %r/^I mock (\d+) voicemail messages in my voicemail$/ do | number_of_voicemail |
   phone_number = @callplan.inbound_phone_number
   voicemail_password = @callplan.voicemail_password
@@ -40,3 +41,12 @@ Given %r/^I mock a voicemail delete file response$/ do
   url << "/#{@voicemails[0][:file_name]}"
   FSVoicemailMock.stub_voicemail_delete_file(url)
 end
+
+Then %r/^the voicemail should have been deleted$/ do
+  phone_number = @callplan.inbound_phone_number
+  voicemail_password = @callplan.voicemail_password
+  url =  VOICEMAIL_DELETE_URI.sub('http://', "http://#{phone_number}:#{voicemail_password}@")
+  url << "/#{@voicemails[0][:file_name]}"
+  WebMock.should have_requested(:get,url)
+end
+

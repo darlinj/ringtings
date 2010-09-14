@@ -25,7 +25,6 @@ Feature: Voicemail file management
       And I click on the first Download link
     Then I should receive a file in the response
 
-@wip
   Scenario: Deleting a voicemail message
     Given I have signed in with "joe@foo.com/secret"
       And we create a standard Callplan
@@ -34,5 +33,5 @@ Feature: Voicemail file management
       And I mock a voicemail delete file response
     When I follow "voicemail"
       And I click on the first Delete link
-    Then the response should have 2 elements that match "//div[@class='voicemail']/table/tbody/tr"
+    Then the voicemail should have been deleted
 
