@@ -283,23 +283,43 @@ describe DemoCallplansController do
         Callplan.stub(:find).and_return @callplan
         @callplan.stub(:update_attributes).and_return true
       end
+
       def do_put 
         put :update, :id => @callplan.id, :callplan => @callplan
       end
+
       it "finds the right callplan" do
         Callplan.should_receive(:find).with(@callplan.id)
         do_put
       end
+
       it "saves the callplan" do
         @callplan.should_receive(:update_attributes).with @callplan
         do_put
       end
+
       describe "sucessfully" do
         it "should set the flash to apropriate text" do
           do_put
           flash[:notice].should == "Callplan sucessfully saved"
         end
       end
+
+      describe "When a callplan is no passed to the controller" do
+        before do
+          Callplan.stub(:find).and_return nil
+        end
+        it "should set the flash to apropriate text" do
+          do_put
+          flash[:error].should =~ /can't complete this operation/
+        end
+
+        it "should redirect to the try it now page" do
+          do_put
+          response.should redirect_to demo_callplans_path
+        end
+      end
+
       describe "UN-sucessfully" do
         before do
           @callplan.stub(:update_attributes).and_return false
@@ -309,12 +329,14 @@ describe DemoCallplansController do
           flash[:notice].should == "Callplan failed to save"
         end
       end
+
       describe "when the client requests html" do
         it "should redirect to the callplan show page" do
           do_put
           response.should render_template("demo_callplans/show")
         end
       end
+
       describe "when the client requests javascript" do
         it "will render the javascript view" do
           put :update, :id => @callplan.id, :callplan => @callplan, :format => "js"
