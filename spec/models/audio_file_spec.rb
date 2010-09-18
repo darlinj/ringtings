@@ -22,5 +22,19 @@ describe AudioFile do
     it "should have an acctual file on the disk" do
       File.exists?(AudioFile.create_demo.audio.path).should be_true
     end
+
+    context "The file doesn't exist" do
+      before do
+        File.stub(:exists?).and_return false
+      end
+      it "should create the directory" do
+        FileUtils.should_receive(:mkdir_p)
+        AudioFile.create_demo
+      end
+      it "should move the file into that directory" do
+        FileUtils.should_receive(:cp)
+        AudioFile.create_demo
+      end
+    end
   end
 end
