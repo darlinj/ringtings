@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 source 'http://gemcutter.org'
 source 'http://gems.github.com'
 
-gem 'rails', '2.3.4'
+gem 'rails', '2.3.8'
 
 gem 'capistrano',         '2.5.8'
 gem 'capistrano-ext',     '1.2.1'
@@ -11,7 +11,7 @@ gem 'curb',               '0.5.4.0'
 gem 'httparty',           '0.6.1'
 gem 'nokogiri',           '1.2.3'
 gem 'ahamid-postgres-pr', '0.6.1'
-gem 'paperclip',          '2.3.1.1'
+gem 'paperclip',          '2.3.3'
 gem 'whenever',           '0.5.0'
 
 group :test do
@@ -22,7 +22,7 @@ group :test do
   gem 'rcov',             '0.9.7.1'
   gem 'roodi',            '2.0.0'
   gem 'rspec',            '1.3.0'
-  gem 'rspec-rails',      '1.2.7.1'
+  gem 'rspec-rails',      '1.3.2'
   gem 'ruby-debug',       '0.10.3'
   gem 'factory_girl',     '1.2.3'
   gem 'shoulda',          '2.10.2'

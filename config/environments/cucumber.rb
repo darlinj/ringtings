@@ -21,9 +21,30 @@ config.action_controller.allow_forgery_protection    = false
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
 
+config.action_mailer.default_url_options = { :host => "localhost" }
+
 HOST="localhost"
 
 VOICEMAIL_HOST = "http://192.168.0.4:8080"
 VOICEMAIL_INDEX_URI = "#{VOICEMAIL_HOST}/api/voicemail/web"
 VOICEMAIL_GET_URI = "#{VOICEMAIL_HOST}/api/voicemail/get"
 VOICEMAIL_DELETE_URI = "#{VOICEMAIL_HOST}/api/voicemail/del"
+
+class RackRailsCookieHeaderHack
+  def initialize(app)
+    @app = app
+  end
+
+  def call(env)
+    status, headers, body = @app.call(env)
+    if headers['Set-Cookie'] && headers['Set-Cookie'].respond_to?(:collect!)
+      headers['Set-Cookie'].collect! { |h| h.strip }
+    end
+    [status, headers, body]
+  end
+end
+
+config.after_initialize do
+  ActionController::Dispatcher.middleware.insert_before(ActionController::Base.session_store, RackRailsCookieHeaderHack)
+end
+
