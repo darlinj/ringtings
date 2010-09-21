@@ -123,22 +123,11 @@ describe DemoCallplansController do
       end
 
       describe "the parameters not being in the request" do
-        it "doesn't have a demo_callplan hash" do
-          post :create
-          flash[:error].should == "We are sorry but there is a problem with the infomation you provided.  Please try again"
-          response.should redirect_to(root_url)
+        before do
+          Callplan.stub(:create_demo).and_raise(Exceptions)
         end
 
-        it "doesn't have a company name in the demo_callplans hash" do
-          post :create, :demo_callplan => {'foo'=>"bar"}
-          flash[:error].should == "We are sorry but there is a problem with the infomation you provided.  Please try again"
-          response.should redirect_to(root_url)
-        end
-      end
-
-      describe "the telephone not being the correct length" do
-        it "sets the flash correctly and redirects back to the form" do
-          @employee_phone_number = "rubbish"
+        it "should set the flash and redirect to root page" do
           post :create
           flash[:error].should == "We are sorry but there is a problem with the infomation you provided.  Please try again"
           response.should redirect_to(root_url)
