@@ -30,7 +30,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'freeswitch/ivr_menus', :controller => 'freeswitch', :action => 'ivr_menus'
   map.connect 'freeswitch/directory', :controller => 'freeswitch', :action => 'directory'
   map.root :controller => 'home'
-  if RAILS_ENV == 'test'
+  if RAILS_ENV == 'test' || RAILS_ENV == 'development'
     map.connect 'dummy/:action/:id', :controller => 'dummy'
   end
 end

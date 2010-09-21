@@ -6,7 +6,7 @@ class Action < ActiveRecord::Base
     ivr_menu = IvrMenu.create_demo company_name,
       inbound_number,
       target_number
-    Action.create! :application_name => "ivr",
+    Action.create :application_name => "ivr",
       :application_data => "ivr_menu_#{inbound_number}",
       :ivr_menu => ivr_menu
   end

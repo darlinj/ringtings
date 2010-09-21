@@ -6,9 +6,9 @@ require 'spec/rails'
 require 'shoulda'
 require 'clearance/../../shoulda_macros/clearance'
 require 'shoulda/autoload_macros'
-#require "factory_girl"
+require "factory_girl"
+Factory.find_definitions
 require "vendor/plugins/clearance"
-#Factory.find_definitions
 Shoulda.autoload_macros RAILS_ROOT, 'vendor/plugins/*'
 
 # Requires supporting files with custom matchers and macros, etc,
