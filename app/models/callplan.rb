@@ -13,6 +13,7 @@ class Callplan < ActiveRecord::Base
     callplan.inbound_number.ivr_menu = callplan.action.ivr_menu
     callplan.employee = Employee.create! :phone_number=> target_phone_number
     callplan.save
+    NotificationMailer.deliver_trying_it
     callplan
   end
 

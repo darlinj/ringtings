@@ -61,6 +61,11 @@ describe Callplan do
     it "sets the employee phone number correctly" do
       do_create_demo.employee.phone_number.should == @target_phone_number
     end
+
+    it "should send an email to the admin" do
+      NotificationMailer.should_receive(:deliver_trying_it)
+      do_create_demo
+    end
   end
 
   describe "expiring abandoned callplans" do

@@ -27,7 +27,6 @@ class DemoCallplansController < ApplicationController
       params[:demo_callplan]['company_name']
     session[:next_stage] = "4"
     session[:callplan_id] = @callplan.id
-    NotificationMailer.deliver_trying_it
     redirect_to demo_callplan_path(@callplan.id)
   rescue Exceptions::OutOfCapacityError
     RAILS_DEFAULT_LOGGER.debug "OUT OF INBOUND NUMBERS!!!"

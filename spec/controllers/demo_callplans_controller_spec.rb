@@ -94,10 +94,6 @@ describe DemoCallplansController do
           session[:callplan_id].should == @callplan.id
         end
 
-        it "should send an email to the admin" do
-          NotificationMailer.should_receive(:deliver_trying_it)
-          do_post
-        end
       end
 
       describe "what happens if there is a problem with inbound number creation" do
