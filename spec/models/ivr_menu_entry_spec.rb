@@ -72,12 +72,12 @@ describe TransferCallMenuEntry do
 
     it "creates an error when the phone number is too short" do
       @destination_number = "1234567"
-      lambda {do_create_demo}.should raise_error
+      do_create_demo.errors.should_not be_empty
     end
 
     it "creates an error when the phone number is too long" do
       @destination_number = "12345678901234"
-      lambda {do_create_demo}.should raise_error
+      do_create_demo.errors.should_not be_empty
     end
   end
 end

@@ -42,7 +42,8 @@ describe DemoCallplansController do
         @company_name = "foobar inc"
         @employee_phone_number = "09876543210"
         @phone_number = "0123456789"
-        @callplan = mock_model Callplan, :company_name => @company_name
+        errors = mock("errors", :empty? => true)
+        @callplan = mock_model(Callplan, :company_name => @company_name, :errors => errors)
         Callplan.stub(:create_demo).and_return @callplan
         Callplan.stub(:exists?).and_return false
       end
@@ -118,14 +119,16 @@ describe DemoCallplansController do
         end
       end
 
-      describe "the parameters not being in the request" do
+      describe "the creation of the callplan creates an error" do
         before do
-          Callplan.stub(:create_demo).and_raise(Exceptions)
+          errors = mock("errors", :empty? => false, :full_messages => "some error message")
+          callplan = mock_model(Callplan, :company_name => @company_name, :errors => errors)
+          Callplan.stub(:create_demo).and_return(callplan)
         end
 
         it "should set the flash and redirect to root page" do
-          post :create
-          flash[:error].should == "We are sorry but there is a problem with the infomation you provided.  Please try again"
+          do_post
+          flash[:error].should == "some error message"
           response.should redirect_to(root_url)
         end
       end

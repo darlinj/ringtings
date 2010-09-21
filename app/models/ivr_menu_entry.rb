@@ -11,14 +11,14 @@ end
 
 class MenuExitMenuEntry < IvrMenuEntry
   def self.create_demo menu_digit
-    MenuExitMenuEntry.create! :digits => menu_digit,
+    MenuExitMenuEntry.create :digits => menu_digit,
       :prototype => IvrMenuEntryPrototype.find_by_name("MenuExitMenuEntry")
   end
 end
 
 class VoiceMailMenuEntry < IvrMenuEntry
   def self.create_demo menu_digit
-    VoiceMailMenuEntry.create! :digits => menu_digit,
+    VoiceMailMenuEntry.create :digits => menu_digit,
       :prototype => IvrMenuEntryPrototype.find_by_name("VoiceMailMenuEntry")
   end
 end
@@ -33,7 +33,7 @@ class TransferCallMenuEntry < IvrMenuEntry
   end
 
   def self.create_demo menu_digit, destination_number
-    TransferCallMenuEntry.create! :digits => menu_digit,
+    TransferCallMenuEntry.create :digits => menu_digit,
       :param_1 => destination_number,
       :prototype => IvrMenuEntryPrototype.find_by_name("TransferCallMenuEntry")
   end

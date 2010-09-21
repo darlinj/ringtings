@@ -25,15 +25,17 @@ class DemoCallplansController < ApplicationController
     end
     @callplan = Callplan.create_demo params[:demo_callplan]['phone_number'],
       params[:demo_callplan]['company_name']
-    session[:next_stage] = "4"
-    session[:callplan_id] = @callplan.id
-    redirect_to demo_callplan_path(@callplan.id)
+    if @callplan.errors.empty?
+      session[:next_stage] = "4"
+      session[:callplan_id] = @callplan.id
+      redirect_to demo_callplan_path(@callplan.id)
+    else
+      flash[:error]=@callplan.errors.full_messages
+      redirect_to root_url
+    end
   rescue Exceptions::OutOfCapacityError
     RAILS_DEFAULT_LOGGER.debug "OUT OF INBOUND NUMBERS!!!"
     flash[:error]="We are sorry but we have temporerily run out of free telephone numbers. We are taking steps to get more so please try again soon."
-    redirect_to root_url
-  rescue Exception
-    flash[:error]="We are sorry but there is a problem with the infomation you provided.  Please try again"
     redirect_to root_url
   end
 
