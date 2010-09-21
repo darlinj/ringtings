@@ -21,16 +21,14 @@ describe DemoCallplansController do
         response.should render_template('demo_callplans/index')
       end
 
-      it "should set the session next stage to 1" do
-        do_get
-        session[:next_stage].should == "1"
-      end
-
-      describe "accessing the index page if the stage is not set to nil or 0" do
-        it "should redirect to the callplan page" do
-          session[:next_stage] = 2
+      describe "accessing the index page if the callplan already exists" do
+        before do
           @callplan_id = 99
           session[:callplan_id] = @callplan_id
+          Callplan.stub(:exists?).and_return true
+        end
+
+        it "should redirect to the callplan page" do
           do_get
           response.should redirect_to(demo_callplan_url(@callplan_id))
         end

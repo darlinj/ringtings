@@ -3,11 +3,10 @@ class DemoCallplansController < ApplicationController
   before_filter :set_tab
 
   def index
-    if session[:next_stage] && session[:next_stage].to_i > 1
-      redirect_to(demo_callplan_url(session[:callplan_id]))
+    if Callplan.exists?(session[:callplan_id])
+      redirect_to demo_callplan_path(session[:callplan_id])
       return
     end
-    session[:next_stage] = "1"
   end
 
   def show
