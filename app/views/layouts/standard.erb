@@ -31,8 +31,11 @@
            </div>
            <% if signed_in? %>
              <ul id="tabnav">
-               <% callplan_id = current_user.callplan ? current_user.callplan.id : nil %>
-               <li class="callplan"><a href="/callplans/<%= callplan_id if callplan_id %>">callplan</a></li>
+               <% if current_user.callplan %>
+                 <li class="callplan"><a href="/callplans/<%= current_user.callplan.id %>">callplan</a></li>
+               <% else %>
+                 <li class="home"><a href="/">home</a></li>
+               <% end %>
                <%#<li class="audiofiles"><a href="/audiofiles">audio files</a></li>%>
                <li class="voicemail"><a href="/voicemail">voicemail</a></li>
                <%#<li class="account"><a href="/account">my account</a></li>%>
