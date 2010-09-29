@@ -280,7 +280,7 @@ div.step_box {
 }
 
 .ivr_row {
-  height: 85px;
+  height: 80px;
 }
 .ivr_step {
   height: 85px;
@@ -362,7 +362,6 @@ div.step_box {
   position: relative;
   float: right;
   left: -50px;
-  top: 20px;
 }
 
 #hideme {
