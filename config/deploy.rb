@@ -71,6 +71,7 @@ task :install do
   deploy.restart_apache
   deploy.install_tts_voice
   deploy.install_freeswitch
+  deploy.gafachi_config
 end
 
 desc 'Update ringtings'
@@ -244,6 +245,9 @@ production:
     run "cp #{current_path}/freeswitch_stuff/modules.conf.xml /usr/local/freeswitch/conf/autoload_configs/"
     run "cp #{current_path}/freeswitch_stuff/suckingteeth.wav /usr/local/freeswitch/sounds/en/us/callie/ivr/8000/"
     run "cp #{current_path}/freeswitch_stuff/dialplan_default.xml /usr/local/freeswitch/conf/dialplan/default.xml"
+  end
+
+  task :gafachi_config do
     # Remember to set the username and password for your gafachi account
     run "cp #{current_path}/freeswitch_stuff/gafachi.xml.example /usr/local/freeswitch/conf/sip_profiles/external/gafachi.xml"
   end
