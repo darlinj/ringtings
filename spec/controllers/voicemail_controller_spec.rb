@@ -36,14 +36,26 @@ describe VoicemailController, "index" do
     get :index
   end
 
-  it "will assign the list of voicemails" do 
-    get :index 
+  it "will assign the list of voicemails" do
+    get :index
     assigns[:voicemail].should == @voicemails
   end
 
   it "should set the tab" do
     get :index
     assigns[:tab].should == "voicemail"
+  end
+end
+
+describe VoicemailController, "index - when the user hasn't got a callplan" do
+  before do
+    user = mock(User, :callplan => nil)
+    controller.stub(:current_user).and_return(user)
+  end
+
+  it "will assign the list of voicemails to nil" do
+    get :index
+    assigns[:voicemail].should == []
   end
 end
 

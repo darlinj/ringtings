@@ -4,7 +4,11 @@ class VoicemailController < ApplicationController
 
   def index
     callplan = current_user.callplan
-    @voicemail = Voicemail.new(callplan.inbound_phone_number, callplan.voicemail_password).index
+    if callplan
+      @voicemail = Voicemail.new(callplan.inbound_phone_number, callplan.voicemail_password).index
+    else
+      @voicemail = []
+    end
   end
 
   def show
