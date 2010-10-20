@@ -50,6 +50,28 @@ Feature: Callplan management
     And I should see "some new greeting"
     And I should not see "some long greeting"
 
+  Scenario: Saving a callplan with two digits set the same
+    Given we create a Callplan with these variables:
+      | name                   | value                         |
+      | Action_type            | ivr                           |
+      | Action_params          | ivr_menu_0192837465           |
+      | inbound_phone_number   | 0192837465                    |
+    And we have an IVR Menu with:
+      | name                   | value                         |
+      | long_greeting          | some long greeting            |
+      | ivr_menu_entry1_digit  | 1                             |
+      | ivr_menu_entry1_type   | SyntheticVoiceMenuEntry       |
+      | ivr_menu_entry1_action | say some stuff                |
+      | ivr_menu_entry2_digit  | 2                             |
+      | ivr_menu_entry2_type   | TransferCallMenuEntry         |
+      | ivr_menu_entry2_action | 012345678                     |
+    And I am logged in
+    When I go to the current callplan page
+    And I change ivr_menu_entry2_digit to 1
+    And I save the callplan
+    Then I should see "Callplan not saved"
+    And I should see "actions should have a unique digit"
+
   Scenario: Deleting a IVR menu entry
     Given we create a Callplan with these variables:
       | name                   | value                         |
