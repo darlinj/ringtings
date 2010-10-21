@@ -131,3 +131,16 @@ When %r/^I have a standard callplan$/ do
       | ivr_menu_entry2_action | 1234567890                    |
   }
 end
+
+Then %r/^I will see the correct callplan details$/ do
+  steps %Q{
+    And I should see "Incoming calls to: 0192837465"
+    And I should see "some long greeting"
+    And I should see "1"
+    And I should see "Synthetic voice says:"
+    And I should see "hello peeps"
+    And I should see "2"
+    And I should see "Transfer call to:"
+    And I should see "1234567890"
+  }
+end

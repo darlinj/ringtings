@@ -4,15 +4,7 @@ Feature: Callplan management
     Given I have a standard callplan
     And I am logged in
     When I go to the current callplan page
-    And I should see "Incoming calls to: 0192837465"
-    And I should see "some long greeting"
-    And I should see "1"
-    And I should see "Synthetic voice says:"
-    And I should see "hello peeps"
-    And I should see "2"
-    And I should see "Transfer call to:"
-    And I should see "1234567890"
-
+    Then I will see the correct callplan details
 
   Scenario: Saving a feature
     Given I have a standard callplan
