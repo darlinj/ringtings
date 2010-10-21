@@ -107,3 +107,27 @@ When %r/^I click the upload file button$/ do
   click_button("upload_button")
 end
 
+When %r/^I set the digits to the same number$/ do
+  steps %Q{
+    And I select "1" from "callplan_action_attributes_ivr_menu_attributes_ivr_menu_entries_attributes_1_digits"
+  }
+end
+
+When %r/^I have a standard callplan$/ do
+  steps %Q{
+    Given we create a Callplan with these variables:
+      | name                   | value                         |
+      | Action_type            | ivr                           |
+      | Action_params          | ivr_menu_0192837465           |
+      | inbound_phone_number   | 0192837465                    |
+    And we have an IVR Menu with:
+      | name                   | value                         |
+      | long_greeting          | some long greeting            |
+      | ivr_menu_entry1_digit  | 1                             |
+      | ivr_menu_entry1_type   | SyntheticVoiceMenuEntry       |
+      | ivr_menu_entry1_action | hello peeps                   |
+      | ivr_menu_entry2_digit  | 2                             |
+      | ivr_menu_entry2_type   | TransferCallMenuEntry         |
+      | ivr_menu_entry2_action | 1234567890                    |
+  }
+end
