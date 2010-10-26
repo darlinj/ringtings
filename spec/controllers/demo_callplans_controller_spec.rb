@@ -306,10 +306,25 @@ describe DemoCallplansController do
         end
       end
 
-      describe "UN-sucessfully" do
+      describe "UN-sucessfully with some error in the callplan object" do
+         before do
+          @callplan.stub(:update_attributes).and_return false
+          errors = mock("errors", :empty? => false, :full_messages => ["Some evil error"])
+          @callplan.stub(:errors).and_return(errors)
+        end
+
+        it "should set the flash to apropriate text" do
+          do_put
+          flash[:notice].should == "Callplan failed to save <br/>Some evil error"
+        end
+      end
+
+      describe "UN-sucessfully withOUT some error in the callplan object" do
         before do
           @callplan.stub(:update_attributes).and_return false
+          @callplan.stub(:errors).and_return(mock("errors", :empty? => true))
         end
+
         it "should set the flash to apropriate text" do
           do_put
           flash[:notice].should == "Callplan failed to save"

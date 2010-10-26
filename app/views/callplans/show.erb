@@ -1,5 +1,7 @@
-<% @callplan.errors.full_messages.each do |message| %>
-  <div class="error"><%= message %></div>
+<% if @callplan.errors %>
+  <%@callplan.errors.full_messages.each do |message| %>
+    <div class="error"><%= message %></div>
+  <% end %>
 <% end %>
 <div class="callplan_details" class="span-14">
   <% form_for :callplan, @callplan, :put, :url=>callplan_path, :html => { :method => :put } do |callplan_form| %>

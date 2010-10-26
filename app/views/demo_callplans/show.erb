@@ -1,3 +1,8 @@
+<% if @callplan.errors %>
+  <%@callplan.errors.full_messages.each do |message| %>
+    <div class="error"><%= message %></div>
+  <% end %>
+<% end %>
 <div id="phone_configurator">
   <div id="callplan" class="span-10">
     <% if @callplan.action.application_name == "ivr" %>

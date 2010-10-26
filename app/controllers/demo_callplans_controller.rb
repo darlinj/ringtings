@@ -48,7 +48,10 @@ class DemoCallplansController < ApplicationController
     if callplan.update_attributes(params[:callplan])
       flash[:notice] = "Callplan sucessfully saved"
     else
-      flash[:notice] = "Callplan failed to save"
+      unless callplan.errors.empty?
+        error_messages = " <br/>#{callplan.errors.full_messages.join('<br/>')}"
+      end
+      flash[:notice] = "Callplan failed to save#{error_messages}"
     end
     @callplan = callplan
     respond_to do |format|
