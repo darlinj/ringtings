@@ -48,15 +48,4 @@ describe IvrMenu, "creating a demo ivr menu" do
   end
 end
 
-describe IvrMenu, "saving an ivr menu" do
-  before do
-    menu_entry1 = IvrMenuEntry.new(:digits => "1",:prototype => IvrMenuEntryPrototype.find_by_name("MenuExitMenuEntry"))
-    menu_entry2 = IvrMenuEntry.new(:digits => "1",:prototype => IvrMenuEntryPrototype.find_by_name("MenuExitMenuEntry"))
-    @ivr_menu = IvrMenu.new(:ivr_menu_entries => [menu_entry1,menu_entry2])
-  end
 
-  it "should validate that all the ivr_menu_items have a unique number assigned" do
-    @ivr_menu.save
-    @ivr_menu.errors.should_not be_empty
-  end
-end

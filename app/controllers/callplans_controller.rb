@@ -13,7 +13,9 @@ class CallplansController < ApplicationController
     else
       flash[:notice] = "Callplan failed to save"
     end
-    redirect_to callplan_path(params[:id])
+    respond_to do |format|
+      format.html { render :template =>"callplans/show" }
+    end
   end
 
   private

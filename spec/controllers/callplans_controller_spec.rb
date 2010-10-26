@@ -76,7 +76,7 @@ describe CallplansController do
 
       it "should redirect to the callpln show page" do
         do_put
-        response.should redirect_to(callplan_url(@callplan.id))
+        response.should render_template('callplans/show')
       end
     end
   end

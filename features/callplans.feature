@@ -22,8 +22,8 @@ Feature: Callplan management
     When I go to the current callplan page
     And I set the digits to the same number
     And I click the form input with id "save_button"
-    Then I should see "Callplan not saved"
-    And I should see "actions should have a unique digit"
+    Then I should see "Callplan failed to save"
+    And I should see "key press is assigned to more than one menu"
 
   Scenario: Deleting a IVR menu entry
     Given I have a standard callplan

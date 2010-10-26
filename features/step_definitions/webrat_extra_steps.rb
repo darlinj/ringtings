@@ -20,3 +20,7 @@ When %r/^I click the form input with id "([^\"]*)"$/ do |id|
   click_button(id)
 end
 
+When %r/^I print the page$/ do
+  puts response.body
+end
+

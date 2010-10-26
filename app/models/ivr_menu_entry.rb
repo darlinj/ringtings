@@ -3,6 +3,7 @@ class IvrMenuEntry < ActiveRecord::Base
   belongs_to :audio_file
   belongs_to :prototype, :class_name => 'IvrMenuEntryPrototype'
   validates_presence_of :prototype
+  validates_uniqueness_of :digits, :scope => :ivr_menu_id, :message => "^A key press is assigned to more than one menu option."
 end
 
 class SyntheticVoiceMenuEntry < IvrMenuEntry

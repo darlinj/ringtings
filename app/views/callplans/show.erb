@@ -1,3 +1,6 @@
+<% @callplan.errors.full_messages.each do |message| %>
+  <div class="error"><%= message %></div>
+<% end %>
 <div class="callplan_details" class="span-14">
   <% form_for :callplan, @callplan, :put, :url=>callplan_path, :html => { :method => :put } do |callplan_form| %>
     <%= render :partial => '/shared/inbound_number', :locals => { :inbound_number=>@callplan.inbound_number.phone_number } %>

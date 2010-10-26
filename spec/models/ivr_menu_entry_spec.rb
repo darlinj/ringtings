@@ -106,6 +106,25 @@ describe VoiceMailMenuEntry do
   end
 end
 
+describe IvrMenuEntry, "saving an ivr menus" do
+  before do
+    menu_entry1 = IvrMenuEntry.create!(:digits => "1",:ivr_menu_id => 1,:prototype => IvrMenuEntryPrototype.find_by_name("MenuExitMenuEntry"))
+    @menu_entry2 = IvrMenuEntry.new(:digits => "1",:ivr_menu_id => 1,:prototype => IvrMenuEntryPrototype.find_by_name("MenuExitMenuEntry"))
+  end
 
+  it "should validate that all the ivr_menu_items have a unique number assigned" do
+    @menu_entry2.save
+    @menu_entry2.errors.should_not be_empty
+  end
+
+  it "should fail to save" do
+    @menu_entry2.save.should be_false
+  end
+
+  it "should set the error message" do
+    @menu_entry2.save
+    @menu_entry2.errors.full_messages.should include("A key press is assigned to more than one menu option.")
+  end
+end
 
 
