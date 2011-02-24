@@ -38,7 +38,7 @@ IvrMenuEntryPrototype.create! :name => "SyntheticVoiceMenuEntry",
   :partial_name => "action_synthetic_voice",
   :prompt => "Synthetic voice says:",
   :param_1_default => "your announcement here",
-  :action => "menu-exec-app"
+  :action => "menu-play-sound"
 
 IvrMenuEntryPrototype.create! :name => "PlayAudioFileMenuEntry",
   :description => "Play audio file",
