@@ -8,15 +8,15 @@
   <% form_for(:demo_callplan, :url=>"/demo_callplans/create_user/#{@callplan.id}", :html => { :method => :put }) do |form| %>
     <%= form.error_messages %>
     <div class="text_field">
-      <%= form.label :email %>
+      <%= form.label :email %><br />
       <%= form.text_field :email, :size=>25 %>
     </div>
     <div class="password_field">
-      <%= form.label :password %><br>
+      <%= form.label :password %><br />
       <%= form.password_field :password, :size =>20 %>
     </div>
     <div class="password_field">
-      <%= form.label :password_confirmation, "Confirm password" %>
+      <%= form.label :password_confirmation, "Confirm password" %><br />
       <%= form.password_field :password_confirmation, :size =>20 %>
     </div>
     <%= image_submit_tag "/images/next.png", :id => "next_submit_image" %>
